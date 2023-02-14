@@ -1,5 +1,9 @@
+import os
 import random
 from types import SimpleNamespace
+
+from configs import path_define
+from utils.unidata_util import UnidataDB
 
 build_random_key = random.random()
 
@@ -8,3 +12,5 @@ ark_pixel_config = SimpleNamespace(
     source_type='tag',
     source_name=None,
 )
+
+unidata_db = UnidataDB(os.path.join(path_define.unidata_dir, 'Blocks.txt'))
