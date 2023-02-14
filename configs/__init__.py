@@ -9,8 +9,8 @@ build_random_key = random.random()
 
 ark_pixel_config = SimpleNamespace(
     repository_name='TakWolf/ark-pixel-font',
-    source_type='tag',
-    source_name=None,
+    source_type='branch',
+    source_name='master',
 )
 
 unidata_db = UnidataDB(os.path.join(path_define.unidata_dir, 'Blocks.txt'))
