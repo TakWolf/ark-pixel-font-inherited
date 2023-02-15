@@ -1,3 +1,4 @@
+beautifulsoup4==4.11.2
 Brotli==1.0.9
 certifi==2022.12.7
 charset-normalizer==3.0.1
@@ -7,7 +8,9 @@ GitPython==3.1.30
 idna==3.4
 Jinja2==3.1.2
 MarkupSafe==2.1.2
+minify_html==0.10.8
 pypng==0.20220715.0
 requests==2.28.2
 smmap==5.0.0
+soupsieve==2.4
 urllib3==1.26.14
