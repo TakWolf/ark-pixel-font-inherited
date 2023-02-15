@@ -2,7 +2,7 @@ import logging
 
 import configs
 from configs import path_define
-from services import design_service, font_service, info_service
+from services import design_service, font_service, info_service, publish_service
 from utils import fs_util
 
 logging.basicConfig(level=logging.DEBUG)
@@ -21,6 +21,7 @@ def main():
             font_service.make_fonts(font_config, width_mode, alphabet, glyph_file_paths)
             info_service.make_info_file(font_config, width_mode, alphabet)
             info_service.make_alphabet_txt_file(font_config, width_mode, alphabet)
+            publish_service.make_release_zips(font_config, width_mode)
 
 
 if __name__ == '__main__':
