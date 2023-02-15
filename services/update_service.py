@@ -80,7 +80,7 @@ def update_glyphs_version():
     logger.info(f'make {version_info_file_path}')
 
 
-def download_glyphs_source():
+def setup_glyphs():
     version_info_file_path = os.path.join(path_define.glyphs_dir, 'version.json')
     with open(version_info_file_path, 'r', encoding='utf-8') as file:
         version_info = json.loads(file.read())
@@ -94,13 +94,6 @@ def download_glyphs_source():
     else:
         logger.info(f'{source_file_path} already exists')
 
-
-def update_glyphs():
-    version_info_file_path = os.path.join(path_define.glyphs_dir, 'version.json')
-    with open(version_info_file_path, 'r', encoding='utf-8') as file:
-        version_info = json.loads(file.read())
-
-    source_file_path = os.path.join(path_define.cache_dir, 'ark-pixel-font', version_info['sha'], 'source.zip')
     source_unzip_dir = source_file_path.removesuffix('.zip')
     fs_util.delete_dir(source_unzip_dir)
     with zipfile.ZipFile(source_file_path) as zip_file:
