@@ -1,0 +1,208 @@
+
+[uni4E1F]
+source = 0x4E1F  # 丟
+target = 0x4E1F  # 丟
+codes = [
+    0x4E1F,  # 丟
+    0x4E22,  # 丢
+]
+
+[uni4FF1]
+source = 0x4FF1  # 俱
+target = 0x5036  # 倶
+codes = [
+    0x4FF1,  # 俱
+    0x5036,  # 倶
+]
+
+[uni503C]
+source = 0x503C  # 值
+target = 0x5024  # 値
+codes = [
+    0x503C,  # 值
+    0x5024,  # 値
+]
+
+[uni507D]
+source = 0x507D  # 偽
+target = 0x50DE  # 僞
+codes = [
+    0x507D,  # 偽
+    0x50DE,  # 僞
+]
+
+[uni544A]
+source = 0x544A  # 告
+target = 0x543F  # 吿
+codes = [
+    0x544A,  # 告
+    0x543F,  # 吿
+]
+
+[uni586B]
+source = 0x586B  # 填
+target = 0x5861  # 塡
+codes = [
+    0x586B,  # 填
+    0x5861,  # 塡
+]
+
+[uni598D]
+source = 0x598D  # 妍
+target = 0x59F8  # 姸
+codes = [
+    0x598D,  # 妍
+    0x59F8,  # 姸
+]
+
+[uni5B76]
+source = 0x5B76  # 孶
+target = 0x5B76  # 孶
+codes = [
+    0x5B76,  # 孶
+    0x5B73,  # 孳
+]
+
+[uni5C1A]
+source = 0x5C1A  # 尚
+target = 0x5C19  # 尙
+codes = [
+    0x5C1A,  # 尚
+    0x5C19,  # 尙
+]
+
+[uni5DD4]
+source = 0x5DD4  # 巔
+target = 0x5DD3  # 巓
+codes = [
+    0x5DD4,  # 巔
+    0x5DD3,  # 巓
+]
+
+[uni614E]
+source = 0x614E  # 慎
+target = 0x613C  # 愼
+codes = [
+    0x614E,  # 慎
+    0x613C,  # 愼
+]
+
+[uni654E]
+source = 0x654E  # 敎
+target = 0x654E  # 敎
+codes = [
+    0x6559,  # 教
+    0x654E,  # 敎
+]
+
+[uni67B4]
+source = 0x67B4  # 枴
+target = 0x67B4  # 枴
+codes = [
+    0x67B4,  # 枴
+    0x67FA,  # 柺
+]
+
+[uni67E5]
+source = 0x67E5  # 查
+target = 0x67FB  # 査
+codes = [
+    0x67E5,  # 查
+    0x67FB,  # 査
+]
+
+[uni6E05]
+source = 0x6E05  # 清
+target = 0x6DF8  # 淸
+codes = [
+    0x6E05,  # 清
+    0x6DF8,  # 淸
+]
+
+[uni70BA]
+source = 0x70BA  # 為
+target = 0x7232  # 爲
+codes = [
+    0x70BA,  # 為
+    0x7232,  # 爲
+]
+
+[uni7199]
+source = 0x7199  # 熙
+target = 0x7155  # 煕
+codes = [
+    0x7199,  # 熙
+    0x7155,  # 煕
+]
+
+[uni771F]
+source = 0x771F  # 真
+target = 0x771E  # 眞
+codes = [
+    0x771F,  # 真
+    0x771E,  # 眞
+]
+
+[uni7814]
+source = 0x7814  # 研
+target = 0x784F  # 硏
+codes = [
+    0x7814,  # 研
+    0x784F,  # 硏
+]
+
+[uni7DD2]
+source = 0x7DD2  # 緒
+target = 0x7DD6  # 緖
+codes = [
+    0x7DD2,  # 緒
+    0x7DD6,  # 緖
+]
+
+[uni7F8B]
+source = 0x7F8B  # 羋
+target = 0x8288  # 芈
+codes = [
+    0x7F8B,  # 羋
+    0x8288,  # 芈
+]
+
+[uni9109]
+source = 0x9109  # 鄉
+target = 0x9109  # 鄉
+codes = [
+    0x9109,  # 鄉
+    0x90F7,  # 郷
+]
+
+[uni93AE]
+source = 0x93AE  # 鎮
+target = 0x93AD  # 鎭
+codes = [
+    0x93AE,  # 鎮
+    0x93AD,  # 鎭
+]
+
+[uni9752]
+source = 0x9752  # 青
+target = 0x9751  # 靑
+codes = [
+    0x9752,  # 青
+    0x9751,  # 靑
+]
+
+[uni985B]
+source = 0x985B  # 顛
+target = 0x985A  # 顚
+codes = [
+    0x985B,  # 顛
+    0x985A,  # 顚
+]
+
+[uni98F2]
+source = 0x98F2  # 飲
+target = 0x98EE  # 飮
+codes = [
+    0x98F2,  # 飲
+    0x98EE,  # 飮
+]

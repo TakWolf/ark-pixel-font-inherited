@@ -1,6 +1,7 @@
 import logging
 import os
 import shutil
+import tomllib
 import unicodedata
 
 import configs
@@ -165,7 +166,23 @@ def collect_glyph_files(font_config):
             glyph_file_paths_group[width_mode].update(glyph_file_paths_cellar[width_mode]['default'])
             glyph_file_paths_group[width_mode].update(glyph_file_paths_cellar[width_mode]['zh_tr'])
 
+    mapping_file_path = os.path.join(path_define.glyphs_dir, 'mapping.toml')
+    with open(mapping_file_path, 'rb') as file:
+        mapping_infos = tomllib.load(file)
+
     for width_mode in configs.width_modes:
-        alphabet_group[width_mode] = list(alphabet_group[width_mode])
-        alphabet_group[width_mode].sort()
+        alphabet = alphabet_group[width_mode]
+        glyph_file_paths = glyph_file_paths_group[width_mode]
+        for info in mapping_infos.values():
+            target = info['target']
+            if target not in glyph_file_paths:
+                continue
+            target_glyph_file_path = glyph_file_paths[target]
+            for code in info['codes']:
+                glyph_file_paths[code] = target_glyph_file_path
+                alphabet.add(chr(code))
+        alphabet = list(alphabet)
+        alphabet.sort()
+        alphabet_group[width_mode] = alphabet
+
     return alphabet_group, glyph_file_paths_group
