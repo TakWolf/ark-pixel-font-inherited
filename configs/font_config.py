@@ -6,7 +6,8 @@ from configs import path_define
 
 display_name_prefix = 'Ark Pixel Inherited'
 unique_name_prefix = 'Ark-Pixel-Inherited'
-output_name_prefix = 'ark-pixel-inherited'
+font_file_name_prefix = 'ark-pixel-inherited'
+release_zip_file_name_prefix = 'ark-pixel-font-inherited'
 style_name = 'Regular'
 version = f'{time.strftime("%Y.%m.%d")}'
 copyright_string = 'Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name "Ark Pixel Inherited".'
@@ -96,7 +97,7 @@ class FontConfig:
         return VerticalMetrics(ascent, descent, x_height, cap_height)
 
     def get_font_file_name(self, width_mode, font_format):
-        return f'{output_name_prefix}-{self.px}px-{width_mode}.{font_format}'
+        return f'{font_file_name_prefix}-{self.px}px-{width_mode}.{font_format}'
 
     def get_info_file_name(self, width_mode):
         return f'font-info-{self.px}px-{width_mode}.md'
@@ -105,7 +106,7 @@ class FontConfig:
         return f'alphabet-{self.px}px-{width_mode}.txt'
 
     def get_release_zip_file_name(self, width_mode, font_format):
-        return f'{output_name_prefix}-font-{self.px}px-{width_mode}-{font_format}-v{version}.zip'
+        return f'{release_zip_file_name_prefix}-{self.px}px-{width_mode}-{font_format}-v{version}.zip'
 
     def get_alphabet_html_file_name(self, width_mode):
         return f'alphabet-{self.px}px-{width_mode}.html'
