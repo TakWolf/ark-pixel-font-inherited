@@ -1,6 +1,5 @@
 import os
 import random
-from types import SimpleNamespace
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -10,12 +9,6 @@ from configs.git_deploy_config import GitDeployConfig
 from utils.unidata_util import UnidataDB
 
 build_random_key = random.random()
-
-ark_pixel_config = SimpleNamespace(
-    repository_name='TakWolf/ark-pixel-font',
-    source_type='branch',
-    source_name='master',
-)
 
 font_name = font_config.display_name_prefix
 font_version = font_config.version

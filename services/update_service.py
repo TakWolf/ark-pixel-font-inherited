@@ -6,8 +6,7 @@ import zipfile
 
 import requests
 
-import configs
-from configs import path_define
+from configs import path_define, ark_pixel_config
 from utils import fs_util
 
 logger = logging.getLogger('update-service')
@@ -50,23 +49,23 @@ def _do_download_file(url, file_path):
 
 
 def update_glyphs_version():
-    if configs.ark_pixel_config.source_type == 'tag':
-        tag_name = configs.ark_pixel_config.source_name
+    if ark_pixel_config.source_type == 'tag':
+        tag_name = ark_pixel_config.source_name
         if tag_name is None:
-            tag_name = _get_github_releases_latest_tag_name(configs.ark_pixel_config.repository_name)
-        sha = _get_github_tag_sha(configs.ark_pixel_config.repository_name, tag_name)
+            tag_name = _get_github_releases_latest_tag_name(ark_pixel_config.repository_name)
+        sha = _get_github_tag_sha(ark_pixel_config.repository_name, tag_name)
         version = tag_name
-    elif configs.ark_pixel_config.source_type == 'branch':
-        branch_name = configs.ark_pixel_config.source_name
-        sha = _get_github_branch_latest_commit_sha(configs.ark_pixel_config.repository_name, branch_name)
+    elif ark_pixel_config.source_type == 'branch':
+        branch_name = ark_pixel_config.source_name
+        sha = _get_github_branch_latest_commit_sha(ark_pixel_config.repository_name, branch_name)
         version = branch_name
-    elif configs.ark_pixel_config.source_type == 'commit':
-        sha = configs.ark_pixel_config.source_name
+    elif ark_pixel_config.source_type == 'commit':
+        sha = ark_pixel_config.source_name
         version = sha
     else:
-        raise Exception(f"Unknown source type: '{configs.ark_pixel_config.source_type}'")
-    version_url = f'https://github.com/{configs.ark_pixel_config.repository_name}/tree/{version}'
-    asset_url = f'https://github.com/{configs.ark_pixel_config.repository_name}/archive/{sha}.zip'
+        raise Exception(f"Unknown source type: '{ark_pixel_config.source_type}'")
+    version_url = f'https://github.com/{ark_pixel_config.repository_name}/tree/{version}'
+    asset_url = f'https://github.com/{ark_pixel_config.repository_name}/archive/{sha}.zip'
     version_info = {
         'sha': sha,
         'version': version,
