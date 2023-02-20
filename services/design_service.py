@@ -89,7 +89,8 @@ def verify_patch_glyph_files(font_config):
                     # F/Fullwidth or W/Wide
                     elif east_asian_width == 'F' or east_asian_width == 'W':
                         assert width == font_config.px, glyph_file_path
-                    else:  # A/Ambiguous or N/Neutral
+                    # A/Ambiguous or N/Neutral
+                    else:
                         assert width == font_config.px / 2 or width == font_config.px, glyph_file_path
 
                     unicode_block = configs.unidata_db.get_block_by_code_point(code_point)
