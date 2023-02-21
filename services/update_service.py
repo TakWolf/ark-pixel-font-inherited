@@ -91,7 +91,7 @@ def setup_glyphs():
         fs_util.make_dirs_if_not_exists(download_dir)
         _do_download_file(version_info['asset_url'], source_file_path)
     else:
-        logger.info(f'{source_file_path} already exists')
+        logger.info(f'already downloaded: {source_file_path}')
 
     source_unzip_dir = source_file_path.removesuffix('.zip')
     fs_util.delete_dir(source_unzip_dir)
