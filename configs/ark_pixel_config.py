@@ -1,4 +1,4 @@
 
 repository_name = 'TakWolf/ark-pixel-font'
-source_type = 'branch'
-source_name = 'master'
+source_type = 'tag'
+source_name = None
