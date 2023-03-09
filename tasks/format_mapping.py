@@ -10,10 +10,29 @@ logging.basicConfig(level=logging.DEBUG)
 def main():
     mapping_file_path = os.path.join(path_define.glyphs_dir, 'mapping.toml')
     with open(mapping_file_path, 'rb') as file:
-        mapping_infos = list(tomllib.load(file).items())
-        mapping_infos.sort()
+        mapping_data = tomllib.load(file)
+
+    mapping_infos = []
+    for info in mapping_data.values():
+        source = info['source']
+        if not isinstance(source, int):
+            source = ord(source)
+            info['source'] = source
+        target = info['target']
+        if not isinstance(target, int):
+            target = ord(target)
+            info['target'] = target
+        codes = info['codes']
+        for i, code in enumerate(codes):
+            if not isinstance(code, int):
+                code = ord(code)
+                codes[i] = code
+        codes.sort()
+        mapping_infos.append(info)
+    mapping_infos.sort(key=lambda x: x['source'])
+
     with open(mapping_file_path, 'w', encoding='utf-8') as file:
-        for _, info in mapping_infos:
+        for info in mapping_infos:
             source = info['source']
             target = info['target']
             codes = info['codes']
