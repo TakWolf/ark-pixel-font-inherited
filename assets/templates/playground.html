@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ark Pixel Inherited - Playground</title>
+{% extends "common/base.html" %}
+{% block title %}Ark Pixel Inherited - Playground{% endblock %}
+{% block style %}
     <style>
         * {
             margin: 0;
@@ -11,19 +8,19 @@
             box-sizing: border-box;
         }
         {% for font_config in configs.font_configs  %}
-            {% for width_mode in configs.width_modes %}
-                {% with font_family = 'Ark-Pixel-Inherited-' ~ font_config.px ~ 'px-' ~ width_mode %}
-                    @font-face {
-                        font-family: {{ font_family }};
-                        src: url("{{ font_config.get_font_file_name(width_mode, 'woff2') }}?r={{ configs.build_random_key }}");
-                    }
-                    .font-{{ font_config.px }}px-{{ width_mode }} {
-                        font-family: {{ font_family }}, serif;
-                        font-size: {{ font_config.px * 2 }}px;
-                        line-height: {{ font_config.display_line_height_px * 2 }}px;
-                    }
-                {% endwith %}
-            {% endfor %}
+        {% for width_mode in configs.width_modes %}
+        {% with font_family = 'Ark-Pixel-Inherited-' ~ font_config.px ~ 'px-' ~ width_mode %}
+        @font-face {
+            font-family: {{ font_family }};
+            src: url("{{ font_config.get_font_file_name(width_mode, 'woff2') }}?r={{ configs.build_random_key }}");
+        }
+        .font-{{ font_config.px }}px-{{ width_mode }} {
+            font-family: {{ font_family }}, serif;
+            font-size: {{ font_config.px * 2 }}px;
+            line-height: {{ font_config.display_line_height_px * 2 }}px;
+        }
+        {% endwith %}
+        {% endfor %}
         {% endfor %}
         .toolbar {
             position: fixed;
@@ -81,49 +78,47 @@
             resize: none;
         }
     </style>
-    {% include "common/analytics.html" %}
-</head>
-<body>
-<form class="toolbar">
-    <div class="options-group">
-        {% for font_config in configs.font_configs %}
+{% endblock %}
+{% block body %}
+    <form class="toolbar">
+        <div class="options-group">
+            {% for font_config in configs.font_configs %}
             <label class="option">
                 <input name="font_size" type="radio" {{ 'checked' if font_config.px == 12 else '' }} onclick="applyFontSize('{{ font_config.px }}');">
                 <span></span>
                 {{ font_config.px }}px
             </label>
-        {% endfor %}
-    </div>
-    <div class="options-group" style="background-color: #94e34a;">
-        {% for width_mode in configs.width_modes %}
+            {% endfor %}
+        </div>
+        <div class="options-group" style="background-color: #94e34a;">
+            {% for width_mode in configs.width_modes %}
             <label class="option">
                 <input name="width_mode" type="radio" {{ 'checked' if width_mode == 'proportional' else '' }} onclick="applyWidthMode('{{ width_mode }}');">
                 <span></span>
                 {{ width_mode }}
             </label>
-        {% endfor %}
-    </div>
-</form>
-<label class="content">
-    <textarea id="input-box" class="font-12px-proportional" placeholder="请随便写点什么… / Please input something…"></textarea>
-</label>
-<script>
-    var inputBox = document.getElementById('input-box');
+            {% endfor %}
+        </div>
+    </form>
+    <label class="content">
+        <textarea id="input-box" class="font-12px-proportional" placeholder="请随便写点什么… / Please input something…"></textarea>
+    </label>
+    <script>
+        var inputBox = document.getElementById('input-box');
 
-    var fontConfigs = {
-        px: 12,
-        widthMode: 'proportional',
-    };
+        var fontConfigs = {
+            px: 12,
+            widthMode: 'proportional',
+        };
 
-    function applyFontSize(px) {
-        fontConfigs.px = px;
-        inputBox.className = 'font-' + fontConfigs.px + 'px-' + fontConfigs.widthMode;
-    }
+        function applyFontSize(px) {
+            fontConfigs.px = px;
+            inputBox.className = 'font-' + fontConfigs.px + 'px-' + fontConfigs.widthMode;
+        }
 
-    function applyWidthMode(widthMode) {
-        fontConfigs.widthMode = widthMode;
-        inputBox.className = 'font-' + fontConfigs.px + 'px-' + fontConfigs.widthMode;
-    }
-</script>
-</body>
-</html>
+        function applyWidthMode(widthMode) {
+            fontConfigs.widthMode = widthMode;
+            inputBox.className = 'font-' + fontConfigs.px + 'px-' + fontConfigs.widthMode;
+        }
+    </script>
+{% endblock %}

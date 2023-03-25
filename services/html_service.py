@@ -25,55 +25,77 @@ def make_alphabet_html_file(font_config, width_mode, alphabet):
     logger.info(f'make {html_file_path}')
 
 
-def _handle_demo_html_element(soup, element, alphabet, width_mode):
-    element_type = type(element)
-    if element_type == bs4.element.Tag:
+def _handle_demo_html_element(soup, element, alphabet_group):
+    if isinstance(element, bs4.element.Tag):
         for child_element in list(element.contents):
-            _handle_demo_html_element(soup, child_element, alphabet, width_mode)
-    elif element_type == bs4.element.NavigableString:
+            _handle_demo_html_element(soup, child_element, alphabet_group)
+    elif isinstance(element, bs4.element.NavigableString):
         text = str(element)
-        temp_parent = soup.new_tag('span')
-        current_status = True
+        tmp_parent = soup.new_tag('div')
+        last_status = None
         text_buffer = ''
         for c in text:
-            status = c in alphabet or not c.isprintable()
-            if current_status != status:
+            if c == ' ':
+                status = last_status
+            elif c == '\n':
+                status = 'all'
+            elif c in alphabet_group['monospaced'] and c in alphabet_group['proportional']:
+                status = 'all'
+            elif c in alphabet_group['monospaced']:
+                status = 'monospaced'
+            elif c in alphabet_group['proportional']:
+                status = 'proportional'
+            else:
+                status = None
+            if last_status != status:
                 if text_buffer != '':
-                    if current_status:
-                        temp_child = bs4.element.NavigableString(text_buffer)
+                    if last_status == 'all':
+                        tmp_child = bs4.element.NavigableString(text_buffer)
                     else:
-                        temp_child = soup.new_tag('span')
-                        temp_child['class'] = f'char-notdef-{width_mode}'
-                        temp_child.string = text_buffer
-                    temp_parent.append(temp_child)
-                current_status = status
-                text_buffer = ''
+                        tmp_child = soup.new_tag('span')
+                        tmp_child.string = text_buffer
+                        if last_status == 'monospaced':
+                            tmp_child['class'] = f'char-notdef-proportional'
+                        elif last_status == 'proportional':
+                            tmp_child['class'] = f'char-notdef-monospaced'
+                        else:
+                            tmp_child['class'] = f'char-notdef-monospaced char-notdef-proportional'
+                    tmp_parent.append(tmp_child)
+                    text_buffer = ''
+                last_status = status
             text_buffer += c
         if text_buffer != '':
-            if current_status:
-                temp_child = bs4.element.NavigableString(text_buffer)
+            if last_status == 'all':
+                tmp_child = bs4.element.NavigableString(text_buffer)
             else:
-                temp_child = soup.new_tag('span')
-                temp_child['class'] = f'char-notdef-{width_mode}'
-                temp_child.string = text_buffer
-            temp_parent.append(temp_child)
-        element.replace_with(temp_parent)
-        temp_parent.unwrap()
+                tmp_child = soup.new_tag('span')
+                tmp_child.string = text_buffer
+                if last_status == 'monospaced':
+                    tmp_child['class'] = f'char-notdef-proportional'
+                elif last_status == 'proportional':
+                    tmp_child['class'] = f'char-notdef-monospaced'
+                else:
+                    tmp_child['class'] = f'char-notdef-monospaced char-notdef-proportional'
+            tmp_parent.append(tmp_child)
+        element.replace_with(tmp_parent)
+        tmp_parent.unwrap()
 
 
 def make_demo_html_file(font_config, alphabet_group):
+    content_html_file_path = os.path.join(path_define.templates_dir, 'demo-content.html')
+    with open(content_html_file_path, 'r', encoding='utf-8') as file:
+        content_html = file.read()
+        content_html = ''.join(line.strip() for line in content_html.split('\n'))
+    soup = bs4.BeautifulSoup(content_html, 'html.parser')
+    _handle_demo_html_element(soup, soup, alphabet_group)
+    content_html = str(soup)
+
     template = configs.template_env.get_template('demo.html')
     html = template.render(
         configs=configs,
         font_config=font_config,
+        content_html=content_html,
     )
-    soup = bs4.BeautifulSoup(html, 'html.parser')
-    elements = soup.select('#page')
-    for width_mode in configs.width_modes:
-        alphabet = alphabet_group[width_mode]
-        for element in elements:
-            _handle_demo_html_element(soup, element, alphabet, width_mode)
-    html = str(soup)
     fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
     html_file_path = os.path.join(path_define.outputs_dir, font_config.demo_html_file_name)
     with open(html_file_path, 'w', encoding='utf-8') as file:
