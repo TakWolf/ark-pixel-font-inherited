@@ -102,4 +102,5 @@ def setup_glyphs():
     fs_util.delete_dir(path_define.ark_pixel_glyphs_dir)
     source_glyphs_dir = os.path.join(source_unzip_dir, f'ark-pixel-font-{version_info["sha"]}', 'assets', 'glyphs')
     shutil.copytree(source_glyphs_dir, path_define.ark_pixel_glyphs_dir)
+    fs_util.delete_dir(source_unzip_dir)
     logger.info(f'update font glyphs {path_define.ark_pixel_glyphs_dir}')
