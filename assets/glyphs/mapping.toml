@@ -31,6 +31,14 @@ codes = [
     0x50DE,  # 僞
 ]
 
+[uni52FB]
+source = 0x52FB  # 勻
+target = 0x52FB  # 勻
+codes = [
+    0x52FB,  # 勻
+    0x5300,  # 匀
+]
+
 [uni544A]
 source = 0x544A  # 告
 target = 0x543F  # 吿
