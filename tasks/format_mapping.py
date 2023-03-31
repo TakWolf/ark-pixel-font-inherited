@@ -14,10 +14,6 @@ def main():
 
     mapping_infos = []
     for info in mapping_data.values():
-        source = info['source']
-        if not isinstance(source, int):
-            source = ord(source)
-            info['source'] = source
         target = info['target']
         if not isinstance(target, int):
             target = ord(target)
@@ -29,16 +25,14 @@ def main():
                 codes[i] = code
         codes.sort()
         mapping_infos.append(info)
-    mapping_infos.sort(key=lambda x: x['source'])
+    mapping_infos.sort(key=lambda x: x['target'])
 
     with open(mapping_file_path, 'w', encoding='utf-8') as file:
         for info in mapping_infos:
-            source = info['source']
             target = info['target']
             codes = info['codes']
             file.write('\n')
-            file.write(f'[uni{source:04X}]\n')
-            file.write(f'source = 0x{source:04X}  # {chr(source)}\n')
+            file.write(f'[uni{target:04X}]\n')
             file.write(f'target = 0x{target:04X}  # {chr(target)}\n')
             file.write('codes = [\n')
             for code in codes:
