@@ -96,8 +96,8 @@ def setup_glyphs():
 
     source_unzip_dir = source_file_path.removesuffix('.zip')
     fs_util.delete_dir(source_unzip_dir)
-    with zipfile.ZipFile(source_file_path) as zip_file:
-        zip_file.extractall(source_unzip_dir)
+    with zipfile.ZipFile(source_file_path) as file:
+        file.extractall(source_unzip_dir)
     logger.info(f"Unzipped: '{source_unzip_dir}'")
 
     fs_util.delete_dir(path_define.ark_pixel_glyphs_dir)
