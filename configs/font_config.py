@@ -1,22 +1,8 @@
 import os
-import time
 import tomllib
 
+import configs
 from configs import path_define
-
-display_name_prefix = 'Ark Pixel Inherited'
-unique_name_prefix = 'Ark-Pixel-Inherited'
-font_file_name_prefix = 'ark-pixel-inherited'
-release_zip_file_name_prefix = 'ark-pixel-font-inherited'
-style_name = 'Regular'
-version = f'{time.strftime("%Y.%m.%d")}'
-copyright_string = "Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name 'Ark Pixel Inherited'."
-designer = 'TakWolf'
-description = 'Open source Pan-CJK pixel font.'
-vendor_url = 'https://ark-pixel-font-inherited.takwolf.com'
-designer_url = 'https://takwolf.com'
-license_description = 'This Font Software is licensed under the SIL Open Font License, Version 1.1.'
-license_info_url = 'https://scripts.sil.org/OFL'
 
 
 class FontAttrs:
@@ -35,6 +21,17 @@ class VerticalMetrics:
 
 
 class FontConfig:
+    FAMILY_NAME = 'Ark Pixel Inherited'
+    OUTPUTS_FULL_NAME = 'Ark Pixel Font Inherited'
+    MANUFACTURER = 'TakWolf'
+    DESIGNER = 'TakWolf'
+    DESCRIPTION = 'Open source Pan-CJK pixel font.'
+    COPYRIGHT_INFO = "Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name 'Ark Pixel Inherited'."
+    LICENSE_INFO = 'This Font Software is licensed under the SIL Open Font License, Version 1.1.'
+    VENDOR_URL = 'https://ark-pixel-font-inherited.takwolf.com'
+    DESIGNER_URL = 'https://takwolf.com'
+    LICENSE_URL = 'https://scripts.sil.org/OFL'
+
     def __init__(self, px, px_to_units=100):
         self.px = px
 
@@ -55,22 +52,23 @@ class FontConfig:
         self.preview_image_file_name = f'preview-{px}px.png'
 
     def get_name_strings(self, width_mode):
-        display_name = f'{display_name_prefix} {self.px}px {width_mode}'
-        unique_name = f'{unique_name_prefix}-{self.px}px-{width_mode}-{style_name}'
+        style_name = 'Regular'
+        display_name = f'{FontConfig.FAMILY_NAME} {self.px}px {width_mode}'
+        unique_name = f'{FontConfig.FAMILY_NAME.replace(" ", "-")}-{self.px}px-{width_mode}-{style_name}'
         return {
-            'copyright': copyright_string,
+            'copyright': FontConfig.COPYRIGHT_INFO,
             'familyName': display_name,
             'styleName': style_name,
-            'uniqueFontIdentifier': f'{unique_name};{version}',
+            'uniqueFontIdentifier': f'{unique_name};{configs.version}',
             'fullName': display_name,
-            'version': version,
+            'version': configs.version,
             'psName': unique_name,
-            'designer': designer,
-            'description': description,
-            'vendorURL': vendor_url,
-            'designerURL': designer_url,
-            'licenseDescription': license_description,
-            'licenseInfoURL': license_info_url,
+            'designer': FontConfig.DESIGNER,
+            'description': FontConfig.DESCRIPTION,
+            'vendorURL': FontConfig.VENDOR_URL,
+            'designerURL': FontConfig.DESIGNER_URL,
+            'licenseDescription': FontConfig.LICENSE_INFO,
+            'licenseInfoURL': FontConfig.LICENSE_URL,
         }
 
     def get_units_per_em(self):
@@ -97,7 +95,7 @@ class FontConfig:
         return VerticalMetrics(ascent, descent, x_height, cap_height)
 
     def get_font_file_name(self, width_mode, font_format):
-        return f'{font_file_name_prefix}-{self.px}px-{width_mode}.{font_format}'
+        return f'{FontConfig.FAMILY_NAME.lower().replace(" ", "-")}-{self.px}px-{width_mode}.{font_format}'
 
     def get_info_file_name(self, width_mode):
         return f'font-info-{self.px}px-{width_mode}.md'
@@ -106,7 +104,7 @@ class FontConfig:
         return f'alphabet-{self.px}px-{width_mode}.txt'
 
     def get_release_zip_file_name(self, width_mode, font_format):
-        return f'{release_zip_file_name_prefix}-{self.px}px-{width_mode}-{font_format}-v{version}.zip'
+        return f'{FontConfig.OUTPUTS_FULL_NAME.lower().replace(" ", "-")}-{self.px}px-{width_mode}-{font_format}-v{configs.version}.zip'
 
     def get_alphabet_html_file_name(self, width_mode):
         return f'alphabet-{self.px}px-{width_mode}.html'
