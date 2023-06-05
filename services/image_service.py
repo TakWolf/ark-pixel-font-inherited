@@ -34,7 +34,7 @@ def _draw_text(image, xy, text, font, text_color=(0, 0, 0), shadow_color=None, l
 
 def make_preview_image_file(font_config):
     font = _load_font(font_config.px, 'proportional')
-    line_height = font_config.display_line_height_px
+    line_height = font_config.line_height_px
 
     image = Image.new('RGBA', (font_config.px * 35, font_config.px * 2 + line_height * 8), (255, 255, 255))
     _draw_text(image, (font_config.px, font_config.px), '方舟像素字体 - 传承字形 / Ark Pixel Font - Inherited', font)
