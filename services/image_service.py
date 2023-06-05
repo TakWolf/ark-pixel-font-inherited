@@ -11,7 +11,7 @@ logger = logging.getLogger('image-service')
 
 
 def _load_font(px, width_mode, px_scale=1):
-    font_file_path = os.path.join(path_define.outputs_dir, configs.font_config_map[px].get_font_file_name(width_mode, 'woff2'))
+    font_file_path = os.path.join(path_define.outputs_dir, configs.font_size_to_config[px].get_font_file_name(width_mode, 'woff2'))
     return ImageFont.truetype(font_file_path, px * px_scale)
 
 

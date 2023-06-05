@@ -9,7 +9,7 @@
         }
         @font-face {
             font-family: Ark-Pixel-Inherited-12px-monospaced;
-            src: url("{{ configs.font_config_map[12].get_font_file_name('monospaced', 'woff2') }}?r={{ configs.build_random_key }}");
+            src: url("{{ configs.font_size_to_config[12].get_font_file_name('monospaced', 'woff2') }}?r={{ configs.build_random_key }}");
         }
         {% for font_config in configs.font_configs  %}
         {% with font_family = 'Ark-Pixel-Inherited-' ~ font_config.px ~ 'px-proportional' %}
