@@ -8,8 +8,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 def main():
-    mapping_file_path = os.path.join(path_define.glyphs_dir, 'mapping.toml')
-    with open(mapping_file_path, 'rb') as file:
+    file_path = os.path.join(path_define.glyphs_dir, 'mapping.toml')
+    with open(file_path, 'rb') as file:
         mapping_data = tomllib.load(file)
 
     mapping_infos = []
@@ -27,7 +27,7 @@ def main():
         mapping_infos.append(info)
     mapping_infos.sort(key=lambda x: x['target'])
 
-    with open(mapping_file_path, 'w', encoding='utf-8') as file:
+    with open(file_path, 'w', encoding='utf-8') as file:
         for info in mapping_infos:
             target = info['target']
             codes = info['codes']

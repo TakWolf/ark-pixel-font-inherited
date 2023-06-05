@@ -45,7 +45,7 @@ def _draw_text(
 def make_preview_image_file(font_config):
     font = _load_font(font_config, 'proportional')
 
-    image = Image.new('RGBA', (font_config.size * 35, font_config.size * 2 + font_config.line_height * 8), (255, 255, 255))
+    image = Image.new('RGBA', (font_config.size * 35, font_config.size * 2 + font_config.line_height * 8), (255, 255, 255, 255))
     _draw_text(image, (font_config.size, font_config.size), '方舟像素字体 - 传承字形 / Ark Pixel Font - Inherited', font)
     _draw_text(image, (font_config.size, font_config.size + font_config.line_height), '我们每天度过的称之为日常的生活，其实是一个个奇迹的连续也说不定。', font)
     _draw_text(image, (font_config.size, font_config.size + font_config.line_height * 2), '我們每天度過的稱之為日常的生活，其實是一個個奇跡的連續也說不定。', font)
