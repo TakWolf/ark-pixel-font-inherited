@@ -35,7 +35,7 @@ class VerticalMetrics:
 
 
 class FontConfig:
-    def __init__(self, px, px_units=100):
+    def __init__(self, px, px_to_units=100):
         self.px = px
 
         config_file_path = os.path.join(path_define.ark_pixel_glyphs_dir, str(px), 'config.toml')
@@ -49,7 +49,7 @@ class FontConfig:
         assert (self.line_height_px - px) % 2 == 0, f'font_config {px}px with incorrect line_height_px {self.line_height_px}px'
         self.monospaced_attrs = FontAttrs(config_data['monospaced'])
         self.proportional_attrs = FontAttrs(config_data['proportional'])
-        self.px_units = px_units
+        self.px_to_units = px_to_units
 
         self.demo_html_file_name = f'demo-{px}px.html'
         self.preview_image_file_name = f'preview-{px}px.png'
@@ -74,14 +74,14 @@ class FontConfig:
         }
 
     def get_units_per_em(self):
-        return self.px * self.px_units
+        return self.px * self.px_to_units
 
     def get_box_origin_y(self, width_mode):
         if width_mode == 'monospaced':
             attrs = self.monospaced_attrs
         else:  # proportional
             attrs = self.proportional_attrs
-        return attrs.box_origin_y_px * self.px_units
+        return attrs.box_origin_y_px * self.px_to_units
 
     def get_vertical_metrics(self, width_mode):
         if width_mode == 'monospaced':
@@ -90,10 +90,10 @@ class FontConfig:
         else:  # proportional
             line_height_px = self.line_height_px
             attrs = self.proportional_attrs
-        ascent = (attrs.box_origin_y_px + int((line_height_px - self.px) / 2)) * self.px_units
-        descent = ascent - line_height_px * self.px_units
-        x_height = attrs.x_height_px * self.px_units
-        cap_height = attrs.cap_height_px * self.px_units
+        ascent = (attrs.box_origin_y_px + int((line_height_px - self.px) / 2)) * self.px_to_units
+        descent = ascent - line_height_px * self.px_to_units
+        x_height = attrs.x_height_px * self.px_to_units
+        cap_height = attrs.cap_height_px * self.px_to_units
         return VerticalMetrics(ascent, descent, x_height, cap_height)
 
     def get_font_file_name(self, width_mode, font_format):
