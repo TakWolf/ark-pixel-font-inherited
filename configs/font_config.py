@@ -30,7 +30,7 @@ class FontConfig:
         self.ark_pixel_glyphs_dir = os.path.join(path_define.ark_pixel_glyphs_dir, str(size))
         self.patch_glyphs_dir = os.path.join(path_define.patch_glyphs_dir, str(size))
 
-        config_file_path = os.path.join(path_define.ark_pixel_glyphs_dir, str(size), 'config.toml')
+        config_file_path = os.path.join(self.ark_pixel_glyphs_dir, 'config.toml')
         if not os.path.exists(config_file_path):
             self.size = size
             return
