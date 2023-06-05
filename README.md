@@ -44,6 +44,8 @@
 
 可在 [Releases](https://github.com/TakWolf/ark-pixel-font-inherited/releases) 下载最新的版本。
 
+目前提供 `.otf`、`.ttf`、`.woff2`、`.bdf` 四种格式。
+
 ## 本地构建
 
 这是一个标准的 [Python3](https://www.python.org) 项目。
@@ -53,14 +55,6 @@
 然后执行 `python ./build.py` 命令来开始构建。
 
 等待任务完成后，可在 `build/outputs` 目录下找到生成的字体文件。
-
-## 构建流程
-
-步骤如下：
-
-1. 以原项目的字形文件作为基础，按照规则加载「传统印刷 zh_tr」字形
-2. 加载这个项目自己的补丁字形进行覆盖
-3. 加载 [映射文件](assets/glyphs/mapping.toml) ，根据配置将多个字符映射为相同的字形
 
 ## 授权信息
 
@@ -76,8 +70,7 @@
 
 ## 程序依赖
 
-- [FontTools](https://github.com/fonttools/fonttools)
-- [Brotli](https://github.com/google/brotli)
+- [Pixel Font Builder](https://github.com/TakWolf/pixel-font-builder)
 - [Unidata Blocks](https://github.com/TakWolf/unidata-blocks)
 - [Character Encoding Utils](https://github.com/TakWolf/character-encoding-utils)
 - [PyPNG](https://gitlab.com/drj11/pypng)

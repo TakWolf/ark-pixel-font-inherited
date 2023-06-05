@@ -6,15 +6,22 @@ import unicodedata
 
 import png
 import unidata_blocks
-from fontTools.fontBuilder import FontBuilder
-from fontTools.pens.t2CharStringPen import T2CharStringPen
-from fontTools.pens.ttGlyphPen import TTGlyphPen
+from pixel_font_builder import FontBuilder, Glyph, StyleName, SerifMode
 
 import configs
-from configs import path_define
-from utils import fs_util, glyph_util
+from configs import path_define, FontConfig
+from utils import fs_util
 
 logger = logging.getLogger('font-service')
+
+
+def _load_mapping_infos() -> dict:
+    file_path = os.path.join(path_define.glyphs_dir, 'mapping.toml')
+    with open(file_path, 'rb') as file:
+        return tomllib.load(file)
+
+
+_mapping_infos = _load_mapping_infos()
 
 
 def _parse_glyph_file_name(glyph_file_name):
@@ -60,7 +67,7 @@ def _save_glyph_data_to_png(data, file_path):
 
 
 def format_patch_glyph_files(font_config):
-    tmp_dir = os.path.join(path_define.patch_glyphs_tmp_dir, str(font_config.px))
+    tmp_dir = os.path.join(path_define.patch_glyphs_tmp_dir, str(font_config.size))
     fs_util.delete_dir(tmp_dir)
     for width_mode_dir_name in configs.width_mode_dir_names:
         width_mode_dir = os.path.join(font_config.patch_glyphs_dir, width_mode_dir_name)
@@ -94,17 +101,17 @@ def format_patch_glyph_files(font_config):
                 glyph_data, glyph_width, glyph_height = _load_glyph_data_from_png(glyph_file_from_path)
 
                 if width_mode_dir_name == 'common' or width_mode_dir_name == 'monospaced':
-                    assert glyph_height == font_config.px, f"Incorrect glyph data: '{glyph_file_from_path}'"
+                    assert glyph_height == font_config.size, f"Incorrect glyph data: '{glyph_file_from_path}'"
 
                     # H/Halfwidth or Na/Narrow
                     if east_asian_width == 'H' or east_asian_width == 'Na':
-                        assert glyph_width == font_config.px / 2, f"Incorrect glyph data: '{glyph_file_from_path}'"
+                        assert glyph_width == font_config.size / 2, f"Incorrect glyph data: '{glyph_file_from_path}'"
                     # F/Fullwidth or W/Wide
                     elif east_asian_width == 'F' or east_asian_width == 'W':
-                        assert glyph_width == font_config.px, f"Incorrect glyph data: '{glyph_file_from_path}'"
+                        assert glyph_width == font_config.size, f"Incorrect glyph data: '{glyph_file_from_path}'"
                     # A/Ambiguous or N/Neutral
                     else:
-                        assert glyph_width == font_config.px / 2 or glyph_width == font_config.px, f"Incorrect glyph data: '{glyph_file_from_path}'"
+                        assert glyph_width == font_config.size / 2 or glyph_width == font_config.size, f"Incorrect glyph data: '{glyph_file_from_path}'"
 
                     if block is not None:
                         if block.code_start == 0x4E00:  # CJK Unified Ideographs
@@ -114,8 +121,8 @@ def format_patch_glyph_files(font_config):
                                 raise AssertionError(f"Incorrect glyph data: '{glyph_file_from_path}'")
 
                 if width_mode_dir_name == 'proportional':
-                    assert glyph_height >= font_config.px, f"Incorrect glyph data: '{glyph_file_from_path}'"
-                    assert (glyph_height - font_config.px) % 2 == 0, f"Incorrect glyph data: '{glyph_file_from_path}'"
+                    assert glyph_height >= font_config.size, f"Incorrect glyph data: '{glyph_file_from_path}'"
+                    assert (glyph_height - font_config.size) % 2 == 0, f"Incorrect glyph data: '{glyph_file_from_path}'"
 
                     if glyph_height > font_config.line_height:
                         for i in range(int((glyph_height - font_config.line_height) / 2)):
@@ -135,16 +142,32 @@ def format_patch_glyph_files(font_config):
         shutil.rmtree(width_mode_old_dir)
 
 
+class DesignContext:
+    def __init__(self, alphabet_group, character_mapping_group, glyph_file_paths_group):
+        self._alphabet_group = alphabet_group
+        self._character_mapping_group = character_mapping_group
+        self._glyph_file_paths_group = glyph_file_paths_group
+
+    def get_alphabet(self, width_mode):
+        return self._alphabet_group[width_mode]
+
+    def get_character_mapping(self, width_mode):
+        return self._character_mapping_group[width_mode]
+
+    def get_glyph_file_paths(self, width_mode):
+        return self._glyph_file_paths_group[width_mode]
+
+
 def collect_glyph_files(font_config):
-    alphabet_group = {}
+    character_mapping_group = {}
     glyph_file_paths_group = {}
     for width_mode in configs.width_modes:
-        alphabet_group[width_mode] = set()
+        character_mapping_group[width_mode] = {}
         glyph_file_paths_group[width_mode] = {}
 
     glyphs_dirs = [
-        path_define.ark_pixel_glyphs_dir,
-        path_define.patch_glyphs_dir,
+        font_config.ark_pixel_glyphs_dir,
+        font_config.patch_glyphs_dir,
     ]
     for glyphs_dir in glyphs_dirs:
         glyph_file_paths_cellar = {}
@@ -153,9 +176,8 @@ def collect_glyph_files(font_config):
                 'default': {},
                 'zh_tr': {},
             }
-        px_dir = os.path.join(glyphs_dir, str(font_config.px))
         for width_mode_dir_name in configs.width_mode_dir_names:
-            width_mode_dir = os.path.join(px_dir, width_mode_dir_name)
+            width_mode_dir = os.path.join(glyphs_dir, width_mode_dir_name)
             if not os.path.isdir(width_mode_dir):
                 continue
             for glyph_file_dir, _, glyph_file_names in os.walk(width_mode_dir):
@@ -168,189 +190,94 @@ def collect_glyph_files(font_config):
                     else:
                         hex_name, language_flavors = _parse_glyph_file_name(glyph_file_name)
                         code_point = int(hex_name, 16)
+                        glyph_name = f'uni{code_point:04X}'
                         if len(language_flavors) > 0:
                             if 'zh_tr' in language_flavors:
-                                glyph_file_paths_cellar[width_mode_dir_name]['zh_tr'][code_point] = glyph_file_path
+                                assert glyph_name not in glyph_file_paths_cellar[width_mode_dir_name]['zh_tr'], f"Glyph name '{glyph_name}' already exists in language flavor 'zh_tr'"
+                                glyph_file_paths_cellar[width_mode_dir_name]['zh_tr'][glyph_name] = glyph_file_path
                         else:
-                            glyph_file_paths_cellar[width_mode_dir_name]['default'][code_point] = glyph_file_path
-                            c = chr(code_point)
                             if width_mode_dir_name == 'common' or width_mode_dir_name == 'monospaced':
-                                alphabet_group['monospaced'].add(c)
+                                character_mapping_group['monospaced'][code_point] = glyph_name
                             if width_mode_dir_name == 'common' or width_mode_dir_name == 'proportional':
-                                alphabet_group['proportional'].add(c)
+                                character_mapping_group['proportional'][code_point] = glyph_name
+                            assert glyph_name not in glyph_file_paths_cellar[width_mode_dir_name]['default'], f"Glyph name '{glyph_name}' already exists"
+                            glyph_file_paths_cellar[width_mode_dir_name]['default'][glyph_name] = glyph_file_path
         for width_mode in configs.width_modes:
             glyph_file_paths_group[width_mode].update(glyph_file_paths_cellar['common']['default'])
             glyph_file_paths_group[width_mode].update(glyph_file_paths_cellar['common']['zh_tr'])
             glyph_file_paths_group[width_mode].update(glyph_file_paths_cellar[width_mode]['default'])
             glyph_file_paths_group[width_mode].update(glyph_file_paths_cellar[width_mode]['zh_tr'])
 
-    mapping_file_path = os.path.join(path_define.glyphs_dir, 'mapping.toml')
-    with open(mapping_file_path, 'rb') as file:
-        mapping_infos = tomllib.load(file)
-
+    alphabet_group = {}
     for width_mode in configs.width_modes:
-        alphabet = alphabet_group[width_mode]
-        glyph_file_paths = glyph_file_paths_group[width_mode]
-        for info in mapping_infos.values():
+        character_mapping = character_mapping_group[width_mode]
+        for info in _mapping_infos.values():
             target = info['target']
-            if target not in glyph_file_paths:
+            if target not in character_mapping:
                 continue
-            target_glyph_file_path = glyph_file_paths[target]
-            for code in info['codes']:
-                glyph_file_paths[code] = target_glyph_file_path
-                alphabet.add(chr(code))
-        alphabet = list(alphabet)
+            glyph_name = character_mapping[target]
+            for code_point in info['codes']:
+                character_mapping[code_point] = glyph_name
+        alphabet = [chr(code_point) for code_point in character_mapping]
         alphabet.sort()
         alphabet_group[width_mode] = alphabet
 
-    return alphabet_group, glyph_file_paths_group
+    return DesignContext(alphabet_group, character_mapping_group, glyph_file_paths_group)
 
 
-def _get_glyph_name(code_point):
-    if isinstance(code_point, int):
-        return f'uni{code_point:04X}'
-    else:
-        return code_point
-
-
-class GlyphInfoBuilder:
-    def __init__(self, units_per_em, box_origin_y, px_to_units):
-        self.units_per_em = units_per_em
-        self.box_origin_y = box_origin_y
-        self.px_to_units = px_to_units
-        self.glyph_data_info_map = {}
-        self.otf_glyph_info_map = {}
-        self.ttf_glyph_info_map = {}
-
-    def _get_glyph_data_info(self, glyph_file_path):
-        if glyph_file_path in self.glyph_data_info_map:
-            glyph_data_info = self.glyph_data_info_map[glyph_file_path]
-        else:
-            glyph_data, width_px, height_px = _load_glyph_data_from_png(glyph_file_path)
-            outlines = glyph_util.get_outlines_from_glyph_data(glyph_data, self.px_to_units)
-            glyph_data_info = outlines, width_px * self.px_to_units, height_px * self.px_to_units
-            self.glyph_data_info_map[glyph_file_path] = glyph_data_info
-        return glyph_data_info
-
-    def _draw_glyph(self, outlines, width, height, is_ttf):
-        if is_ttf:
-            pen = TTGlyphPen(None)
-        else:
-            pen = T2CharStringPen(0, None)
-        if len(outlines) > 0:
-            for outline_index, outline in enumerate(outlines):
-                for point_index, point in enumerate(outline):
-
-                    # 转换左上角原点坐标系为 OpenType 坐标系
-                    x, y = point
-                    y = self.box_origin_y + (height - self.units_per_em) / 2 - y
-                    point = x, y
-
-                    if point_index == 0:
-                        pen.moveTo(point)
-                    else:
-                        pen.lineTo(point)
-                if outline_index < len(outlines) - 1:
-                    pen.endPath()
-                else:
-                    pen.closePath()
-        else:
-            pen.moveTo((0, 0))
-            pen.closePath()
-        advance_width = width
-        if is_ttf:
-            return pen.glyph(), advance_width
-        else:
-            return pen.getCharString(), advance_width
-
-    def _get_glyph_info(self, glyph_file_path, is_ttf):
-        if is_ttf:
-            glyph_info_map = self.ttf_glyph_info_map
-        else:
-            glyph_info_map = self.otf_glyph_info_map
-        if glyph_file_path in glyph_info_map:
-            glyph_info = glyph_info_map[glyph_file_path]
-        else:
-            outlines, width, height = self._get_glyph_data_info(glyph_file_path)
-            glyph_info = self._draw_glyph(outlines, width, height, is_ttf)
-            glyph_info_map[glyph_file_path] = glyph_info
-            logger.info(f'draw {"ttf" if is_ttf else "otf"} glyph {glyph_file_path}')
-        return glyph_info
-
-    def build_glyph_info_map(self, glyph_file_paths, is_ttf):
-        glyph_info_map = {}
-        for code_point, glyph_file_path in glyph_file_paths.items():
-            glyph_info = self._get_glyph_info(glyph_file_path, is_ttf)
-            glyph_name = _get_glyph_name(code_point)
-            glyph_info_map[glyph_name] = glyph_info
-        return glyph_info_map
-
-
-def _create_font_builder(name_strings, units_per_em, vertical_metrics, glyph_order, character_map, glyph_info_map, is_ttf):
-    builder = FontBuilder(units_per_em, isTTF=is_ttf)
-    builder.setupNameTable(name_strings)
-    builder.setupGlyphOrder(glyph_order)
-    builder.setupCharacterMap(character_map)
-    glyphs = {}
-    advance_widths = {}
-    for glyph_name in glyph_order:
-        glyphs[glyph_name], advance_widths[glyph_name] = glyph_info_map[glyph_name]
-    if is_ttf:
-        builder.setupGlyf(glyphs)
-        horizontal_metrics = {glyph_name: (advance_width, glyphs[glyph_name].xMin) for glyph_name, advance_width in advance_widths.items()}
-    else:
-        builder.setupCFF(name_strings['psName'], {'FullName': name_strings['fullName']}, glyphs, {})
-        horizontal_metrics = {glyph_name: (advance_width, glyphs[glyph_name].calcBounds(None)[0]) for glyph_name, advance_width in advance_widths.items()}
-    builder.setupHorizontalMetrics(horizontal_metrics)
-    builder.setupHorizontalHeader(
-        ascent=vertical_metrics.ascent,
-        descent=vertical_metrics.descent,
+def _create_builder(font_config, context, width_mode):
+    font_attrs = font_config.get_attrs(width_mode)
+    builder = FontBuilder(
+        font_config.size,
+        font_attrs.ascent,
+        font_attrs.descent,
+        font_attrs.x_height,
+        font_attrs.cap_height,
     )
-    builder.setupOS2(
-        sTypoAscender=vertical_metrics.ascent,
-        sTypoDescender=vertical_metrics.descent,
-        usWinAscent=vertical_metrics.ascent,
-        usWinDescent=-vertical_metrics.descent,
-        sxHeight=vertical_metrics.x_height,
-        sCapHeight=vertical_metrics.cap_height,
-    )
-    builder.setupPost()
+
+    builder.character_mapping.update(context.get_character_mapping(width_mode))
+    for glyph_name, glyph_file_path in context.get_glyph_file_paths(width_mode).items():
+        glyph_data, glyph_width, glyph_height = _load_glyph_data_from_png(glyph_file_path)
+        offset_y = font_attrs.box_origin_y + int((glyph_height - font_config.size) / 2) - glyph_height
+        builder.add_glyph(Glyph(
+            name=glyph_name,
+            advance_width=glyph_width,
+            offset=(0, offset_y),
+            data=glyph_data,
+        ))
+
+    builder.meta_infos.version = configs.version
+    builder.meta_infos.family_name = f'{FontConfig.FAMILY_NAME} {font_config.size}px {width_mode.capitalize()}'
+    builder.meta_infos.style_name = StyleName.REGULAR
+    builder.meta_infos.serif_mode = SerifMode.SANS_SERIF
+    builder.meta_infos.width_mode = width_mode.capitalize()
+    builder.meta_infos.manufacturer = FontConfig.MANUFACTURER
+    builder.meta_infos.designer = FontConfig.DESIGNER
+    builder.meta_infos.description = FontConfig.DESCRIPTION
+    builder.meta_infos.copyright_info = FontConfig.COPYRIGHT_INFO
+    builder.meta_infos.license_info = FontConfig.LICENSE_INFO
+    builder.meta_infos.vendor_url = FontConfig.VENDOR_URL
+    builder.meta_infos.designer_url = FontConfig.DESIGNER_URL
+    builder.meta_infos.license_url = FontConfig.LICENSE_URL
+
     return builder
 
 
-def make_fonts(font_config, width_mode, alphabet, glyph_file_paths, font_formats=None):
-    if font_formats is None:
-        font_formats = configs.font_formats
-
+def make_font_files(font_config, context, width_mode):
     fs_util.make_dirs(path_define.outputs_dir)
 
-    name_strings = font_config.get_name_strings(width_mode)
-    units_per_em = font_config.get_units_per_em()
-    vertical_metrics = font_config.get_vertical_metrics(width_mode)
-    glyph_order = ['.notdef']
-    character_map = {}
-    for c in alphabet:
-        code_point = ord(c)
-        glyph_name = _get_glyph_name(code_point)
-        glyph_order.append(glyph_name)
-        character_map[code_point] = glyph_name
-    glyph_info_builder = GlyphInfoBuilder(units_per_em, font_config.get_box_origin_y(width_mode), font_config.px_to_units)
-
-    if 'otf' in font_formats or 'woff2' in font_formats:
-        glyph_info_map = glyph_info_builder.build_glyph_info_map(glyph_file_paths, False)
-        font_builder = _create_font_builder(name_strings, units_per_em, vertical_metrics, glyph_order, character_map, glyph_info_map, False)
-        if 'otf' in font_formats:
-            font_file_path = os.path.join(path_define.outputs_dir, font_config.get_font_file_name(width_mode, 'otf'))
-            font_builder.save(font_file_path)
-            logger.info(f'make {font_file_path}')
-        if 'woff2' in font_formats:
-            font_builder.font.flavor = 'woff2'
-            font_file_path = os.path.join(path_define.outputs_dir, font_config.get_font_file_name(width_mode, 'woff2'))
-            font_builder.save(font_file_path)
-            logger.info(f'make {font_file_path}')
-    if 'ttf' in font_formats:
-        glyph_info_map = glyph_info_builder.build_glyph_info_map(glyph_file_paths, True)
-        font_builder = _create_font_builder(name_strings, units_per_em, vertical_metrics, glyph_order, character_map, glyph_info_map, True)
-        font_file_path = os.path.join(path_define.outputs_dir, font_config.get_font_file_name(width_mode, 'ttf'))
-        font_builder.save(font_file_path)
-        logger.info(f'make {font_file_path}')
+    builder = _create_builder(font_config, context, width_mode)
+    otf_builder = builder.to_otf_builder()
+    otf_file_path = os.path.join(path_define.outputs_dir, font_config.get_font_file_name(width_mode, 'otf'))
+    otf_builder.save(otf_file_path)
+    logger.info(f"Made font file: '{otf_file_path}'")
+    otf_builder.font.flavor = 'woff2'
+    woff2_file_path = os.path.join(path_define.outputs_dir, font_config.get_font_file_name(width_mode, 'woff2'))
+    otf_builder.save(woff2_file_path)
+    logger.info(f"Made font file: '{woff2_file_path}'")
+    ttf_file_path = os.path.join(path_define.outputs_dir, font_config.get_font_file_name(width_mode, 'ttf'))
+    builder.save_ttf(ttf_file_path)
+    logger.info(f"Made font file: '{ttf_file_path}'")
+    bdf_file_path = os.path.join(path_define.outputs_dir, font_config.get_font_file_name(width_mode, 'bdf'))
+    builder.save_bdf(bdf_file_path)
+    logger.info(f"Made font file: '{bdf_file_path}'")
