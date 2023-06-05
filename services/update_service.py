@@ -88,7 +88,7 @@ def setup_glyphs():
     source_file_path = os.path.join(download_dir, 'source.zip')
     if not os.path.exists(source_file_path):
         logger.info(f'start download {version_info["asset_url"]}')
-        fs_util.make_dirs_if_not_exists(download_dir)
+        fs_util.make_dirs(download_dir)
         _do_download_file(version_info['asset_url'], source_file_path)
     else:
         logger.info(f'already downloaded: {source_file_path}')

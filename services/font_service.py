@@ -55,7 +55,7 @@ def classify_patch_glyph_files(font_config):
                     glyph_file_name = f'{uni_hex_name}.png'
                 glyph_file_to_path = os.path.join(glyph_file_to_dir, glyph_file_name)
                 assert not os.path.exists(glyph_file_to_path), glyph_file_from_path
-                fs_util.make_dirs_if_not_exists(glyph_file_to_dir)
+                fs_util.make_dirs(glyph_file_to_dir)
                 shutil.copyfile(glyph_file_from_path, glyph_file_to_path)
                 logger.info(f'classify glyph file {glyph_file_to_path}')
         width_mode_old_dir = os.path.join(px_tmp_dir, f'{width_mode_dir_name}.old')
@@ -310,7 +310,7 @@ def make_fonts(font_config, width_mode, alphabet, glyph_file_paths, font_formats
     if font_formats is None:
         font_formats = configs.font_formats
 
-    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
+    fs_util.make_dirs(path_define.outputs_dir)
 
     name_strings = font_config.get_name_strings(width_mode)
     units_per_em = font_config.get_units_per_em()

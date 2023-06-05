@@ -47,7 +47,7 @@ def make_preview_image_file(font_config):
     _draw_text(image, (font_config.px, font_config.px + line_height * 7), '★☆☺☹♠♡♢♣♤♥♦♧☀☼♩♪♫♬☂☁⚓✈⚔☯', font)
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
-    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
+    fs_util.make_dirs(path_define.outputs_dir)
     image_file_path = os.path.join(path_define.outputs_dir, font_config.preview_image_file_name)
     image.save(image_file_path)
     logger.info(f'make {image_file_path}')
