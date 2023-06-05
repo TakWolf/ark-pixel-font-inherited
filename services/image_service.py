@@ -2,29 +2,30 @@ import logging
 import os
 
 from PIL import Image, ImageFont, ImageDraw
+from PIL.ImageFont import FreeTypeFont
 
-from configs import path_define
+from configs import path_define, FontConfig
 from utils import fs_util
 
 logger = logging.getLogger('image-service')
 
 
-def _load_font(font_config, width_mode, scale=1):
+def _load_font(font_config: FontConfig, width_mode: str, scale: int = 1) -> FreeTypeFont:
     file_path = os.path.join(path_define.outputs_dir, font_config.get_font_file_name(width_mode, 'woff2'))
     return ImageFont.truetype(file_path, font_config.size * scale)
 
 
 def _draw_text(
-        image,
-        xy,
-        text,
-        font,
-        text_color=(0, 0, 0, 255),
-        shadow_color=None,
-        line_height=None,
-        line_gap=0,
-        is_horizontal_centered=False,
-        is_vertical_centered=False,
+        image: Image,
+        xy: tuple[float, float],
+        text: str,
+        font: FreeTypeFont,
+        text_color: tuple[int, int, int, int] = (0, 0, 0, 255),
+        shadow_color: tuple[int, int, int, int] = None,
+        line_height: int = None,
+        line_gap: int = 0,
+        is_horizontal_centered: bool = False,
+        is_vertical_centered: bool = False,
 ):
     draw = ImageDraw.Draw(image)
     x, y = xy
@@ -42,7 +43,7 @@ def _draw_text(
     draw.text((x, y), text, fill=text_color, font=font, spacing=spacing)
 
 
-def make_preview_image_file(font_config):
+def make_preview_image_file(font_config: FontConfig):
     font = _load_font(font_config, 'proportional')
 
     image = Image.new('RGBA', (font_config.size * 35, font_config.size * 2 + font_config.line_height * 8), (255, 255, 255, 255))

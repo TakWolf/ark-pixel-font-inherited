@@ -24,18 +24,18 @@ def _load_mapping_infos() -> dict:
 _mapping_infos = _load_mapping_infos()
 
 
-def _parse_glyph_file_name(glyph_file_name):
+def _parse_glyph_file_name(glyph_file_name: str) -> tuple[str, list[str]]:
     tokens = glyph_file_name.removesuffix('.png').split(' ')
     assert 1 <= len(tokens) <= 2, f"Glyph file name '{glyph_file_name}': illegal format"
     hex_name = tokens[0].upper()
     if len(tokens) == 2:
         language_flavors = tokens[1].lower().split(',')
     else:
-        language_flavors = []
+        language_flavors = list[str]()
     return hex_name, language_flavors
 
 
-def _load_glyph_data_from_png(file_path):
+def _load_glyph_data_from_png(file_path: str) -> tuple[list[list[int]], int, int]:
     width, height, bitmap, _ = png.Reader(filename=file_path).read()
     data = []
     for bitmap_row in bitmap:
@@ -50,7 +50,7 @@ def _load_glyph_data_from_png(file_path):
     return data, width, height
 
 
-def _save_glyph_data_to_png(data, file_path):
+def _save_glyph_data_to_png(data: list[list[int]], file_path: str):
     bitmap = []
     for data_row in data:
         bitmap_row = []
@@ -66,7 +66,7 @@ def _save_glyph_data_to_png(data, file_path):
     png.from_array(bitmap, 'RGBA').save(file_path)
 
 
-def format_patch_glyph_files(font_config):
+def format_patch_glyph_files(font_config: FontConfig):
     tmp_dir = os.path.join(path_define.patch_glyphs_tmp_dir, str(font_config.size))
     fs_util.delete_dir(tmp_dir)
     for width_mode_dir_name in configs.width_mode_dir_names:
@@ -143,27 +143,32 @@ def format_patch_glyph_files(font_config):
 
 
 class DesignContext:
-    def __init__(self, alphabet_group, character_mapping_group, glyph_file_paths_group):
+    def __init__(
+            self,
+            alphabet_group: dict[str, list[str]],
+            character_mapping_group: dict[str, dict[int, str]],
+            glyph_file_paths_group: dict[str, dict[str, str]],
+    ):
         self._alphabet_group = alphabet_group
         self._character_mapping_group = character_mapping_group
         self._glyph_file_paths_group = glyph_file_paths_group
 
-    def get_alphabet(self, width_mode):
+    def get_alphabet(self, width_mode: str) -> list[str]:
         return self._alphabet_group[width_mode]
 
-    def get_character_mapping(self, width_mode):
+    def get_character_mapping(self, width_mode: str) -> dict[int, str]:
         return self._character_mapping_group[width_mode]
 
-    def get_glyph_file_paths(self, width_mode):
+    def get_glyph_file_paths(self, width_mode: str) -> dict[str, str]:
         return self._glyph_file_paths_group[width_mode]
 
 
-def collect_glyph_files(font_config):
+def collect_glyph_files(font_config: FontConfig) -> DesignContext:
     character_mapping_group = {}
     glyph_file_paths_group = {}
     for width_mode in configs.width_modes:
-        character_mapping_group[width_mode] = {}
-        glyph_file_paths_group[width_mode] = {}
+        character_mapping_group[width_mode] = dict[int, str]()
+        glyph_file_paths_group[width_mode] = dict[str, str]()
 
     glyphs_dirs = [
         font_config.ark_pixel_glyphs_dir,
@@ -173,8 +178,8 @@ def collect_glyph_files(font_config):
         glyph_file_paths_cellar = {}
         for width_mode_dir_name in configs.width_mode_dir_names:
             glyph_file_paths_cellar[width_mode_dir_name] = {
-                'default': {},
-                'zh_tr': {},
+                'default': dict[str, str](),
+                'zh_tr': dict[str, str](),
             }
         for width_mode_dir_name in configs.width_mode_dir_names:
             width_mode_dir = os.path.join(glyphs_dir, width_mode_dir_name)
@@ -225,7 +230,7 @@ def collect_glyph_files(font_config):
     return DesignContext(alphabet_group, character_mapping_group, glyph_file_paths_group)
 
 
-def _create_builder(font_config, context, width_mode):
+def _create_builder(font_config: FontConfig, context: DesignContext, width_mode: str) -> FontBuilder:
     font_attrs = font_config.get_attrs(width_mode)
     builder = FontBuilder(
         font_config.size,
@@ -263,7 +268,7 @@ def _create_builder(font_config, context, width_mode):
     return builder
 
 
-def make_font_files(font_config, context, width_mode):
+def make_font_files(font_config: FontConfig, context: DesignContext, width_mode: str):
     fs_util.make_dirs(path_define.outputs_dir)
 
     builder = _create_builder(font_config, context, width_mode)

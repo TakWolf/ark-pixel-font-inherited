@@ -7,19 +7,20 @@ import zipfile
 import requests
 
 from configs import path_define, ark_pixel_config
+from configs.ark_pixel_config import SourceType
 from utils import fs_util
 
 logger = logging.getLogger('update-service')
 
 
-def _get_github_releases_latest_tag_name(repository_name):
+def _get_github_releases_latest_tag_name(repository_name: str) -> str:
     url = f'https://api.github.com/repos/{repository_name}/releases/latest'
     response = requests.get(url)
     assert response.ok, url
     return response.json()['tag_name']
 
 
-def _get_github_tag_sha(repository_name, tag_name):
+def _get_github_tag_sha(repository_name: str, tag_name: str) -> str:
     url = f'https://api.github.com/repos/{repository_name}/tags'
     response = requests.get(url)
     assert response.ok, url
@@ -30,14 +31,14 @@ def _get_github_tag_sha(repository_name, tag_name):
     raise Exception(f"Tag info not found: '{tag_name}'")
 
 
-def _get_github_branch_latest_commit_sha(repository_name, branch_name):
+def _get_github_branch_latest_commit_sha(repository_name: str, branch_name: str) -> str:
     url = f'https://api.github.com/repos/{repository_name}/branches/{branch_name}'
     response = requests.get(url)
     assert response.ok, url
     return response.json()['commit']['sha']
 
 
-def _download_file(url, file_path):
+def _download_file(url: str, file_path: str):
     response = requests.get(url, stream=True)
     assert response.ok, url
     tmp_file_path = f'{file_path}.download'
@@ -49,17 +50,17 @@ def _download_file(url, file_path):
 
 
 def update_glyphs_version():
-    if ark_pixel_config.source_type == 'tag':
+    if ark_pixel_config.source_type == SourceType.TAG:
         tag_name = ark_pixel_config.source_name
         if tag_name is None:
             tag_name = _get_github_releases_latest_tag_name(ark_pixel_config.repository_name)
         sha = _get_github_tag_sha(ark_pixel_config.repository_name, tag_name)
         version = tag_name
-    elif ark_pixel_config.source_type == 'branch':
+    elif ark_pixel_config.source_type == SourceType.BRANCH:
         branch_name = ark_pixel_config.source_name
         sha = _get_github_branch_latest_commit_sha(ark_pixel_config.repository_name, branch_name)
         version = branch_name
-    elif ark_pixel_config.source_type == 'commit':
+    elif ark_pixel_config.source_type == SourceType.COMMIT:
         sha = ark_pixel_config.source_name
         version = sha
     else:
