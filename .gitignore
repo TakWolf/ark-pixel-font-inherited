@@ -142,4 +142,7 @@ cython_debug/
 
 # Project
 cache/
-assets/glyphs/ark-pixel/
+assets/glyphs/ark-pixel/*/*
+!assets/glyphs/ark-pixel/10/config.toml
+!assets/glyphs/ark-pixel/12/config.toml
+!assets/glyphs/ark-pixel/16/config.toml
