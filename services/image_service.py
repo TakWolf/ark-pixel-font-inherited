@@ -16,7 +16,7 @@ def _load_font(font_config: FontConfig, width_mode: str, scale: int = 1) -> Free
 
 
 def _draw_text(
-        image: Image,
+        image: Image.Image,
         xy: tuple[float, float],
         text: str,
         font: FreeTypeFont,
