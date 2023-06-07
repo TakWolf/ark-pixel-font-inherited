@@ -28,10 +28,7 @@ class FontConfig:
     LICENSE_URL: Final[str] = 'https://scripts.sil.org/OFL'
 
     def __init__(self, size: int):
-        self.ark_pixel_glyphs_dir = os.path.join(path_define.ark_pixel_glyphs_dir, str(size))
-        self.patch_glyphs_dir = os.path.join(path_define.patch_glyphs_dir, str(size))
-
-        config_file_path = os.path.join(self.ark_pixel_glyphs_dir, 'config.toml')
+        config_file_path = os.path.join(path_define.ark_pixel_glyphs_dir, str(size), 'config.toml')
         with open(config_file_path, 'rb') as file:
             config_data: dict = tomllib.load(file)['font']
 

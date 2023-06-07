@@ -67,10 +67,11 @@ def _save_glyph_data_to_png(data: list[list[int]], file_path: str):
 
 
 def format_patch_glyph_files(font_config: FontConfig):
+    root_dir = os.path.join(path_define.patch_glyphs_dir, str(font_config.size))
     tmp_dir = os.path.join(path_define.patch_glyphs_tmp_dir, str(font_config.size))
     fs_util.delete_dir(tmp_dir)
     for width_mode_dir_name in configs.width_mode_dir_names:
-        width_mode_dir = os.path.join(font_config.patch_glyphs_dir, width_mode_dir_name)
+        width_mode_dir = os.path.join(root_dir, width_mode_dir_name)
         if not os.path.isdir(width_mode_dir):
             continue
         width_mode_tmp_dir = os.path.join(tmp_dir, width_mode_dir_name)
@@ -84,11 +85,10 @@ def format_patch_glyph_files(font_config: FontConfig):
                 glyph_file_to_dir = width_mode_tmp_dir
             else:
                 hex_name, language_flavors = _parse_glyph_file_name(glyph_file_name)
-                assert len(language_flavors) == 0, f"Patch glyph file name '{glyph_file_name}': language flavors should not exist"
                 code_point = int(hex_name, 16)
                 c = chr(code_point)
                 east_asian_width = unicodedata.east_asian_width(c)
-                glyph_file_name = f'{hex_name}.png'
+                glyph_file_name = f'{hex_name}{" " if len(language_flavors) > 0 else ""}{",".join(language_flavors)}.png'
                 block = unidata_blocks.get_block_by_code_point(code_point)
                 block_dir_name = f'{block.code_start:04X}-{block.code_end:04X} {block.name}'
                 glyph_file_to_dir = os.path.join(width_mode_tmp_dir, block_dir_name)
@@ -170,8 +170,8 @@ def collect_glyph_files(font_config: FontConfig) -> DesignContext:
         glyph_file_paths_group[width_mode] = dict[str, str]()
 
     glyphs_dirs = [
-        font_config.ark_pixel_glyphs_dir,
-        font_config.patch_glyphs_dir,
+        os.path.join(path_define.ark_pixel_glyphs_dir, str(font_config.size)),
+        os.path.join(path_define.patch_glyphs_dir, str(font_config.size)),
     ]
     for glyphs_dir in glyphs_dirs:
         glyph_file_paths_cellar = {}
