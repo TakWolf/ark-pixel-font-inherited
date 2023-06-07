@@ -65,19 +65,17 @@ def update_glyphs_version():
         version = sha
     else:
         raise Exception(f"Unknown source type: '{ark_pixel_config.source_type}'")
-    version_url = f'https://github.com/{ark_pixel_config.repository_name}/tree/{version}'
-    asset_url = f'https://github.com/{ark_pixel_config.repository_name}/archive/{sha}.zip'
     version_info = {
         'sha': sha,
         'version': version,
-        'version_url': version_url,
-        'asset_url': asset_url,
+        'version_url': f'https://github.com/{ark_pixel_config.repository_name}/tree/{version}',
+        'asset_url': f'https://github.com/{ark_pixel_config.repository_name}/archive/{sha}.zip',
     }
-    version_info_file_path = os.path.join(path_define.glyphs_dir, 'version.json')
-    with open(version_info_file_path, 'w', encoding='utf-8') as file:
+    file_path = os.path.join(path_define.glyphs_dir, 'version.json')
+    with open(file_path, 'w', encoding='utf-8') as file:
         file.write(json.dumps(version_info, indent=2, ensure_ascii=False))
         file.write('\n')
-    logger.info(f"Make version info file: '{version_info_file_path}'")
+    logger.info(f"Make version info file: '{file_path}'")
 
 
 def setup_glyphs():
