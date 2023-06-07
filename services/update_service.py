@@ -77,7 +77,7 @@ def update_glyphs_version():
     with open(version_info_file_path, 'w', encoding='utf-8') as file:
         file.write(json.dumps(version_info, indent=2, ensure_ascii=False))
         file.write('\n')
-    logger.info(f"Made version info file: '{version_info_file_path}'")
+    logger.info(f"Make version info file: '{version_info_file_path}'")
 
 
 def setup_glyphs():
@@ -99,11 +99,11 @@ def setup_glyphs():
     fs_util.delete_dir(source_unzip_dir)
     with zipfile.ZipFile(source_file_path) as file:
         file.extractall(source_unzip_dir)
-    logger.info(f"Unzipped: '{source_unzip_dir}'")
+    logger.info(f"Unzip: '{source_unzip_dir}'")
 
     fs_util.delete_dir(path_define.ark_pixel_glyphs_dir)
     sha = version_info['sha']
     source_glyphs_dir = os.path.join(source_unzip_dir, f'ark-pixel-font-{sha}', 'assets', 'glyphs')
     shutil.copytree(source_glyphs_dir, path_define.ark_pixel_glyphs_dir)
     fs_util.delete_dir(source_unzip_dir)
-    logger.info(f"Updated font glyphs: '{sha}'")
+    logger.info(f"Update font glyphs: '{sha}'")
