@@ -151,6 +151,7 @@ class DesignContext:
         self._alphabet_group = alphabet_group
         self._character_mapping_group = character_mapping_group
         self._glyph_file_paths_group = glyph_file_paths_group
+        self._glyph_data_pool = dict[str, tuple[list[list[int]], int, int]]()
 
     def get_alphabet(self, width_mode: str) -> list[str]:
         return self._alphabet_group[width_mode]
@@ -160,6 +161,14 @@ class DesignContext:
 
     def get_glyph_file_paths(self, width_mode: str) -> dict[str, str]:
         return self._glyph_file_paths_group[width_mode]
+
+    def load_glyph_data(self, glyph_file_path: str) -> tuple[list[list[int]], int, int]:
+        if glyph_file_path in self._glyph_data_pool:
+            glyph_data, glyph_width, glyph_height = self._glyph_data_pool[glyph_file_path]
+        else:
+            glyph_data, glyph_width, glyph_height = _load_glyph_data_from_png(glyph_file_path)
+            self._glyph_data_pool[glyph_file_path] = glyph_data, glyph_width, glyph_height
+        return glyph_data, glyph_width, glyph_height
 
 
 def collect_glyph_files(font_config: FontConfig) -> DesignContext:
@@ -240,7 +249,7 @@ def _create_builder(font_config: FontConfig, context: DesignContext, width_mode:
 
     builder.character_mapping.update(context.get_character_mapping(width_mode))
     for glyph_name, glyph_file_path in context.get_glyph_file_paths(width_mode).items():
-        glyph_data, glyph_width, glyph_height = _load_glyph_data_from_png(glyph_file_path)
+        glyph_data, glyph_width, glyph_height = context.load_glyph_data(glyph_file_path)
         offset_y = font_attrs.box_origin_y + int((glyph_height - font_config.size) / 2) - glyph_height
         builder.add_glyph(Glyph(
             name=glyph_name,
