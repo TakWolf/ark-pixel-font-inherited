@@ -189,7 +189,6 @@ def collect_glyph_files(font_config: FontConfig) -> DesignContext:
                 'default': dict[str, str](),
                 'zh_tr': dict[str, str](),
             }
-        for width_mode_dir_name in configs.width_mode_dir_names:
             width_mode_dir = os.path.join(glyphs_dir, width_mode_dir_name)
             if not os.path.isdir(width_mode_dir):
                 continue
