@@ -1,8 +1,8 @@
 import os
+import time
 import tomllib
 from typing import Final
 
-import configs
 from configs import path_define
 
 
@@ -16,8 +16,10 @@ class FontAttrs:
 
 
 class FontConfig:
+    VERSION: Final[str] = f'{time.strftime("%Y.%m.%d")}'
     FAMILY_NAME: Final[str] = 'Ark Pixel Inherited'
-    OUTPUTS_NAME: Final[str] = 'Ark Pixel Font Inherited'
+    OUTPUTS_NAME: Final[str] = 'ark-pixel-inherited'
+    ZIP_OUTPUTS_NAME: Final[str] = 'ark-pixel-font-inherited'
     MANUFACTURER: Final[str] = 'TakWolf'
     DESIGNER: Final[str] = 'TakWolf'
     DESCRIPTION: Final[str] = 'Open source Pan-CJK pixel font.'
@@ -49,7 +51,7 @@ class FontConfig:
         return self._attrs_group[width_mode]
 
     def get_font_file_name(self, width_mode: str, font_format: str) -> str:
-        return f'{FontConfig.FAMILY_NAME.lower().replace(" ", "-")}-{self.size}px-{width_mode}.{font_format}'
+        return f'{FontConfig.OUTPUTS_NAME}-{self.size}px-{width_mode}.{font_format}'
 
     def get_info_file_name(self, width_mode: str) -> str:
         return f'font-info-{self.size}px-{width_mode}.md'
@@ -58,7 +60,7 @@ class FontConfig:
         return f'alphabet-{self.size}px-{width_mode}.txt'
 
     def get_release_zip_file_name(self, width_mode: str, font_format: str) -> str:
-        return f'{FontConfig.OUTPUTS_NAME.lower().replace(" ", "-")}-{self.size}px-{width_mode}-{font_format}-v{configs.version}.zip'
+        return f'{FontConfig.ZIP_OUTPUTS_NAME}-{self.size}px-{width_mode}-{font_format}-v{FontConfig.VERSION}.zip'
 
     def get_alphabet_html_file_name(self, width_mode: str) -> str:
         return f'alphabet-{self.size}px-{width_mode}.html'
