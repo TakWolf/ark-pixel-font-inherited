@@ -3,10 +3,15 @@
 [![SIL Open Font License 1.1](https://img.shields.io/badge/license-OFL--1.1-orange)](https://scripts.sil.org/OFL)
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 [![Releases](https://img.shields.io/github/v/release/TakWolf/ark-pixel-font-inherited)](https://github.com/TakWolf/ark-pixel-font-inherited/releases)
+[![Discord](https://img.shields.io/discord/949265373964947458?logo=discord&logoColor=white&label=discord)](https://discord.gg/3GKtPKtjdU)
+[![QQ Group](https://img.shields.io/badge/QQ群-302383204-brightgreen?logo=tencentqq)](https://jq.qq.com/?_wv=1027&k=EXtKGHar)
 
 [方舟像素字体](https://github.com/TakWolf/ark-pixel-font) 的传承字形版本。
 
 与原项目的「传统印刷 zh_tr」不同，这个项目将完全遵循 [《傳承字形標準化文件》](https://github.com/ichitenfont/inheritedglyphs) 中的指导做法。
+
+- [Discord](https://discord.gg/3GKtPKtjdU)
+- [QQ 群](https://jq.qq.com/?_wv=1027&k=EXtKGHar)
 
 ## 预览
 
