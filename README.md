@@ -78,6 +78,7 @@
 - [Pixel Font Builder](https://github.com/TakWolf/pixel-font-builder)
 - [Unidata Blocks](https://github.com/TakWolf/unidata-blocks)
 - [Character Encoding Utils](https://github.com/TakWolf/character-encoding-utils)
+- [PyYAML](https://github.com/yaml/pyyaml)
 - [PyPNG](https://gitlab.com/drj11/pypng)
 - [Pillow](https://github.com/python-pillow/Pillow)
 - [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/)
