@@ -1,10 +1,10 @@
 import logging
 import os
-import tomllib
 import unicodedata
 
 import png
 import unidata_blocks
+import yaml
 from pixel_font_builder import FontBuilder, Glyph, StyleName, SerifMode
 
 import configs
@@ -14,13 +14,13 @@ from utils import fs_util
 logger = logging.getLogger('font-service')
 
 
-def _load_mapping_infos() -> dict:
-    file_path = os.path.join(path_define.glyphs_dir, 'mapping.toml')
+def _load_inherited_mapping() -> dict[int, list[int]]:
+    file_path = os.path.join(path_define.glyphs_dir, 'inherited-mapping.yaml')
     with open(file_path, 'rb') as file:
-        return tomllib.load(file)
+        return yaml.safe_load(file)
 
 
-_mapping_infos = _load_mapping_infos()
+_inherited_mapping = _load_inherited_mapping()
 
 
 def _parse_glyph_file_name(glyph_file_name: str) -> tuple[str, list[str]]:
@@ -216,12 +216,11 @@ def collect_glyph_files(font_config: FontConfig) -> DesignContext:
     alphabet_group = {}
     for width_mode in configs.width_modes:
         character_mapping = character_mapping_group[width_mode]
-        for info in _mapping_infos.values():
-            target = info['target']
+        for target, code_points in _inherited_mapping.items():
             if target not in character_mapping:
                 continue
             glyph_name = character_mapping[target]
-            for code_point in info['codes']:
+            for code_point in code_points:
                 character_mapping[code_point] = glyph_name
         alphabet = [chr(code_point) for code_point in character_mapping]
         alphabet.sort()
