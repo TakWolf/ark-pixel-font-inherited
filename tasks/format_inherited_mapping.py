@@ -24,7 +24,7 @@ def main():
             file.write('\n')
             file.write(f'0x{target:04X}:  # {chr(target)}\n')
             for code_point in code_points:
-                file.write(f'- 0x{code_point:04X}  # {chr(code_point)}\n')
+                file.write(f'  - 0x{code_point:04X}  # {chr(code_point)}\n')
 
     os.remove(old_file_path)
     os.rename(new_file_path, old_file_path)
