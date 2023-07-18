@@ -6,7 +6,8 @@ import zipfile
 
 import requests
 
-from configs import path_define, ark_pixel_config
+import configs
+from configs import path_define, ark_pixel_config, FontConfig
 from configs.ark_pixel_config import SourceType
 from utils import fs_util
 
@@ -49,6 +50,17 @@ def _download_file(url: str, file_path: str):
     os.rename(tmp_file_path, file_path)
 
 
+def _save_json_file(data: dict, file_path: str):
+    with open(file_path, 'w', encoding='utf-8') as file:
+        file.write(json.dumps(data, indent=2, ensure_ascii=False))
+        file.write('\n')
+
+
+def _load_json_file(file_path: str) -> dict:
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return json.loads(file.read())
+
+
 def update_glyphs_version():
     if ark_pixel_config.source_type == SourceType.TAG:
         tag_name = ark_pixel_config.source_name
@@ -72,16 +84,23 @@ def update_glyphs_version():
         'asset_url': f'https://github.com/{ark_pixel_config.repository_name}/archive/{sha}.zip',
     }
     file_path = os.path.join(path_define.glyphs_dir, 'version.json')
-    with open(file_path, 'w', encoding='utf-8') as file:
-        file.write(json.dumps(version_info, indent=2, ensure_ascii=False))
-        file.write('\n')
-    logger.info(f"Make version info file: '{file_path}'")
+    _save_json_file(version_info, file_path)
+    logger.info(f"Update version file: '{file_path}'")
 
 
 def setup_glyphs():
-    version_info_file_path = os.path.join(path_define.glyphs_dir, 'version.json')
-    with open(version_info_file_path, 'r', encoding='utf-8') as file:
-        version_info = json.loads(file.read())
+    current_version_file_path = os.path.join(path_define.ark_pixel_glyphs_dir, 'version.json')
+    if os.path.isfile(current_version_file_path):
+        current_sha = _load_json_file(current_version_file_path)['sha']
+    else:
+        current_sha = None
+
+    version_file_path = os.path.join(path_define.glyphs_dir, 'version.json')
+    version_info = _load_json_file(version_file_path)
+    sha = version_info['sha']
+    if current_sha == sha:
+        return
+    logger.info('Need setup glyphs')
 
     download_dir = os.path.join(path_define.cache_dir, 'ark-pixel-font', version_info['sha'])
     source_file_path = os.path.join(download_dir, 'source.zip')
@@ -100,8 +119,18 @@ def setup_glyphs():
     logger.info(f"Unzip: '{source_unzip_dir}'")
 
     fs_util.delete_dir(path_define.ark_pixel_glyphs_dir)
-    sha = version_info['sha']
-    source_glyphs_dir = os.path.join(source_unzip_dir, f'ark-pixel-font-{sha}', 'assets', 'glyphs')
-    shutil.copytree(source_glyphs_dir, path_define.ark_pixel_glyphs_dir)
+    fs_util.make_dirs(path_define.ark_pixel_glyphs_dir)
+    for font_config in configs.font_configs:
+        source_glyphs_from_dir = os.path.join(source_unzip_dir, f'ark-pixel-font-{sha}', 'assets', 'glyphs', str(font_config.size))
+        source_glyphs_to_dir = os.path.join(path_define.ark_pixel_glyphs_dir, str(font_config.size))
+        shutil.copytree(source_glyphs_from_dir, source_glyphs_to_dir)
+
+        config_file_from_path = os.path.join(path_define.ark_pixel_glyphs_dir, str(font_config.size), 'config.toml')
+        config_file_to_path = os.path.join(path_define.patch_glyphs_dir, str(font_config.size), 'config.toml')
+        os.remove(config_file_to_path)
+        os.rename(config_file_from_path, config_file_to_path)
     fs_util.delete_dir(source_unzip_dir)
-    logger.info(f"Update font glyphs: '{sha}'")
+    configs.font_configs = [FontConfig(font_config.size) for font_config in configs.font_configs]
+    configs.font_size_to_config = {font_config.size: font_config for font_config in configs.font_configs}
+    _save_json_file(version_info, current_version_file_path)
+    logger.info(f"Update glyphs: '{sha}'")

@@ -2,7 +2,7 @@ import logging
 
 import configs
 from configs import path_define
-from services import font_service, publish_service, info_service, template_service, image_service
+from services import update_service, font_service, publish_service, info_service, template_service, image_service
 from utils import fs_util
 
 logging.basicConfig(level=logging.DEBUG)
@@ -10,6 +10,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 def main():
     fs_util.delete_dir(path_define.build_dir)
+
+    update_service.setup_glyphs()
 
     for font_config in configs.font_configs:
         font_service.format_patch_glyph_files(font_config)

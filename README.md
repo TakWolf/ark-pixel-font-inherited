@@ -55,9 +55,7 @@
 
 这是一个标准的 [Python3](https://www.python.org) 项目。
 
-当您配置好运行环境后，首先执行 `python -m tasks.setup_glyphs` 命令，这会下载并配置字形文件。
-
-然后执行 `python ./build.py` 命令来开始构建。
+当您配置好运行环境后，执行 `python ./build.py` 命令来开始构建。
 
 等待任务完成后，可在 `build/outputs` 目录下找到生成的字体文件。
 
