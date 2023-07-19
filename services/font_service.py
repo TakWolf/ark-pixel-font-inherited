@@ -133,6 +133,7 @@ class DesignContext:
         else:
             glyph_data, glyph_width, glyph_height = glyph_util.load_glyph_data_from_png(glyph_file_path)
             self._glyph_data_pool[glyph_file_path] = glyph_data, glyph_width, glyph_height
+            logger.info(f"Load glyph file: '{glyph_file_path}'")
         return glyph_data, glyph_width, glyph_height
 
 
