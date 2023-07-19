@@ -108,20 +108,21 @@ def format_patch_glyph_files(font_config: FontConfig):
 class DesignContext:
     def __init__(
             self,
-            alphabet_group: dict[str, list[str]],
             character_mapping_group: dict[str, dict[int, str]],
             glyph_file_paths_group: dict[str, dict[str, str]],
     ):
-        self._alphabet_group = alphabet_group
         self._character_mapping_group = character_mapping_group
         self._glyph_file_paths_group = glyph_file_paths_group
         self._glyph_data_pool = dict[str, tuple[list[list[int]], int, int]]()
 
-    def get_alphabet(self, width_mode: str) -> list[str]:
-        return self._alphabet_group[width_mode]
-
     def get_character_mapping(self, width_mode: str) -> dict[int, str]:
         return self._character_mapping_group[width_mode]
+
+    def get_alphabet(self, width_mode: str) -> list[str]:
+        character_mapping = self.get_character_mapping(width_mode)
+        alphabet = [chr(code_point) for code_point in character_mapping]
+        alphabet.sort()
+        return alphabet
 
     def get_glyph_file_paths(self, width_mode: str) -> dict[str, str]:
         return self._glyph_file_paths_group[width_mode]
@@ -136,23 +137,24 @@ class DesignContext:
 
 
 def collect_glyph_files(font_config: FontConfig) -> DesignContext:
-    character_mapping_group = {}
-    glyph_file_paths_group = {}
+    character_mapping_group = dict[str, dict[int, str]]()
+    glyph_file_paths_group = dict[str, dict[str, str]]()
     for width_mode in configs.width_modes:
-        character_mapping_group[width_mode] = dict[int, str]()
-        glyph_file_paths_group[width_mode] = dict[str, str]()
+        character_mapping_group[width_mode] = {}
+        glyph_file_paths_group[width_mode] = {}
 
     glyphs_dirs = [
         os.path.join(path_define.ark_pixel_glyphs_dir, str(font_config.size)),
         os.path.join(path_define.patch_glyphs_dir, str(font_config.size)),
     ]
     for glyphs_dir in glyphs_dirs:
-        glyph_file_paths_cellar = {}
+        glyph_file_paths_cellar = dict[str, dict[str, dict[str, str]]]()
         for width_mode_dir_name in configs.width_mode_dir_names:
             glyph_file_paths_cellar[width_mode_dir_name] = {
-                'default': dict[str, str](),
-                'zh_tr': dict[str, str](),
+                'default': {},
+                'zh_tr': {},
             }
+
             width_mode_dir = os.path.join(glyphs_dir, width_mode_dir_name)
             for glyph_file_dir, glyph_file_name in fs_util.walk_files(width_mode_dir):
                 if not glyph_file_name.endswith('.png'):
@@ -169,32 +171,27 @@ def collect_glyph_files(font_config: FontConfig) -> DesignContext:
                             assert glyph_name not in glyph_file_paths_cellar[width_mode_dir_name]['zh_tr'], f"Glyph name '{glyph_name}' already exists in language flavor 'zh_tr'"
                             glyph_file_paths_cellar[width_mode_dir_name]['zh_tr'][glyph_name] = glyph_file_path
                     else:
-                        if width_mode_dir_name == 'common' or width_mode_dir_name == 'monospaced':
-                            character_mapping_group['monospaced'][code_point] = glyph_name
-                        if width_mode_dir_name == 'common' or width_mode_dir_name == 'proportional':
-                            character_mapping_group['proportional'][code_point] = glyph_name
                         assert glyph_name not in glyph_file_paths_cellar[width_mode_dir_name]['default'], f"Glyph name '{glyph_name}' already exists"
                         glyph_file_paths_cellar[width_mode_dir_name]['default'][glyph_name] = glyph_file_path
+                    if width_mode_dir_name == 'common' or width_mode_dir_name == 'monospaced':
+                        character_mapping_group['monospaced'][code_point] = glyph_name
+                    if width_mode_dir_name == 'common' or width_mode_dir_name == 'proportional':
+                        character_mapping_group['proportional'][code_point] = glyph_name
         for width_mode in configs.width_modes:
             glyph_file_paths_group[width_mode].update(glyph_file_paths_cellar['common']['default'])
             glyph_file_paths_group[width_mode].update(glyph_file_paths_cellar['common']['zh_tr'])
             glyph_file_paths_group[width_mode].update(glyph_file_paths_cellar[width_mode]['default'])
             glyph_file_paths_group[width_mode].update(glyph_file_paths_cellar[width_mode]['zh_tr'])
 
-    alphabet_group = {}
-    for width_mode in configs.width_modes:
-        character_mapping = character_mapping_group[width_mode]
+    for width_mode, character_mapping in character_mapping_group.items():
         for target, code_points in _inherited_mapping.items():
             if target not in character_mapping:
                 continue
             glyph_name = character_mapping[target]
             for code_point in code_points:
                 character_mapping[code_point] = glyph_name
-        alphabet = [chr(code_point) for code_point in character_mapping]
-        alphabet.sort()
-        alphabet_group[width_mode] = alphabet
 
-    return DesignContext(alphabet_group, character_mapping_group, glyph_file_paths_group)
+    return DesignContext(character_mapping_group, glyph_file_paths_group)
 
 
 def _create_builder(font_config: FontConfig, context: DesignContext, width_mode: str) -> FontBuilder:
