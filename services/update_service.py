@@ -85,7 +85,7 @@ def update_glyphs_version():
     }
     file_path = os.path.join(path_define.glyphs_dir, 'version.json')
     _save_json_file(version_info, file_path)
-    logger.info(f"Update version file: '{file_path}'")
+    logger.info("Update version file: '%s'", file_path)
 
 
 def setup_glyphs():
@@ -106,17 +106,17 @@ def setup_glyphs():
     source_file_path = os.path.join(download_dir, 'source.zip')
     if not os.path.exists(source_file_path):
         asset_url = version_info["asset_url"]
-        logger.info(f"Start download: '{asset_url}'")
+        logger.info("Start download: '%s'", asset_url)
         fs_util.make_dirs(download_dir)
         _download_file(asset_url, source_file_path)
     else:
-        logger.info(f"Already downloaded: '{source_file_path}'")
+        logger.info("Already downloaded: '%s'", source_file_path)
 
     source_unzip_dir = source_file_path.removesuffix('.zip')
     fs_util.delete_dir(source_unzip_dir)
     with zipfile.ZipFile(source_file_path) as file:
         file.extractall(source_unzip_dir)
-    logger.info(f"Unzip: '{source_unzip_dir}'")
+    logger.info("Unzip: '%s'", source_unzip_dir)
 
     fs_util.delete_dir(path_define.ark_pixel_glyphs_dir)
     fs_util.make_dirs(path_define.ark_pixel_glyphs_dir)
@@ -133,4 +133,4 @@ def setup_glyphs():
     configs.font_configs = [FontConfig(font_config.size) for font_config in configs.font_configs]
     configs.font_size_to_config = {font_config.size: font_config for font_config in configs.font_configs}
     _save_json_file(version_info, current_version_file_path)
-    logger.info(f"Update glyphs: '{sha}'")
+    logger.info("Update glyphs: '%s'", sha)
