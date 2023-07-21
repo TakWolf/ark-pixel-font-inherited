@@ -1,7 +1,6 @@
 import json
 import logging
 import os
-import shutil
 import zipfile
 
 import requests
@@ -119,16 +118,8 @@ def setup_glyphs():
     logger.info("Unzip: '%s'", source_unzip_dir)
 
     fs_util.delete_dir(path_define.ark_pixel_glyphs_dir)
-    fs_util.make_dirs(path_define.ark_pixel_glyphs_dir)
-    for font_config in configs.font_configs:
-        source_glyphs_from_dir = os.path.join(source_unzip_dir, f'ark-pixel-font-{sha}', 'assets', 'glyphs', str(font_config.size))
-        source_glyphs_to_dir = os.path.join(path_define.ark_pixel_glyphs_dir, str(font_config.size))
-        shutil.copytree(source_glyphs_from_dir, source_glyphs_to_dir)
-
-        config_file_from_path = os.path.join(path_define.ark_pixel_glyphs_dir, str(font_config.size), 'config.toml')
-        config_file_to_path = os.path.join(path_define.patch_glyphs_dir, str(font_config.size), 'config.toml')
-        os.remove(config_file_to_path)
-        os.rename(config_file_from_path, config_file_to_path)
+    source_glyphs_dir = os.path.join(source_unzip_dir, f'ark-pixel-font-{sha}', 'assets', 'glyphs')
+    os.rename(source_glyphs_dir, path_define.ark_pixel_glyphs_dir)
     fs_util.delete_dir(source_unzip_dir)
     configs.font_configs = [FontConfig(font_config.size) for font_config in configs.font_configs]
     configs.font_size_to_config = {font_config.size: font_config for font_config in configs.font_configs}
