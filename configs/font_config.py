@@ -16,7 +16,7 @@ class FontAttrs:
 
 
 class FontConfig:
-    VERSION: Final[str] = f'{time.strftime("%Y.%m.%d")}'
+    VERSION: Final[str] = time.strftime("%Y.%m.%d")
     FAMILY_NAME: Final[str] = 'Ark Pixel Inherited'
     OUTPUTS_NAME: Final[str] = 'ark-pixel-inherited'
     ZIP_OUTPUTS_NAME: Final[str] = 'ark-pixel-font-inherited'
