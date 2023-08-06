@@ -1,4 +1,5 @@
 import logging
+import math
 import os
 
 import yaml
@@ -146,7 +147,7 @@ def _create_builder(font_config: FontConfig, context: DesignContext, width_mode:
     glyph_file_paths = context.get_glyph_file_paths(width_mode)
     for glyph_name, glyph_file_path in glyph_file_paths.items():
         glyph_data, glyph_width, glyph_height = context.load_glyph_data(glyph_file_path)
-        offset_y = font_attrs.box_origin_y + (glyph_height - font_config.size) // 2 - glyph_height
+        offset_y = math.floor((font_attrs.ascent + font_attrs.descent - glyph_height) / 2)
         builder.add_glyph(Glyph(
             name=glyph_name,
             advance_width=glyph_width,
