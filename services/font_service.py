@@ -35,10 +35,10 @@ def _parse_glyph_file_name(glyph_file_name: str) -> tuple[int, list[str]]:
 class DesignContext:
     def __init__(self, glyphs_registry: dict[str, dict[int, dict[str, tuple[str, str]]]]):
         self._glyphs_registry = glyphs_registry
-        self._alphabet_cacher = dict[str, set[str]]()
-        self._character_mapping_cacher = dict[str, dict[int, str]]()
-        self._glyph_file_paths_cacher = dict[str, dict[str, str]]()
-        self._glyph_data_cacher = dict[str, tuple[list[list[int]], int, int]]()
+        self._alphabet_cacher: dict[str, set[str]] = {}
+        self._character_mapping_cacher: dict[str, dict[int, str]] = {}
+        self._glyph_file_paths_cacher: dict[str, dict[str, str]] = {}
+        self._glyph_data_cacher: dict[str, tuple[list[list[int]], int, int]] = {}
 
     def get_alphabet(self, width_mode: str) -> set[str]:
         if width_mode in self._alphabet_cacher:
@@ -88,7 +88,7 @@ class DesignContext:
 def collect_glyph_files(font_config: FontConfig) -> DesignContext:
     root_dir = os.path.join(path_define.ark_pixel_glyphs_dir, str(font_config.size))
 
-    glyphs_cellar = dict[str, dict[int, dict[str, tuple[str, str]]]]()
+    glyphs_cellar = {}
     for width_mode_dir_name in configs.width_mode_dir_names:
         glyphs_cellar[width_mode_dir_name] = {}
         width_mode_dir = os.path.join(root_dir, width_mode_dir_name)
@@ -115,7 +115,7 @@ def collect_glyph_files(font_config: FontConfig) -> DesignContext:
         for code_point, glyph_infos in glyphs_cellar[width_mode_dir_name].items():
             assert 'default' in glyph_infos, f"Glyph miss default flavor: '{code_point:04X}' '{width_mode_dir_name}'"
 
-    glyphs_registry = dict[str, dict[int, dict[str, tuple[str, str]]]]()
+    glyphs_registry = {}
     for width_mode in configs.width_modes:
         glyphs_registry[width_mode] = dict(glyphs_cellar['common'])
         glyphs_registry[width_mode].update(glyphs_cellar[width_mode])
