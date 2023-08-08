@@ -132,28 +132,14 @@ def collect_glyph_files(font_config: FontConfig) -> DesignContext:
 
 
 def _create_builder(font_config: FontConfig, context: DesignContext, width_mode: str) -> FontBuilder:
+    builder = FontBuilder()
+
     font_attrs = font_config.get_attrs(width_mode)
-    builder = FontBuilder(
-        font_config.size,
-        font_attrs.ascent,
-        font_attrs.descent,
-        font_attrs.x_height,
-        font_attrs.cap_height,
-    )
-
-    character_mapping = context.get_character_mapping(width_mode)
-    builder.character_mapping.update(character_mapping)
-
-    glyph_file_paths = context.get_glyph_file_paths(width_mode)
-    for glyph_name, glyph_file_path in glyph_file_paths.items():
-        glyph_data, glyph_width, glyph_height = context.load_glyph_data(glyph_file_path)
-        offset_y = math.floor((font_attrs.ascent + font_attrs.descent - glyph_height) / 2)
-        builder.add_glyph(Glyph(
-            name=glyph_name,
-            advance_width=glyph_width,
-            offset=(0, offset_y),
-            data=glyph_data,
-        ))
+    builder.metrics.size = font_config.size
+    builder.metrics.ascent = font_attrs.ascent
+    builder.metrics.descent = font_attrs.descent
+    builder.metrics.x_height = font_attrs.x_height
+    builder.metrics.cap_height = font_attrs.cap_height
 
     builder.meta_infos.version = FontConfig.VERSION
     builder.meta_infos.family_name = f'{FontConfig.FAMILY_NAME} {font_config.size}px {width_mode.capitalize()}'
@@ -168,6 +154,20 @@ def _create_builder(font_config: FontConfig, context: DesignContext, width_mode:
     builder.meta_infos.vendor_url = FontConfig.VENDOR_URL
     builder.meta_infos.designer_url = FontConfig.DESIGNER_URL
     builder.meta_infos.license_url = FontConfig.LICENSE_URL
+
+    character_mapping = context.get_character_mapping(width_mode)
+    builder.character_mapping.update(character_mapping)
+
+    glyph_file_paths = context.get_glyph_file_paths(width_mode)
+    for glyph_name, glyph_file_path in glyph_file_paths.items():
+        glyph_data, glyph_width, glyph_height = context.load_glyph_data(glyph_file_path)
+        offset_y = math.floor((font_attrs.ascent + font_attrs.descent - glyph_height) / 2)
+        builder.glyphs.append(Glyph(
+            name=glyph_name,
+            advance_width=glyph_width,
+            offset=(0, offset_y),
+            data=glyph_data,
+        ))
 
     return builder
 
