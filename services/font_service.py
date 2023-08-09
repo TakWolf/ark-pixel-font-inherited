@@ -36,10 +36,20 @@ def _parse_glyph_file_name(glyph_file_name: str) -> tuple[int, list[str]]:
 class DesignContext:
     def __init__(self, registry: dict[str, dict[int, dict[str, tuple[str, str]]]]):
         self._registry = registry
+        self._sequence_cacher: dict[str, list[int]] = {}
         self._alphabet_cacher: dict[str, set[str]] = {}
         self._character_mapping_cacher: dict[str, dict[int, str]] = {}
-        self._glyph_file_paths_cacher: dict[str, dict[str, str]] = {}
+        self._glyph_file_infos_cacher: dict[str, list[tuple[str, str]]] = {}
         self._glyph_data_cacher: dict[str, tuple[list[list[int]], int, int]] = {}
+
+    def get_sequence(self, width_mode: str) -> list[int]:
+        if width_mode in self._sequence_cacher:
+            sequence = self._sequence_cacher[width_mode]
+        else:
+            sequence = list(self._registry[width_mode].keys())
+            sequence.sort()
+            self._sequence_cacher[width_mode] = sequence
+        return sequence
 
     def get_alphabet(self, width_mode: str) -> set[str]:
         if width_mode in self._alphabet_cacher:
@@ -58,23 +68,26 @@ class DesignContext:
             character_mapping = self._character_mapping_cacher[width_mode]
         else:
             character_mapping = {}
-            for code_point, glyph_infos in self._registry[width_mode].items():
+            for code_point, glyph_source in self._registry[width_mode].items():
                 if code_point < 0:
                     continue
-                character_mapping[code_point] = glyph_infos.get('zh_tr', glyph_infos['default'])[0]
+                character_mapping[code_point] = glyph_source.get('zh_tr', glyph_source['default'])[0]
             self._character_mapping_cacher[width_mode] = character_mapping
         return character_mapping
 
-    def get_glyph_file_paths(self, width_mode: str) -> dict[str, str]:
-        if width_mode in self._glyph_file_paths_cacher:
-            glyph_file_paths = self._glyph_file_paths_cacher[width_mode]
+    def get_glyph_file_infos(self, width_mode: str) -> list[tuple[str, str]]:
+        if width_mode in self._glyph_file_infos_cacher:
+            glyph_file_infos = self._glyph_file_infos_cacher[width_mode]
         else:
-            glyph_file_paths = {}
-            for glyph_infos in self._registry[width_mode].values():
-                glyph_name, glyph_file_path = glyph_infos.get('zh_tr', glyph_infos['default'])
-                glyph_file_paths[glyph_name] = glyph_file_path
-            self._glyph_file_paths_cacher[width_mode] = glyph_file_paths
-        return glyph_file_paths
+            glyph_file_infos = []
+            sequence = self.get_sequence(width_mode)
+            for code_point in sequence:
+                glyph_source = self._registry[width_mode][code_point]
+                info = glyph_source.get('zh_tr', glyph_source['default'])
+                if info not in glyph_file_infos:
+                    glyph_file_infos.append(info)
+            self._glyph_file_infos_cacher[width_mode] = glyph_file_infos
+        return glyph_file_infos
 
     def load_glyph_data(self, glyph_file_path: str) -> tuple[list[list[int]], int, int]:
         if glyph_file_path in self._glyph_data_cacher:
@@ -113,8 +126,8 @@ def collect_glyph_files(font_config: FontConfig) -> DesignContext:
             for language_flavor in language_flavors:
                 assert language_flavor not in cellar[width_mode_dir_name][code_point], f"Glyph flavor already exists: '{code_point:04X}' '{width_mode_dir_name}.{language_flavor}'"
                 cellar[width_mode_dir_name][code_point][language_flavor] = glyph_name, glyph_file_path
-        for code_point, glyph_infos in cellar[width_mode_dir_name].items():
-            assert 'default' in glyph_infos, f"Glyph miss default flavor: '{code_point:04X}' '{width_mode_dir_name}'"
+        for code_point, glyph_source in cellar[width_mode_dir_name].items():
+            assert 'default' in glyph_source, f"Glyph miss default flavor: '{code_point:04X}' '{width_mode_dir_name}'"
 
     registry = {}
     for width_mode in configs.width_modes:
@@ -124,9 +137,9 @@ def collect_glyph_files(font_config: FontConfig) -> DesignContext:
         for target, code_points in _inherited_mapping.items():
             if target not in registry[width_mode]:
                 continue
-            glyph_infos = registry[width_mode][target]
+            glyph_source = registry[width_mode][target]
             for code_point in code_points:
-                registry[width_mode][code_point] = glyph_infos
+                registry[width_mode][code_point] = glyph_source
 
     return DesignContext(registry)
 
@@ -158,8 +171,8 @@ def _create_builder(font_config: FontConfig, context: DesignContext, width_mode:
     character_mapping = context.get_character_mapping(width_mode)
     builder.character_mapping.update(character_mapping)
 
-    glyph_file_paths = context.get_glyph_file_paths(width_mode)
-    for glyph_name, glyph_file_path in glyph_file_paths.items():
+    glyph_file_infos = context.get_glyph_file_infos(width_mode)
+    for glyph_name, glyph_file_path in glyph_file_infos:
         glyph_data, glyph_width, glyph_height = context.load_glyph_data(glyph_file_path)
         offset_y = math.floor((metrics.ascent + metrics.descent - glyph_height) / 2)
         builder.glyphs.append(Glyph(
