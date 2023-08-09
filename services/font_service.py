@@ -34,8 +34,8 @@ def _parse_glyph_file_name(glyph_file_name: str) -> tuple[int, list[str]]:
 
 
 class DesignContext:
-    def __init__(self, glyphs_registry: dict[str, dict[int, dict[str, tuple[str, str]]]]):
-        self._glyphs_registry = glyphs_registry
+    def __init__(self, registry: dict[str, dict[int, dict[str, tuple[str, str]]]]):
+        self._registry = registry
         self._alphabet_cacher: dict[str, set[str]] = {}
         self._character_mapping_cacher: dict[str, dict[int, str]] = {}
         self._glyph_file_paths_cacher: dict[str, dict[str, str]] = {}
@@ -46,7 +46,7 @@ class DesignContext:
             alphabet = self._alphabet_cacher[width_mode]
         else:
             alphabet = set()
-            for code_point in self._glyphs_registry[width_mode]:
+            for code_point in self._registry[width_mode]:
                 if code_point < 0:
                     continue
                 alphabet.add(chr(code_point))
@@ -58,7 +58,7 @@ class DesignContext:
             character_mapping = self._character_mapping_cacher[width_mode]
         else:
             character_mapping = {}
-            for code_point, glyph_infos in self._glyphs_registry[width_mode].items():
+            for code_point, glyph_infos in self._registry[width_mode].items():
                 if code_point < 0:
                     continue
                 character_mapping[code_point] = glyph_infos.get('zh_tr', glyph_infos['default'])[0]
@@ -70,7 +70,7 @@ class DesignContext:
             glyph_file_paths = self._glyph_file_paths_cacher[width_mode]
         else:
             glyph_file_paths = {}
-            for glyph_infos in self._glyphs_registry[width_mode].values():
+            for glyph_infos in self._registry[width_mode].values():
                 glyph_name, glyph_file_path = glyph_infos.get('zh_tr', glyph_infos['default'])
                 glyph_file_paths[glyph_name] = glyph_file_path
             self._glyph_file_paths_cacher[width_mode] = glyph_file_paths
@@ -89,9 +89,9 @@ class DesignContext:
 def collect_glyph_files(font_config: FontConfig) -> DesignContext:
     root_dir = os.path.join(path_define.ark_pixel_glyphs_dir, str(font_config.size))
 
-    glyphs_cellar = {}
+    cellar = {}
     for width_mode_dir_name in configs.width_mode_dir_names:
-        glyphs_cellar[width_mode_dir_name] = {}
+        cellar[width_mode_dir_name] = {}
         width_mode_dir = os.path.join(root_dir, width_mode_dir_name)
         for glyph_file_dir, glyph_file_name in fs_util.walk_files(width_mode_dir):
             if not glyph_file_name.endswith('.png'):
@@ -104,31 +104,31 @@ def collect_glyph_files(font_config: FontConfig) -> DesignContext:
             else:
                 code_point, language_flavors = _parse_glyph_file_name(glyph_file_name)
                 glyph_name = f'uni{code_point:04X}'
-            if code_point not in glyphs_cellar[width_mode_dir_name]:
-                glyphs_cellar[width_mode_dir_name][code_point] = {}
+            if code_point not in cellar[width_mode_dir_name]:
+                cellar[width_mode_dir_name][code_point] = {}
             if len(language_flavors) > 0:
                 glyph_name = f'{glyph_name}-{language_flavors[0]}'
             else:
                 language_flavors.append('default')
             for language_flavor in language_flavors:
-                assert language_flavor not in glyphs_cellar[width_mode_dir_name][code_point], f"Glyph flavor already exists: '{code_point:04X}' '{width_mode_dir_name}.{language_flavor}'"
-                glyphs_cellar[width_mode_dir_name][code_point][language_flavor] = glyph_name, glyph_file_path
-        for code_point, glyph_infos in glyphs_cellar[width_mode_dir_name].items():
+                assert language_flavor not in cellar[width_mode_dir_name][code_point], f"Glyph flavor already exists: '{code_point:04X}' '{width_mode_dir_name}.{language_flavor}'"
+                cellar[width_mode_dir_name][code_point][language_flavor] = glyph_name, glyph_file_path
+        for code_point, glyph_infos in cellar[width_mode_dir_name].items():
             assert 'default' in glyph_infos, f"Glyph miss default flavor: '{code_point:04X}' '{width_mode_dir_name}'"
 
-    glyphs_registry = {}
+    registry = {}
     for width_mode in configs.width_modes:
-        glyphs_registry[width_mode] = dict(glyphs_cellar['common'])
-        glyphs_registry[width_mode].update(glyphs_cellar[width_mode])
+        registry[width_mode] = dict(cellar['common'])
+        registry[width_mode].update(cellar[width_mode])
 
         for target, code_points in _inherited_mapping.items():
-            if target not in glyphs_registry[width_mode]:
+            if target not in registry[width_mode]:
                 continue
-            glyph_infos = glyphs_registry[width_mode][target]
+            glyph_infos = registry[width_mode][target]
             for code_point in code_points:
-                glyphs_registry[width_mode][code_point] = glyph_infos
+                registry[width_mode][code_point] = glyph_infos
 
-    return DesignContext(glyphs_registry)
+    return DesignContext(registry)
 
 
 def _create_builder(font_config: FontConfig, context: DesignContext, width_mode: str) -> FontBuilder:
