@@ -106,26 +106,27 @@ def collect_glyph_files(font_config: FontConfig) -> DesignContext:
     for width_mode_dir_name in configs.width_mode_dir_names:
         cellar[width_mode_dir_name] = {}
         width_mode_dir = os.path.join(root_dir, width_mode_dir_name)
-        for glyph_file_dir, glyph_file_name in fs_util.walk_files(width_mode_dir):
-            if not glyph_file_name.endswith('.png'):
-                continue
-            glyph_file_path = os.path.join(glyph_file_dir, glyph_file_name)
-            if glyph_file_name == 'notdef.png':
-                code_point = -1
-                language_flavors = []
-                glyph_name = '.notdef'
-            else:
-                code_point, language_flavors = _parse_glyph_file_name(glyph_file_name)
-                glyph_name = f'uni{code_point:04X}'
-            if code_point not in cellar[width_mode_dir_name]:
-                cellar[width_mode_dir_name][code_point] = {}
-            if len(language_flavors) > 0:
-                glyph_name = f'{glyph_name}-{language_flavors[0]}'
-            else:
-                language_flavors.append('default')
-            for language_flavor in language_flavors:
-                assert language_flavor not in cellar[width_mode_dir_name][code_point], f"Glyph flavor already exists: '{code_point:04X}' '{width_mode_dir_name}.{language_flavor}'"
-                cellar[width_mode_dir_name][code_point][language_flavor] = glyph_name, glyph_file_path
+        for glyph_file_dir, _, glyph_file_names in os.walk(width_mode_dir):
+            for glyph_file_name in glyph_file_names:
+                if not glyph_file_name.endswith('.png'):
+                    continue
+                glyph_file_path = os.path.join(glyph_file_dir, glyph_file_name)
+                if glyph_file_name == 'notdef.png':
+                    code_point = -1
+                    language_flavors = []
+                    glyph_name = '.notdef'
+                else:
+                    code_point, language_flavors = _parse_glyph_file_name(glyph_file_name)
+                    glyph_name = f'uni{code_point:04X}'
+                if code_point not in cellar[width_mode_dir_name]:
+                    cellar[width_mode_dir_name][code_point] = {}
+                if len(language_flavors) > 0:
+                    glyph_name = f'{glyph_name}-{language_flavors[0]}'
+                else:
+                    language_flavors.append('default')
+                for language_flavor in language_flavors:
+                    assert language_flavor not in cellar[width_mode_dir_name][code_point], f"Glyph flavor already exists: '{code_point:04X}' '{width_mode_dir_name}.{language_flavor}'"
+                    cellar[width_mode_dir_name][code_point][language_flavor] = glyph_name, glyph_file_path
         for code_point, glyph_source in cellar[width_mode_dir_name].items():
             assert 'default' in glyph_source, f"Glyph miss default flavor: '{code_point:04X}' '{width_mode_dir_name}'"
 
