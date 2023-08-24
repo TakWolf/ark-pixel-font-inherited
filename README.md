@@ -10,9 +10,6 @@
 
 与原项目的「传统印刷 zh_tr」不同，这个项目将完全遵循 [《傳承字形標準化文件》](https://github.com/ichitenfont/inheritedglyphs) 中的指导做法。
 
-- [Discord](https://discord.gg/3GKtPKtjdU)
-- [QQ 群](https://jq.qq.com/?_wv=1027&k=EXtKGHar)
-
 ## 预览
 
 可以通过 [Playground](https://ark-pixel-font-inherited.takwolf.com/playground.html) 实时预览字体效果。
@@ -59,7 +56,7 @@
 
 等待任务完成后，可在 `build/outputs` 目录下找到生成的字体文件。
 
-## 授权信息
+## 授权许可
 
 分为「字体」和「构建程序」两个部分。
 
@@ -70,6 +67,11 @@
 ### 构建程序
 
 使用 [MIT 许可证](LICENSE-MIT) 授权。
+
+## 官方社区
+
+- [「像素字体工房」Discord 服务器](https://discord.gg/3GKtPKtjdU)
+- [「像素字体工房」QQ 群 (302383204)](https://jq.qq.com/?_wv=1027&k=EXtKGHar)
 
 ## 程序依赖
 
