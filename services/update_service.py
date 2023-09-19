@@ -101,8 +101,8 @@ def setup_glyphs():
         return
     logger.info('Need setup glyphs')
 
-    download_dir = os.path.join(path_define.cache_dir, 'ark-pixel-font', version_info['sha'])
-    source_file_path = os.path.join(download_dir, 'source.zip')
+    download_dir = os.path.join(path_define.cache_dir, 'ark-pixel-font')
+    source_file_path = os.path.join(download_dir, f'{sha}.zip')
     if not os.path.exists(source_file_path):
         asset_url = version_info["asset_url"]
         logger.info("Start download: '%s'", asset_url)
@@ -111,14 +111,14 @@ def setup_glyphs():
     else:
         logger.info("Already downloaded: '%s'", source_file_path)
 
-    source_unzip_dir = source_file_path.removesuffix('.zip')
+    source_unzip_dir = os.path.join(download_dir, f'ark-pixel-font-{sha}')
     fs_util.delete_dir(source_unzip_dir)
     with zipfile.ZipFile(source_file_path) as file:
-        file.extractall(source_unzip_dir)
+        file.extractall(download_dir)
     logger.info("Unzip: '%s'", source_unzip_dir)
 
     fs_util.delete_dir(path_define.ark_pixel_glyphs_dir)
-    source_glyphs_dir = os.path.join(source_unzip_dir, f'ark-pixel-font-{sha}', 'assets', 'glyphs')
+    source_glyphs_dir = os.path.join(source_unzip_dir, 'assets', 'glyphs')
     os.rename(source_glyphs_dir, path_define.ark_pixel_glyphs_dir)
     fs_util.delete_dir(source_unzip_dir)
     configs.font_configs = [FontConfig(font_config.size) for font_config in configs.font_configs]
