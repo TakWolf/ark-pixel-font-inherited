@@ -44,7 +44,10 @@
 
 ## 下载
 
-可在 [Releases](https://github.com/TakWolf/ark-pixel-font-inherited/releases) 下载最新的版本。
+可通过以下渠道下载最新的版本：
+
+- [GitHub Releases](https://github.com/TakWolf/ark-pixel-font-inherited/releases)
+- [云盘](https://www.123pan.com/s/qKSojv-yW6Sh.html)
 
 目前提供 `.otf`、`.ttf`、`.woff2`、`.bdf` 四种格式。
 
