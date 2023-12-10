@@ -162,11 +162,11 @@ def _create_builder(font_config: FontConfig, context: DesignContext, width_mode:
     builder.meta_infos.designer_url = FontConfig.DESIGNER_URL
     builder.meta_infos.license_url = FontConfig.LICENSE_URL
 
-    horizontal_header = font_config.get_horizontal_header(width_mode)
-    builder.horizontal_header.ascent = horizontal_header.ascent
-    builder.horizontal_header.descent = horizontal_header.descent
-    builder.horizontal_header.x_height = horizontal_header.x_height
-    builder.horizontal_header.cap_height = horizontal_header.cap_height
+    layout_params = font_config.get_layout_params(width_mode)
+    builder.horizontal_header.ascent = layout_params.ascent
+    builder.horizontal_header.descent = layout_params.descent
+    builder.horizontal_header.x_height = layout_params.x_height
+    builder.horizontal_header.cap_height = layout_params.cap_height
 
     character_mapping = context.get_character_mapping(width_mode)
     builder.character_mapping.update(character_mapping)
@@ -174,7 +174,7 @@ def _create_builder(font_config: FontConfig, context: DesignContext, width_mode:
     glyph_file_infos = context.get_glyph_file_infos(width_mode)
     for glyph_name, glyph_file_path in glyph_file_infos:
         glyph_data, glyph_width, glyph_height = context.load_glyph_data(glyph_file_path)
-        offset_y = math.floor((horizontal_header.ascent + horizontal_header.descent - glyph_height) / 2)
+        offset_y = math.floor((layout_params.ascent + layout_params.descent - glyph_height) / 2)
         builder.glyphs.append(Glyph(
             name=glyph_name,
             advance_width=glyph_width,
