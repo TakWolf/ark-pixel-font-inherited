@@ -5,10 +5,10 @@ import zipfile
 
 import requests
 
-import configs
-from configs import path_define, ark_pixel_config, FontConfig
-from configs.ark_pixel_config import SourceType
-from utils import fs_util
+from scripts import configs
+from scripts.configs import path_define, ark_pixel_config, FontConfig
+from scripts.configs.ark_pixel_config import SourceType
+from scripts.utils import fs_util
 
 logger = logging.getLogger('update-service')
 

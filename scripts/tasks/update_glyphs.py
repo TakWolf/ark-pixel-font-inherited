@@ -1,6 +1,6 @@
 import logging
 
-from services import update_service
+from scripts.services import update_service
 
 logging.basicConfig(level=logging.DEBUG)
 

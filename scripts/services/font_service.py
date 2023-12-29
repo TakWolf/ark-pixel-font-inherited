@@ -6,9 +6,9 @@ import yaml
 from pixel_font_builder import FontBuilder, Glyph, StyleName, SerifMode
 from pixel_font_builder.opentype import Flavor
 
-import configs
-from configs import path_define, FontConfig
-from utils import fs_util, glyph_util
+from scripts import configs
+from scripts.configs import path_define, FontConfig
+from scripts.utils import fs_util, glyph_util
 
 logger = logging.getLogger('font-service')
 
