@@ -100,10 +100,14 @@ class DesignContext:
 
 
 def collect_glyph_files(font_config: FontConfig) -> DesignContext:
-    root_dir = os.path.join(path_define.ark_pixel_glyphs_dir, str(font_config.size))
-
     cellar = {}
-    for width_mode_dir_name in configs.width_mode_dir_names:
+    root_dir = os.path.join(path_define.ark_pixel_glyphs_dir, str(font_config.size))
+    for width_mode_dir_name in os.listdir(root_dir):
+        width_mode_dir = os.path.join(root_dir, width_mode_dir_name)
+        if not os.path.isdir(width_mode_dir):
+            continue
+        assert width_mode_dir_name == 'common' or width_mode_dir_name in configs.width_modes, f"Width mode '{width_mode_dir}' undefined: '{width_mode_dir}'"
+
         cellar[width_mode_dir_name] = {}
         width_mode_dir = os.path.join(root_dir, width_mode_dir_name)
         for file_dir, _, file_names in os.walk(width_mode_dir):

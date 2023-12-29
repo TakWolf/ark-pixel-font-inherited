@@ -10,12 +10,6 @@ width_modes = [
     'proportional',
 ]
 
-width_mode_dir_names = [
-    'common',
-    'monospaced',
-    'proportional',
-]
-
 font_formats = ['otf', 'woff2', 'ttf', 'bdf']
 
 font_configs = [FontConfig(size) for size in [10, 12, 16]]
