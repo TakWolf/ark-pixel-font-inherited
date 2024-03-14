@@ -198,7 +198,7 @@ def _create_builder(font_config: FontConfig, context: DesignContext, width_mode:
 
 
 def make_font_files(font_config: FontConfig, context: DesignContext, width_mode: str):
-    fs_util.make_dirs(path_define.outputs_dir)
+    fs_util.make_dir(path_define.outputs_dir)
 
     builder = _create_builder(font_config, context, width_mode)
 
