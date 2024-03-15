@@ -1,11 +1,8 @@
-import logging
 import os
 
 import yaml
 
 from scripts.configs import path_define
-
-logging.basicConfig(level=logging.DEBUG)
 
 
 def main():
