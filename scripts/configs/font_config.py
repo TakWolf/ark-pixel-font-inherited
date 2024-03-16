@@ -1,10 +1,10 @@
 import datetime
 import os
-import tomllib
 from typing import Final
 
 from scripts import configs
 from scripts.configs import path_define
+from scripts.utils import fs_util
 
 
 class LayoutParam:
@@ -38,8 +38,7 @@ class FontConfig:
         if not os.path.exists(config_file_path):
             self.size = size
             return
-        with open(config_file_path, 'rb') as file:
-            config_data: dict = tomllib.load(file)['font']
+        config_data: dict = fs_util.read_toml(config_file_path)['font']
 
         self.size: int = config_data['size']
         assert self.size == size, f'Font Config size not equals: expect {size} but actually {self.size}'

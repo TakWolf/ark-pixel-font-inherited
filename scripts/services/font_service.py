@@ -2,7 +2,6 @@ import logging
 import math
 import os
 
-import yaml
 from pixel_font_builder import FontBuilder, Glyph, StyleName, SerifMode
 from pixel_font_builder.opentype import Flavor
 
@@ -12,14 +11,7 @@ from scripts.utils import fs_util, glyph_util
 
 logger = logging.getLogger('font-service')
 
-
-def _load_inherited_mapping() -> dict[int, list[int]]:
-    file_path = os.path.join(path_define.glyphs_dir, 'inherited-mapping.yaml')
-    with open(file_path, 'rb') as file:
-        return yaml.safe_load(file)
-
-
-_inherited_mapping = _load_inherited_mapping()
+_inherited_mapping = fs_util.read_yaml(os.path.join(path_define.glyphs_dir, 'inherited-mapping.yaml'))
 
 
 def _parse_glyph_file_name(file_name: str) -> tuple[int, list[str]]:
