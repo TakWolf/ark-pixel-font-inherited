@@ -9,7 +9,7 @@ from scripts.configs import path_define, ark_pixel_config, FontConfig
 from scripts.configs.ark_pixel_config import SourceType
 from scripts.utils import fs_util
 
-logger = logging.getLogger('update-service')
+logger = logging.getLogger('update_service')
 
 
 def _get_github_releases_latest_tag_name(repository_name: str) -> str:

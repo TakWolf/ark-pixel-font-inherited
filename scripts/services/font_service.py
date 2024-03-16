@@ -9,7 +9,7 @@ from scripts import configs
 from scripts.configs import path_define, FontConfig
 from scripts.utils import fs_util, glyph_util
 
-logger = logging.getLogger('font-service')
+logger = logging.getLogger('font_service')
 
 _inherited_mapping = fs_util.read_yaml(os.path.join(path_define.glyphs_dir, 'inherited-mapping.yaml'))
 
