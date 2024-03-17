@@ -158,7 +158,7 @@ def _create_builder(font_config: FontConfig, context: DesignContext, width_mode:
     builder.meta_info.designer_url = FontConfig.DESIGNER_URL
     builder.meta_info.license_url = FontConfig.LICENSE_URL
 
-    layout_param = font_config.get_layout_param(width_mode)
+    layout_param = font_config.layout_params[width_mode]
 
     builder.horizontal_header.ascent = layout_param.ascent
     builder.horizontal_header.descent = layout_param.descent

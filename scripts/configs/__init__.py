@@ -8,7 +8,7 @@ width_modes = [
 
 font_sizes = [10, 12, 16]
 
-font_configs = {font_size: FontConfig(font_size) for font_size in font_sizes}
+font_configs = FontConfig.load_all()
 
 font_formats = ['otf', 'woff2', 'ttf', 'bdf']
 
