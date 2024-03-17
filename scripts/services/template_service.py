@@ -27,7 +27,6 @@ def _make_html_file(template_name: str, file_name: str, params: dict[str, object
         'build_random_key': _build_random_key,
         'width_modes': configs.width_modes,
         'font_configs': configs.font_configs,
-        'font_size_to_config': configs.font_size_to_config,
     }
 
     html = _environment.get_template(template_name).render(params)

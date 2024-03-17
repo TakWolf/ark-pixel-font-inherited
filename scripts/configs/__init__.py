@@ -6,10 +6,11 @@ width_modes = [
     'proportional',
 ]
 
-font_formats = ['otf', 'woff2', 'ttf', 'bdf']
+font_sizes = [10, 12, 16]
 
-font_configs = [FontConfig(size) for size in [10, 12, 16]]
-font_size_to_config = {font_config.size: font_config for font_config in font_configs}
+font_configs = {font_size: FontConfig(font_size) for font_size in font_sizes}
+
+font_formats = ['otf', 'woff2', 'ttf', 'bdf']
 
 git_deploy_config = GitDeployConfig(
     url='git@github.com:TakWolf/ark-pixel-font-inherited.git',

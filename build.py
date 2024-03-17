@@ -10,7 +10,7 @@ def main():
 
     update_service.setup_glyphs()
 
-    for font_config in configs.font_configs:
+    for font_config in configs.font_configs.values():
         context = font_service.collect_glyph_files(font_config)
         for width_mode in configs.width_modes:
             font_service.make_font_files(font_config, context, width_mode)
