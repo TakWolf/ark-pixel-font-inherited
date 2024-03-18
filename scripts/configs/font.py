@@ -41,7 +41,7 @@ class FontConfig:
     def load(size: int) -> 'FontConfig':
         config_file_path = os.path.join(path_define.ark_pixel_glyphs_dir, str(size), 'config.toml')
         if not os.path.exists(config_file_path):
-            return FontConfig(size, None)
+            return FontConfig(size, {})
         config_data: dict = fs_util.read_toml(config_file_path)['font']
         assert size == config_data['size'], f"Font Config size not equals: expect {size} but actually {config_data['size']}"
 
@@ -58,7 +58,7 @@ class FontConfig:
 
         return FontConfig(size, layout_params)
 
-    def __init__(self, size: int, layout_params: dict[str, LayoutParam] | None):
+    def __init__(self, size: int, layout_params: dict[str, LayoutParam]):
         self.size = size
         self.layout_params = layout_params
 
