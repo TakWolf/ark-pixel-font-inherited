@@ -9,13 +9,13 @@
         }
         @font-face {
             font-family: ark-pixel-inherited-12px-monospaced;
-            src: url("{{ configs.font_configs[12].get_font_file_name('monospaced', 'woff2') }}?r={{ configs.build_random_key }}");
+            src: url("{{ configs.font_configs[12].get_font_file_name('monospaced', 'woff2') }}?r={{ build_random_key }}");
         }
         {% for font_config in configs.font_configs.values() %}
         {% with font_family = 'ark-pixel-inherited-' ~ font_config.size ~ 'px-proportional' %}
         @font-face {
             font-family: {{ font_family }};
-            src: url("{{ font_config.get_font_file_name('proportional', 'woff2') }}?r={{ configs.build_random_key }}");
+            src: url("{{ font_config.get_font_file_name('proportional', 'woff2') }}?r={{ build_random_key }}");
         }
         .font-{{ font_config.size }}px-proportional {
             font-family: {{ font_family }}, sans-serif;
