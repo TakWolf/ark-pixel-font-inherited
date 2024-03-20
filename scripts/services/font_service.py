@@ -11,7 +11,7 @@ from scripts.utils import fs_util, glyph_util
 
 logger = logging.getLogger('font_service')
 
-_inherited_mapping = fs_util.read_yaml(os.path.join(path_define.glyphs_dir, 'inherited-mapping.yaml'))
+_inherited_mapping: dict[int, list[int]] = fs_util.read_yaml(os.path.join(path_define.assets_dir, 'inherited-mapping.yaml'))
 
 
 def _parse_glyph_file_name(file_name: str) -> tuple[int, list[str]]:

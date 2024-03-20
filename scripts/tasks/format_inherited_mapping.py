@@ -6,9 +6,9 @@ from scripts.utils import fs_util
 
 
 def main():
-    old_file_path = os.path.join(path_define.glyphs_dir, 'inherited-mapping.yaml')
-    mapping: dict[int, list[int]] = fs_util.read_yaml(old_file_path)
+    file_path = os.path.join(path_define.assets_dir, 'inherited-mapping.yaml')
 
+    mapping: dict[int, list[int]] = fs_util.read_yaml(file_path)
     output = io.StringIO()
     targets = list(mapping.keys())
     targets.sort()
@@ -21,11 +21,7 @@ def main():
         for code_point in code_points:
             output.write(f'  - 0x{code_point:04X}  # {chr(code_point)}\n')
 
-    new_file_path = os.path.join(path_define.glyphs_dir, 'inherited-mapping-new.yaml')
-    fs_util.write_str(output.getvalue(), new_file_path)
-
-    os.remove(old_file_path)
-    os.rename(new_file_path, old_file_path)
+    fs_util.write_str(output.getvalue(), file_path)
 
 
 if __name__ == '__main__':
