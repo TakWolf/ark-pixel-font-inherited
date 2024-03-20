@@ -2,24 +2,11 @@ import logging
 import os
 import zipfile
 
-import requests
-
 from scripts import configs
 from scripts.configs import path_define, ark_pixel_config, FontConfig, GitSourceType
-from scripts.utils import fs_util, github_api
+from scripts.utils import fs_util, github_api, download_util
 
 logger = logging.getLogger('update_service')
-
-
-def _download_file(url: str, file_path: str):
-    response = requests.get(url, stream=True)
-    assert response.ok, url
-    tmp_file_path = f'{file_path}.download'
-    with open(tmp_file_path, 'wb') as file:
-        for chunk in response.iter_content(chunk_size=512):
-            if chunk is not None:
-                file.write(chunk)
-    os.rename(tmp_file_path, file_path)
 
 
 def update_glyphs_version():
@@ -69,7 +56,7 @@ def setup_glyphs():
         asset_url = version_info["asset_url"]
         logger.info("Start download: '%s'", asset_url)
         fs_util.make_dir(download_dir)
-        _download_file(asset_url, source_file_path)
+        download_util.download_file(asset_url, source_file_path)
     else:
         logger.info("Already downloaded: '%s'", source_file_path)
 
