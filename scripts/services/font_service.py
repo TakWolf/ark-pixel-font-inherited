@@ -98,7 +98,7 @@ def collect_glyph_files(font_config: FontConfig) -> DesignContext:
         width_mode_dir = os.path.join(root_dir, width_mode_dir_name)
         if not os.path.isdir(width_mode_dir):
             continue
-        assert width_mode_dir_name == 'common' or width_mode_dir_name in configs.width_modes, f"Width mode '{width_mode_dir}' undefined: '{width_mode_dir}'"
+        assert width_mode_dir_name == 'common' or width_mode_dir_name in configs.width_modes, f"Width mode '{width_mode_dir_name}' undefined: '{width_mode_dir}'"
 
         cellar[width_mode_dir_name] = {}
         width_mode_dir = os.path.join(root_dir, width_mode_dir_name)
