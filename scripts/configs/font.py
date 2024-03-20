@@ -39,7 +39,7 @@ class FontConfig:
 
     @staticmethod
     def load(size: int) -> 'FontConfig':
-        config_file_path = os.path.join(path_define.ark_pixel_glyphs_dir, str(size), 'config.toml')
+        config_file_path = os.path.join(path_define.glyphs_dir, str(size), 'config.toml')
         if not os.path.exists(config_file_path):
             return FontConfig(size, {})
         config_data: dict = fs_util.read_toml(config_file_path)['font']

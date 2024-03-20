@@ -69,22 +69,22 @@ def update_glyphs_version():
         'version_url': f'https://github.com/{ark_pixel_config.repository_name}/tree/{version}',
         'asset_url': f'https://github.com/{ark_pixel_config.repository_name}/archive/{sha}.zip',
     }
-    file_path = os.path.join(path_define.glyphs_dir, 'version.json')
+    file_path = os.path.join(path_define.assets_dir, 'glyphs-version.json')
     fs_util.write_json(version_info, file_path)
     logger.info("Update version file: '%s'", file_path)
 
 
 def setup_glyphs():
-    current_version_file_path = os.path.join(path_define.ark_pixel_glyphs_dir, 'version.json')
-    if os.path.isfile(current_version_file_path):
-        current_sha = fs_util.read_json(current_version_file_path)['sha']
+    build_version_file_path = os.path.join(path_define.glyphs_dir, 'version.json')
+    if os.path.isfile(build_version_file_path):
+        build_sha = fs_util.read_json(build_version_file_path)['sha']
     else:
-        current_sha = None
+        build_sha = None
 
-    version_file_path = os.path.join(path_define.glyphs_dir, 'version.json')
+    version_file_path = os.path.join(path_define.assets_dir, 'glyphs-version.json')
     version_info = fs_util.read_json(version_file_path)
     sha = version_info['sha']
-    if current_sha == sha:
+    if build_sha == sha:
         return
     logger.info('Need setup glyphs')
 
@@ -104,10 +104,10 @@ def setup_glyphs():
         file.extractall(download_dir)
     logger.info("Unzip: '%s'", source_unzip_dir)
 
-    fs_util.delete_dir(path_define.ark_pixel_glyphs_dir)
+    fs_util.delete_dir(path_define.glyphs_dir)
     source_glyphs_dir = os.path.join(source_unzip_dir, 'assets', 'glyphs')
-    os.rename(source_glyphs_dir, path_define.ark_pixel_glyphs_dir)
+    os.rename(source_glyphs_dir, path_define.glyphs_dir)
     fs_util.delete_dir(source_unzip_dir)
     configs.font_configs = FontConfig.load_all()
-    fs_util.write_json(version_info, current_version_file_path)
+    fs_util.write_json(version_info, build_version_file_path)
     logger.info("Update glyphs: '%s'", sha)

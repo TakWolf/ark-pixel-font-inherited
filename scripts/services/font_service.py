@@ -93,7 +93,7 @@ class DesignContext:
 
 def collect_glyph_files(font_config: FontConfig) -> DesignContext:
     cellar = {}
-    root_dir = os.path.join(path_define.ark_pixel_glyphs_dir, str(font_config.size))
+    root_dir = os.path.join(path_define.glyphs_dir, str(font_config.size))
     for width_mode_dir_name in os.listdir(root_dir):
         width_mode_dir = os.path.join(root_dir, width_mode_dir_name)
         if not os.path.isdir(width_mode_dir):
