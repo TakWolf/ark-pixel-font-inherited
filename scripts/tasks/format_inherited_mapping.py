@@ -10,7 +10,7 @@ def main():
 
     mapping: dict[int, list[int]] = fs_util.read_yaml(file_path)
     output = io.StringIO()
-    targets = list(mapping.keys())
+    targets = list(mapping)
     targets.sort()
     for target in targets:
         code_points = list(set(mapping[target]))
