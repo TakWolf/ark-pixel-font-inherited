@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ark Pixel Inherited - Playground</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        @font-face {
+            font-family: ark-pixel-inherited-10px-monospaced;
+            src: url("ark-pixel-inherited-10px-monospaced.woff2?r=0.9810513133259509");
+        }
+        .font-10px-monospaced {
+            font-family: ark-pixel-inherited-10px-monospaced, serif;
+            font-size: 20px;
+            line-height: 32px;
+        }
+        @font-face {
+            font-family: ark-pixel-inherited-10px-proportional;
+            src: url("ark-pixel-inherited-10px-proportional.woff2?r=0.9810513133259509");
+        }
+        .font-10px-proportional {
+            font-family: ark-pixel-inherited-10px-proportional, serif;
+            font-size: 20px;
+            line-height: 32px;
+        }
+        @font-face {
+            font-family: ark-pixel-inherited-12px-monospaced;
+            src: url("ark-pixel-inherited-12px-monospaced.woff2?r=0.9810513133259509");
+        }
+        .font-12px-monospaced {
+            font-family: ark-pixel-inherited-12px-monospaced, serif;
+            font-size: 24px;
+            line-height: 36px;
+        }
+        @font-face {
+            font-family: ark-pixel-inherited-12px-proportional;
+            src: url("ark-pixel-inherited-12px-proportional.woff2?r=0.9810513133259509");
+        }
+        .font-12px-proportional {
+            font-family: ark-pixel-inherited-12px-proportional, serif;
+            font-size: 24px;
+            line-height: 36px;
+        }
+        @font-face {
+            font-family: ark-pixel-inherited-16px-monospaced;
+            src: url("ark-pixel-inherited-16px-monospaced.woff2?r=0.9810513133259509");
+        }
+        .font-16px-monospaced {
+            font-family: ark-pixel-inherited-16px-monospaced, serif;
+            font-size: 32px;
+            line-height: 48px;
+        }
+        @font-face {
+            font-family: ark-pixel-inherited-16px-proportional;
+            src: url("ark-pixel-inherited-16px-proportional.woff2?r=0.9810513133259509");
+        }
+        .font-16px-proportional {
+            font-family: ark-pixel-inherited-16px-proportional, serif;
+            font-size: 32px;
+            line-height: 48px;
+        }
+        .toolbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+        .options-group {
+            height: 36px;
+            display: flex;
+            flex-direction: row;
+            background-color: #ffd339;
+        }
+        .option {
+            height: 100%;
+            margin-left: 24px;
+            margin-right: 24px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            color: #4b4b4b;
+            font-family: ark-pixel-inherited-12px-monospaced, sans-serif;
+            font-size: 24px;
+            line-height: 36px;
+        }
+        .option input[type="radio"] {
+            display: none;
+        }
+        .option input[type="radio"] + span {
+            width: 10px;
+            height: 10px;
+            margin-left: 12px;
+            margin-right: 12px;
+            border-width: 2px;
+            border-color: #4b4b4b;
+            border-style: solid;
+        }
+        .option input[type="radio"]:checked + span {
+            background-color: #4b4b4b;
+        }
+        .content {
+            position: fixed;
+            top: 72px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        .content textarea {
+            width: 100%;
+            height: 100%;
+            padding: 24px;
+            color: #4b4b4b;
+            outline: none;
+            border: none;
+            resize: none;
+        }
+    </style>
+
+    <script charset="UTF-8" id="LA_COLLECT" src="https://sdk.51.la/js-sdk-pro.min.js"></script>
+    <script>LA.init({id: 'KDw3MaWtqn9iR5xf', ck: 'KDw3MaWtqn9iR5xf'});</script>
+</head>
+<body>
+    <form class="toolbar">
+        <div class="options-group">
+            <label class="option">
+                <input id="radio-font-size-10" name="font_size" type="radio" onchange="onFontSizeChange('10');">
+                <span></span>
+                10px
+            </label>
+            <label class="option">
+                <input id="radio-font-size-12" name="font_size" type="radio" onchange="onFontSizeChange('12');">
+                <span></span>
+                12px
+            </label>
+            <label class="option">
+                <input id="radio-font-size-16" name="font_size" type="radio" onchange="onFontSizeChange('16');">
+                <span></span>
+                16px
+            </label>
+        </div>
+        <div class="options-group" style="background-color: #94e34a;">
+            <label class="option">
+                <input id="radio-width-mode-monospaced" name="width_mode" type="radio" onchange="onWidthModeChange('monospaced');">
+                <span></span>
+                monospaced
+            </label>
+            <label class="option">
+                <input id="radio-width-mode-proportional" name="width_mode" type="radio" onchange="onWidthModeChange('proportional');">
+                <span></span>
+                proportional
+            </label>
+        </div>
+    </form>
+    <label class="content">
+        <textarea id="input-box" placeholder="请随便写点什么… / Please input something…"></textarea>
+    </label>
+    <script>
+        let inputBox = document.getElementById('input-box');
+
+        let configs = {
+            fontSize: 12,
+            widthMode: 'proportional',
+        };
+
+        function applyConfigs() {
+            localStorage.setItem('configs:playground', JSON.stringify(configs));
+            inputBox.className = 'font-' + configs.fontSize + 'px-' + configs.widthMode;
+        }
+
+        function onFontSizeChange(fontSize) {
+            configs.fontSize = fontSize;
+            applyConfigs();
+        }
+
+        function onWidthModeChange(widthMode) {
+            configs.widthMode = widthMode;
+            applyConfigs();
+        }
+
+        (function () {
+            let json = localStorage.getItem('configs:playground');
+            if (json) {
+                Object.assign(configs, JSON.parse(json));
+            }
+            document.getElementById('radio-font-size-' + configs.fontSize).checked = true;
+            document.getElementById('radio-width-mode-' + configs.widthMode).checked = true;
+            applyConfigs();
+        })();
+    </script>
+</body>
+</html>
