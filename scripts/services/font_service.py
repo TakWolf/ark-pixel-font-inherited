@@ -163,6 +163,9 @@ class DesignContext:
 def _create_builder(design_context: DesignContext, width_mode: str) -> FontBuilder:
     builder = FontBuilder(design_context.font_config.size)
 
+    builder.created_time = FontConfig.VERSION_TIME
+    builder.modified_time = FontConfig.VERSION_TIME
+
     builder.meta_info.version = FontConfig.VERSION
     builder.meta_info.family_name = f'{FontConfig.FAMILY_NAME} {design_context.font_config.size}px {width_mode.capitalize()}'
     builder.meta_info.style_name = StyleName.REGULAR
