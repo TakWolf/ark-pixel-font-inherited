@@ -24,7 +24,7 @@ class LayoutParam:
 
 
 class FontConfig:
-    VERSION: Final[str] = datetime.datetime.now(datetime.UTC).strftime("%Y.%m.%d")
+    VERSION: Final[str] = datetime.datetime.now(datetime.UTC).strftime('%Y.%m.%d')
     FAMILY_NAME: Final[str] = 'Ark Pixel Inherited'
     OUTPUTS_NAME: Final[str] = 'ark-pixel-inherited'
     ZIP_OUTPUTS_NAME: Final[str] = 'ark-pixel-font-inherited'
