@@ -6,9 +6,9 @@
 [![Discord](https://img.shields.io/discord/949265373964947458?color=4E5AF0&logo=discord&logoColor=white&label=discord)](https://discord.gg/3GKtPKtjdU)
 [![QQ Group](https://img.shields.io/badge/QQ群-302383204-brightgreen?logo=tencentqq)](https://jq.qq.com/?_wv=1027&k=EXtKGHar)
 
-[「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font)的传承字形版本。
+[「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font) 的传承字形版本。
 
-与原项目的「传统印刷 zh_tr」不同，这个项目将完全遵循[《傳承字形標準化文件》](https://github.com/ichitenfont/inheritedglyphs)中的指导做法。
+与原项目的「传统印刷 zh_tr」不同，这个项目将完全遵循 [《傳承字形標準化文件》](https://github.com/ichitenfont/inheritedglyphs) 中的指导做法。
 
 ## 预览
 
@@ -65,11 +65,11 @@
 
 ### 字体
 
-使用[「SIL 开放字体许可证第 1.1 版」](LICENSE-OFL)授权，保留字体名称「Ark Pixel Inherited」。
+使用 [「SIL 开放字体许可证第 1.1 版」](LICENSE-OFL) 授权，保留字体名称「Ark Pixel Inherited」。
 
 ### 构建程序
 
-使用[「MIT 许可证」](LICENSE-MIT)授权。
+使用 [「MIT 许可证」](LICENSE-MIT) 授权。
 
 ## 官方社区
 
