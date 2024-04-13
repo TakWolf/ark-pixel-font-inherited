@@ -11,7 +11,7 @@ font_sizes = [10, 12, 16]
 
 font_configs = FontConfig.load_all()
 
-font_formats = ['otf', 'woff2', 'ttf', 'bdf']
+font_formats = ['otf', 'woff2', 'ttf', 'bdf', 'pcf']
 
 ark_pixel_config = GithubSourceConfig(
     repository_name='TakWolf/ark-pixel-font',

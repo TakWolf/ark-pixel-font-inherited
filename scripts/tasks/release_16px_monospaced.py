@@ -15,6 +15,7 @@ def main():
     font_context.make_woff2()
     font_context.make_ttf()
     font_context.make_bdf()
+    font_context.make_pcf()
     publish_service.make_release_zips(font_config, width_mode, special_folder=True)
     info_service.make_info_file(design_context, width_mode)
     info_service.make_alphabet_txt_file(design_context, width_mode)

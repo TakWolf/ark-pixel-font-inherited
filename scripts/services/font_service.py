@@ -239,3 +239,9 @@ class FontContext:
         file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'bdf'))
         self._builder.save_bdf(file_path)
         logger.info("Make font file: '%s'", file_path)
+
+    def make_pcf(self):
+        fs_util.make_dir(path_define.outputs_dir)
+        file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'pcf'))
+        self._builder.save_pcf(file_path)
+        logger.info("Make font file: '%s'", file_path)
