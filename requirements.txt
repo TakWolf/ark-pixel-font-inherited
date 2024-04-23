@@ -1,4 +1,4 @@
-pixel-font-builder==0.0.19
+pixel-font-builder==0.0.21
 unidata-blocks==0.0.10
 character-encoding-utils==0.0.6
 PyYAML==6.0.1
