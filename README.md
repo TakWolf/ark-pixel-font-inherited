@@ -47,7 +47,6 @@
 可通过以下渠道下载最新的版本：
 
 - [GitHub Releases](https://github.com/TakWolf/ark-pixel-font-inherited/releases)
-- [123云盘](https://www.123pan.com/s/qKSojv-QUVSh.html)
 
 目前提供 `.otf`、`.ttf`、`.woff2`、`.bdf`、`.pcf` 五种格式。
 
