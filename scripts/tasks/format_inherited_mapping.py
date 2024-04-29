@@ -1,5 +1,5 @@
-import io
 import os
+from io import StringIO
 
 from scripts.configs import path_define
 from scripts.utils import fs_util
@@ -9,7 +9,7 @@ def main():
     file_path = os.path.join(path_define.assets_dir, 'inherited-mapping.yaml')
 
     mapping: dict[int, list[int]] = fs_util.read_yaml(file_path)
-    output = io.StringIO()
+    output = StringIO()
     targets = list(mapping)
     targets.sort()
     for target in targets:
