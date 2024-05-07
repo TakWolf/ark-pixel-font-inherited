@@ -189,8 +189,8 @@ def _create_builder(design_context: DesignContext, width_mode: str) -> FontBuild
     builder.vertical_header.ascent = math.ceil(layout_param.line_height / 2)
     builder.vertical_header.descent = math.floor(layout_param.line_height / 2)
 
-    builder.os2_config.x_height = layout_param.x_height
-    builder.os2_config.cap_height = layout_param.cap_height
+    builder.os2_configs.x_height = layout_param.x_height
+    builder.os2_configs.cap_height = layout_param.cap_height
 
     character_mapping = design_context.get_character_mapping(width_mode)
     builder.character_mapping.update(character_mapping)
@@ -206,7 +206,7 @@ def _create_builder(design_context: DesignContext, width_mode: str) -> FontBuild
             advance_height=design_context.font_config.size,
             horizontal_origin=(horizontal_origin_x, horizontal_origin_y),
             vertical_origin_y=vertical_origin_y,
-            data=glyph_file.bitmap.data,
+            bitmap=glyph_file.bitmap.data,
         ))
 
     return builder
