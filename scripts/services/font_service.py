@@ -8,8 +8,7 @@ from pixel_font_builder.opentype import Flavor
 
 from scripts import configs
 from scripts.configs import path_define, FontConfig
-from scripts.utils import fs_util
-from scripts.utils.bitmap_util import CroppedBitmap
+from scripts.utils import fs_util, bitmap_util
 
 logger = logging.getLogger('font_service')
 
@@ -35,7 +34,7 @@ class GlyphFile:
 
     def __init__(self, file_path: str, code_point: int, language_flavors: list[str]):
         self.file_path = file_path
-        self.bitmap = CroppedBitmap.load(file_path)
+        self.bitmap, self.width, self.height = bitmap_util.load_png(file_path)
         self.code_point = code_point
         self.language_flavors = language_flavors
 
@@ -197,16 +196,15 @@ def _create_builder(design_context: DesignContext, width_mode: str) -> FontBuild
 
     glyph_files = design_context.get_glyph_files(width_mode)
     for glyph_file in glyph_files:
-        horizontal_origin_x = glyph_file.bitmap.cropped_left
-        horizontal_origin_y = math.floor((layout_param.ascent + layout_param.descent - glyph_file.bitmap.raw_height) / 2) + glyph_file.bitmap.cropped_bottom
-        vertical_origin_y = (design_context.font_config.size - glyph_file.bitmap.raw_height) // 2 - 1 + glyph_file.bitmap.cropped_top
+        horizontal_origin_y = math.floor((layout_param.ascent + layout_param.descent - glyph_file.height) / 2)
+        vertical_origin_y = (design_context.font_config.size - glyph_file.height) // 2 - 1
         builder.glyphs.append(Glyph(
             name=glyph_file.glyph_name,
-            advance_width=glyph_file.bitmap.raw_width,
+            advance_width=glyph_file.width,
             advance_height=design_context.font_config.size,
-            horizontal_origin=(horizontal_origin_x, horizontal_origin_y),
+            horizontal_origin=(0, horizontal_origin_y),
             vertical_origin_y=vertical_origin_y,
-            bitmap=glyph_file.bitmap.data,
+            bitmap=glyph_file.bitmap,
         ))
 
     return builder
