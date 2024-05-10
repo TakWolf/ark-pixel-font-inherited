@@ -54,7 +54,7 @@ class DesignContext:
     def load(font_config: FontConfig) -> 'DesignContext':
         glyph_file_registry = {}
 
-        root_dir = os.path.join(path_define.glyphs_dir, str(font_config.size))
+        root_dir = os.path.join(path_define.glyphs_dir, str(font_config.font_size))
         for width_mode_dir_name in os.listdir(root_dir):
             width_mode_dir = os.path.join(root_dir, width_mode_dir_name)
             if not os.path.isdir(width_mode_dir):
@@ -91,7 +91,7 @@ class DesignContext:
                     code_point_registry[code_point] = language_flavor_registry
 
             for code_point, glyph_files in code_point_registry.items():
-                assert '' in glyph_files, f'Missing default language flavor: {font_config.size}px {width_mode_dir_name} {code_point:04X}'
+                assert '' in glyph_files, f'Missing default language flavor: {font_config.font_size}px {width_mode_dir_name} {code_point:04X}'
             glyph_file_registry[width_mode_dir_name] = code_point_registry
 
         return DesignContext(font_config, glyph_file_registry)
@@ -164,7 +164,7 @@ def _create_builder(design_context: DesignContext, width_mode: str) -> FontBuild
     layout_param = design_context.font_config.layout_params[width_mode]
 
     builder = FontBuilder()
-    builder.font_metric.font_size = design_context.font_config.size
+    builder.font_metric.font_size = design_context.font_config.font_size
     builder.font_metric.horizontal_layout.ascent = layout_param.ascent
     builder.font_metric.horizontal_layout.descent = layout_param.descent
     builder.font_metric.vertical_layout.ascent = math.ceil(layout_param.line_height / 2)
@@ -175,7 +175,7 @@ def _create_builder(design_context: DesignContext, width_mode: str) -> FontBuild
     builder.meta_info.version = FontConfig.VERSION
     builder.meta_info.created_time = FontConfig.VERSION_TIME
     builder.meta_info.modified_time = FontConfig.VERSION_TIME
-    builder.meta_info.family_name = f'{FontConfig.FAMILY_NAME} {design_context.font_config.size}px {width_mode.capitalize()}'
+    builder.meta_info.family_name = f'{FontConfig.FAMILY_NAME} {design_context.font_config.font_size}px {width_mode.capitalize()}'
     builder.meta_info.weight_name = WeightName.REGULAR
     builder.meta_info.serif_style = SerifStyle.SANS_SERIF
     builder.meta_info.slant_style = SlantStyle.NORMAL
@@ -195,11 +195,11 @@ def _create_builder(design_context: DesignContext, width_mode: str) -> FontBuild
     glyph_files = design_context.get_glyph_files(width_mode)
     for glyph_file in glyph_files:
         horizontal_origin_y = math.floor((layout_param.ascent + layout_param.descent - glyph_file.height) / 2)
-        vertical_origin_y = (design_context.font_config.size - glyph_file.height) // 2 - 1
+        vertical_origin_y = (design_context.font_config.font_size - glyph_file.height) // 2 - 1
         builder.glyphs.append(Glyph(
             name=glyph_file.glyph_name,
             advance_width=glyph_file.width,
-            advance_height=design_context.font_config.size,
+            advance_height=design_context.font_config.font_size,
             horizontal_origin=(0, horizontal_origin_y),
             vertical_origin_y=vertical_origin_y,
             bitmap=glyph_file.bitmap,
