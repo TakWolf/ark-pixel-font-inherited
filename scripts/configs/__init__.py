@@ -1,5 +1,5 @@
-from scripts.configs.font import FontConfig
 from scripts.configs.deploy import GitDeployConfig
+from scripts.configs.font import FontConfig
 from scripts.configs.source import GithubSourceConfig, GitSourceType
 
 width_modes = [
