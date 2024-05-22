@@ -233,31 +233,31 @@ class FontContext:
         self._builder = _create_builder(design_context, width_mode)
 
     def make_otf(self):
-        fs_util.make_dir(path_define.outputs_dir)
+        os.makedirs(path_define.outputs_dir, exist_ok=True)
         file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'otf'))
         self._builder.save_otf(file_path)
         logger.info("Make font file: '%s'", file_path)
 
     def make_woff2(self):
-        fs_util.make_dir(path_define.outputs_dir)
+        os.makedirs(path_define.outputs_dir, exist_ok=True)
         file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'woff2'))
         self._builder.save_otf(file_path, flavor=Flavor.WOFF2)
         logger.info("Make font file: '%s'", file_path)
 
     def make_ttf(self):
-        fs_util.make_dir(path_define.outputs_dir)
+        os.makedirs(path_define.outputs_dir, exist_ok=True)
         file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'ttf'))
         self._builder.save_ttf(file_path)
         logger.info("Make font file: '%s'", file_path)
 
     def make_bdf(self):
-        fs_util.make_dir(path_define.outputs_dir)
+        os.makedirs(path_define.outputs_dir, exist_ok=True)
         file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'bdf'))
         self._builder.save_bdf(file_path)
         logger.info("Make font file: '%s'", file_path)
 
     def make_pcf(self):
-        fs_util.make_dir(path_define.outputs_dir)
+        os.makedirs(path_define.outputs_dir, exist_ok=True)
         file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'pcf'))
         self._builder.save_pcf(file_path)
         logger.info("Make font file: '%s'", file_path)
