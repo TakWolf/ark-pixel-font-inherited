@@ -1,7 +1,7 @@
 import logging
 import math
-import os
 import re
+from pathlib import Path
 
 from pixel_font_builder import FontBuilder, WeightName, SerifStyle, SlantStyle, Glyph
 from pixel_font_builder.opentype import Flavor
@@ -12,13 +12,13 @@ from scripts.utils import fs_util, bitmap_util
 
 logger = logging.getLogger('font_service')
 
-_inherited_mapping: dict[int, list[int]] = fs_util.read_yaml(os.path.join(path_define.assets_dir, 'inherited-mapping.yaml'))
+_inherited_mapping: dict[int, list[int]] = fs_util.read_yaml(path_define.assets_dir.joinpath('inherited-mapping.yaml'))
 
 
 class GlyphFile:
     @staticmethod
-    def load(file_path: str) -> 'GlyphFile':
-        tokens = re.split(r'\s+', os.path.basename(file_path).removesuffix('.png'), 1)
+    def load(file_path: Path) -> 'GlyphFile':
+        tokens = re.split(r'\s+', file_path.stem, 1)
 
         if tokens[0] == 'notdef':
             code_point = -1
@@ -32,14 +32,14 @@ class GlyphFile:
 
         return GlyphFile(file_path, code_point, language_flavors)
 
-    file_path: str
+    file_path: Path
     bitmap: list[list[int]]
     width: int
     height: int
     code_point: int
     language_flavors: list[str]
 
-    def __init__(self, file_path: str, code_point: int, language_flavors: list[str]):
+    def __init__(self, file_path: Path, code_point: int, language_flavors: list[str]):
         self.file_path = file_path
         self.bitmap, self.width, self.height = bitmap_util.load_png(file_path)
         self.code_point = code_point
@@ -61,19 +61,19 @@ class DesignContext:
     def load(font_config: FontConfig) -> 'DesignContext':
         glyph_file_registry = {}
 
-        root_dir = os.path.join(path_define.glyphs_dir, str(font_config.font_size))
-        for width_mode_dir_name in os.listdir(root_dir):
-            width_mode_dir = os.path.join(root_dir, width_mode_dir_name)
-            if not os.path.isdir(width_mode_dir):
+        root_dir = path_define.glyphs_dir.joinpath(str(font_config.font_size))
+        for width_mode_dir in root_dir.iterdir():
+            if not width_mode_dir.is_dir():
                 continue
+            width_mode_dir_name = width_mode_dir.name
             assert width_mode_dir_name == 'common' or width_mode_dir_name in configs.width_modes, f"Width mode '{width_mode_dir_name}' undefined: '{width_mode_dir}'"
 
             code_point_registry = {}
-            for file_dir, _, file_names in os.walk(width_mode_dir):
+            for file_dir, _, file_names in width_mode_dir.walk():
                 for file_name in file_names:
                     if not file_name.endswith('.png'):
                         continue
-                    file_path = os.path.join(file_dir, file_name)
+                    file_path = file_dir.joinpath(file_name)
                     glyph_file = GlyphFile.load(file_path)
 
                     if glyph_file.code_point not in code_point_registry:
@@ -233,31 +233,31 @@ class FontContext:
         self._builder = _create_builder(design_context, width_mode)
 
     def make_otf(self):
-        os.makedirs(path_define.outputs_dir, exist_ok=True)
-        file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'otf'))
+        path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
+        file_path = path_define.outputs_dir.joinpath(self.design_context.font_config.get_font_file_name(self.width_mode, 'otf'))
         self._builder.save_otf(file_path)
         logger.info("Make font file: '%s'", file_path)
 
     def make_woff2(self):
-        os.makedirs(path_define.outputs_dir, exist_ok=True)
-        file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'woff2'))
+        path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
+        file_path = path_define.outputs_dir.joinpath(self.design_context.font_config.get_font_file_name(self.width_mode, 'woff2'))
         self._builder.save_otf(file_path, flavor=Flavor.WOFF2)
         logger.info("Make font file: '%s'", file_path)
 
     def make_ttf(self):
-        os.makedirs(path_define.outputs_dir, exist_ok=True)
-        file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'ttf'))
+        path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
+        file_path = path_define.outputs_dir.joinpath(self.design_context.font_config.get_font_file_name(self.width_mode, 'ttf'))
         self._builder.save_ttf(file_path)
         logger.info("Make font file: '%s'", file_path)
 
     def make_bdf(self):
-        os.makedirs(path_define.outputs_dir, exist_ok=True)
-        file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'bdf'))
+        path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
+        file_path = path_define.outputs_dir.joinpath(self.design_context.font_config.get_font_file_name(self.width_mode, 'bdf'))
         self._builder.save_bdf(file_path)
         logger.info("Make font file: '%s'", file_path)
 
     def make_pcf(self):
-        os.makedirs(path_define.outputs_dir, exist_ok=True)
-        file_path = os.path.join(path_define.outputs_dir, self.design_context.font_config.get_font_file_name(self.width_mode, 'pcf'))
+        path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
+        file_path = path_define.outputs_dir.joinpath(self.design_context.font_config.get_font_file_name(self.width_mode, 'pcf'))
         self._builder.save_pcf(file_path)
         logger.info("Make font file: '%s'", file_path)

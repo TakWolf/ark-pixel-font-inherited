@@ -1,5 +1,4 @@
 import datetime
-import os
 from typing import Final
 
 from scripts import configs
@@ -45,8 +44,8 @@ class FontConfig:
 
     @staticmethod
     def load(font_size: int) -> 'FontConfig':
-        file_path = os.path.join(path_define.glyphs_dir, str(font_size), 'config.toml')
-        if not os.path.exists(file_path):
+        file_path = path_define.glyphs_dir.joinpath(str(font_size), 'config.toml')
+        if not file_path.exists():
             return FontConfig(font_size, {})
         config_data = fs_util.read_toml(file_path)['font']
         assert font_size == config_data['size'], f"Config 'size' error: '{file_path}'"

@@ -1,5 +1,4 @@
 import logging
-import os
 import zipfile
 
 from scripts import configs
@@ -31,44 +30,44 @@ def update_glyphs_version():
         'version_url': f'https://github.com/{ark_pixel_config.repository_name}/tree/{version}',
         'asset_url': f'https://github.com/{ark_pixel_config.repository_name}/archive/{sha}.zip',
     }
-    file_path = os.path.join(path_define.assets_dir, 'glyphs-version.json')
+    file_path = path_define.assets_dir.joinpath('glyphs-version.json')
     fs_util.write_json(version_info, file_path)
     logger.info("Update version file: '%s'", file_path)
 
 
 def setup_glyphs():
-    build_version_file_path = os.path.join(path_define.glyphs_dir, 'version.json')
-    if os.path.isfile(build_version_file_path):
+    build_version_file_path = path_define.glyphs_dir.joinpath('version.json')
+    if build_version_file_path.is_file():
         build_sha = fs_util.read_json(build_version_file_path)['sha']
     else:
         build_sha = None
 
-    version_file_path = os.path.join(path_define.assets_dir, 'glyphs-version.json')
+    version_file_path = path_define.assets_dir.joinpath('glyphs-version.json')
     version_info = fs_util.read_json(version_file_path)
     sha = version_info['sha']
     if build_sha == sha:
         return
     logger.info('Need setup glyphs')
 
-    download_dir = os.path.join(path_define.cache_dir, 'ark-pixel-font')
-    source_file_path = os.path.join(download_dir, f'{sha}.zip')
-    if not os.path.exists(source_file_path):
+    download_dir = path_define.cache_dir.joinpath('ark-pixel-font')
+    source_file_path = download_dir.joinpath(f'{sha}.zip')
+    if not source_file_path.exists():
         asset_url = version_info['asset_url']
         logger.info("Start download: '%s'", asset_url)
-        os.makedirs(download_dir, exist_ok=True)
+        download_dir.mkdir(parents=True, exist_ok=True)
         download_util.download_file(asset_url, source_file_path)
     else:
         logger.info("Already downloaded: '%s'", source_file_path)
 
-    source_unzip_dir = os.path.join(download_dir, f'ark-pixel-font-{sha}')
+    source_unzip_dir = download_dir.joinpath(f'ark-pixel-font-{sha}')
     fs_util.delete_dir(source_unzip_dir)
     with zipfile.ZipFile(source_file_path) as file:
         file.extractall(download_dir)
     logger.info("Unzip: '%s'", source_unzip_dir)
 
     fs_util.delete_dir(path_define.glyphs_dir)
-    source_glyphs_dir = os.path.join(source_unzip_dir, 'assets', 'glyphs')
-    os.rename(source_glyphs_dir, path_define.glyphs_dir)
+    source_glyphs_dir = source_unzip_dir.joinpath('assets', 'glyphs')
+    source_glyphs_dir.rename(path_define.glyphs_dir)
     fs_util.delete_dir(source_unzip_dir)
     configs.font_configs = FontConfig.load_all()
     fs_util.write_json(version_info, build_version_file_path)

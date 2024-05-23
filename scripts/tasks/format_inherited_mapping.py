@@ -1,4 +1,3 @@
-import os
 from io import StringIO
 
 from scripts.configs import path_define
@@ -6,7 +5,7 @@ from scripts.utils import fs_util
 
 
 def main():
-    file_path = os.path.join(path_define.assets_dir, 'inherited-mapping.yaml')
+    file_path = path_define.assets_dir.joinpath('inherited-mapping.yaml')
 
     mapping: dict[int, list[int]] = fs_util.read_yaml(file_path)
     output = StringIO()
@@ -21,7 +20,7 @@ def main():
         for code_point in code_points:
             output.write(f'  - 0x{code_point:04X}  # {chr(code_point)}\n')
 
-    fs_util.write_str(output.getvalue(), file_path)
+    file_path.write_text(output.getvalue(), 'utf-8')
 
 
 if __name__ == '__main__':
