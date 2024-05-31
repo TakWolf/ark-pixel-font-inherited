@@ -7,7 +7,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        {% for width_mode in configs.width_modes %}
+        {% for width_mode in width_modes %}
         {% with font_family = 'ark-pixel-inherited-' ~ font_config.font_size ~ 'px-' ~ width_mode %}
         @font-face {
             font-family: {{ font_family }};
@@ -21,7 +21,7 @@
         {% if font_config.font_size != 12 %}
         @font-face {
             font-family: ark-pixel-inherited-12px-monospaced;
-            src: url("{{ configs.font_configs[12].get_font_file_name('monospaced', 'woff2') }}?r={{ build_random_key }}");
+            src: url("{{ font_configs[12].get_font_file_name('monospaced', 'woff2') }}?r={{ build_random_key }}");
         }
         {% endif %}
         .theme-light {
@@ -32,7 +32,7 @@
             color: white;
             background-color: #4b4b4b;
         }
-        {% for width_mode in configs.width_modes %}
+        {% for width_mode in width_modes %}
         .theme-light .font-{{ width_mode }} .char-notdef-{{ width_mode }} {
             color: #f83737;
         }
@@ -131,7 +131,7 @@
 {% endblock %}
 {% block body %}
     <form class="options-group">
-        {% for width_mode in configs.width_modes %}
+        {% for width_mode in width_modes %}
         <label class="option">
             <input id="radio-width-mode-{{ width_mode }}" name="width_mode" type="radio" onchange="onWidthModeChange('{{ width_mode }}');">
             <span></span>

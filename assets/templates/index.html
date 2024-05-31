@@ -9,9 +9,9 @@
         }
         @font-face {
             font-family: ark-pixel-inherited-12px-monospaced;
-            src: url("{{ configs.font_configs[12].get_font_file_name('monospaced', 'woff2') }}?r={{ build_random_key }}");
+            src: url("{{ font_configs[12].get_font_file_name('monospaced', 'woff2') }}?r={{ build_random_key }}");
         }
-        {% for font_config in configs.font_configs.values() %}
+        {% for font_config in font_configs.values() %}
         {% with font_family = 'ark-pixel-inherited-' ~ font_config.font_size ~ 'px-proportional' %}
         @font-face {
             font-family: {{ font_family }};
@@ -119,7 +119,7 @@
 {% endblock %}
 {% block body %}
     <form class="options-group">
-        {% for font_config in configs.font_configs.values() %}
+        {% for font_config in font_configs.values() %}
         <label class="option">
             <input id="radio-font-size-{{ font_config.font_size }}" name="font_size" type="radio" onchange="onFontSizeChange('{{ font_config.font_size }}');">
             <span></span>
@@ -148,10 +148,10 @@
         <div class="link-group">
             <a class="link-tab" href="playground.html" target="_blank">playground</a>
         </div>
-        {% for font_config in configs.font_configs.values() %}
+        {% for font_config in font_configs.values() %}
         <div class="link-group">
             <span class="link-tab">{{ font_config.font_size }}px</span>
-            {% for width_mode in configs.width_modes %}
+            {% for width_mode in width_modes %}
             <a class="link-tab" href="alphabet-{{ font_config.font_size }}px-{{ width_mode }}.html" target="_blank">alphabet-{{ width_mode }}</a>
             {% endfor %}
             <a class="link-tab" href="demo-{{ font_config.font_size }}px.html" target="_blank">demo</a>
