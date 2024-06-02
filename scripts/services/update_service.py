@@ -1,8 +1,7 @@
 import logging
 import zipfile
 
-from scripts import configs
-from scripts.configs import path_define, ark_pixel_config, FontConfig, GitSourceType
+from scripts.configs import path_define, ark_pixel_config, GitSourceType
 from scripts.utils import fs_util, github_api, download_util
 
 logger = logging.getLogger('update_service')
@@ -69,6 +68,5 @@ def setup_glyphs():
     source_glyphs_dir = source_unzip_dir.joinpath('assets', 'glyphs')
     source_glyphs_dir.rename(path_define.glyphs_dir)
     fs_util.delete_dir(source_unzip_dir)
-    configs.font_configs = FontConfig.load_all()
     fs_util.write_json(version_info, build_version_file_path)
     logger.info("Update glyphs: '%s'", sha)

@@ -1,4 +1,4 @@
-from scripts import configs
+from scripts.configs import FontConfig
 from scripts.services import update_service, publish_service, info_service
 from scripts.services.font_service import DesignContext, FontContext
 
@@ -6,7 +6,7 @@ from scripts.services.font_service import DesignContext, FontContext
 def main():
     update_service.setup_glyphs()
 
-    font_config = configs.font_configs[16]
+    font_config = FontConfig.load(16)
     design_context = DesignContext.load(font_config)
 
     width_mode = 'proportional'
