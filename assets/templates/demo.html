@@ -11,7 +11,7 @@
         {% with font_family = 'ark-pixel-inherited-' ~ font_config.font_size ~ 'px-' ~ width_mode %}
         @font-face {
             font-family: {{ font_family }};
-            src: url("{{ font_config.get_font_file_name(width_mode, 'woff2') }}?r={{ build_random_key }}");
+            src: url("{{ font_family }}.woff2?r={{ build_random_key }}");
         }
         .font-{{ width_mode }} {
             font-family: {{ font_family }}, sans-serif;
@@ -19,10 +19,12 @@
         {% endwith %}
         {% endfor %}
         {% if font_config.font_size != 12 %}
+        {% with font_family = 'ark-pixel-inherited-12px-monospaced' %}
         @font-face {
-            font-family: ark-pixel-inherited-12px-monospaced;
-            src: url("{{ font_configs[12].get_font_file_name('monospaced', 'woff2') }}?r={{ build_random_key }}");
+            font-family: {{ font_family }};
+            src: url("{{ font_family }}.woff2?r={{ build_random_key }}");
         }
+        {% endwith %}
         {% endif %}
         .theme-light {
             color: #4b4b4b;

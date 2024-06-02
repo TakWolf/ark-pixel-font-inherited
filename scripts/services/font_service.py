@@ -234,30 +234,30 @@ class FontContext:
 
     def make_otf(self):
         path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-        file_path = path_define.outputs_dir.joinpath(self.design_context.font_config.get_font_file_name(self.width_mode, 'otf'))
+        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.otf')
         self._builder.save_otf(file_path)
         logger.info("Make font file: '%s'", file_path)
 
     def make_woff2(self):
         path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-        file_path = path_define.outputs_dir.joinpath(self.design_context.font_config.get_font_file_name(self.width_mode, 'woff2'))
+        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.woff2')
         self._builder.save_otf(file_path, flavor=Flavor.WOFF2)
         logger.info("Make font file: '%s'", file_path)
 
     def make_ttf(self):
         path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-        file_path = path_define.outputs_dir.joinpath(self.design_context.font_config.get_font_file_name(self.width_mode, 'ttf'))
+        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.ttf')
         self._builder.save_ttf(file_path)
         logger.info("Make font file: '%s'", file_path)
 
     def make_bdf(self):
         path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-        file_path = path_define.outputs_dir.joinpath(self.design_context.font_config.get_font_file_name(self.width_mode, 'bdf'))
+        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.bdf')
         self._builder.save_bdf(file_path)
         logger.info("Make font file: '%s'", file_path)
 
     def make_pcf(self):
         path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-        file_path = path_define.outputs_dir.joinpath(self.design_context.font_config.get_font_file_name(self.width_mode, 'pcf'))
+        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.pcf')
         self._builder.save_pcf(file_path)
         logger.info("Make font file: '%s'", file_path)

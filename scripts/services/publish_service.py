@@ -17,10 +17,10 @@ def make_release_zips(font_config: FontConfig, width_mode: str):
     path_define.releases_dir.mkdir(parents=True, exist_ok=True)
 
     for font_format in configs.font_formats:
-        file_path = path_define.releases_dir.joinpath(font_config.get_release_zip_file_name(width_mode, font_format))
+        file_path = path_define.releases_dir.joinpath(f'ark-pixel-font-inherited-{font_config.font_size}px-{width_mode}-{font_format}-v{configs.font_version}.zip')
         with zipfile.ZipFile(file_path, 'w') as file:
             file.write(path_define.project_root_dir.joinpath('LICENSE-OFL'), 'OFL.txt')
-            font_file_name = font_config.get_font_file_name(width_mode, font_format)
+            font_file_name = f'ark-pixel-inherited-{font_config.font_size}px-{width_mode}.{font_format}'
             font_file_path = path_define.outputs_dir.joinpath(font_file_name)
             file.write(font_file_path, font_file_name)
         logger.info("Make release zip: '%s'", file_path)
