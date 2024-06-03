@@ -13,12 +13,8 @@ def main():
     font_config = FontConfig.load(font_size)
     design_context = DesignContext.load(font_config)
     font_context = FontContext(design_context, width_mode)
-    font_context.make_otf()
-    font_context.make_woff2()
-    font_context.make_ttf()
-    font_context.make_bdf()
-    font_context.make_pcf()
     for font_format in configs.font_formats:
+        font_context.make_font_file(font_format)
         publish_service.make_release_zip(font_size, width_mode, font_format)
     info_service.make_info_file(design_context, width_mode)
     info_service.make_alphabet_txt_file(design_context, width_mode)

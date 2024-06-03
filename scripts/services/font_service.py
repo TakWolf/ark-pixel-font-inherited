@@ -232,32 +232,11 @@ class FontContext:
         self.width_mode = width_mode
         self._builder = _create_builder(design_context, width_mode)
 
-    def make_otf(self):
+    def make_font_file(self, font_format: str):
         path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.otf')
-        self._builder.save_otf(file_path)
-        logger.info("Make font file: '%s'", file_path)
-
-    def make_woff2(self):
-        path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.woff2')
-        self._builder.save_otf(file_path, flavor=Flavor.WOFF2)
-        logger.info("Make font file: '%s'", file_path)
-
-    def make_ttf(self):
-        path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.ttf')
-        self._builder.save_ttf(file_path)
-        logger.info("Make font file: '%s'", file_path)
-
-    def make_bdf(self):
-        path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.bdf')
-        self._builder.save_bdf(file_path)
-        logger.info("Make font file: '%s'", file_path)
-
-    def make_pcf(self):
-        path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.pcf')
-        self._builder.save_pcf(file_path)
+        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.{font_format}')
+        if font_format == 'woff2':
+            self._builder.save_otf(file_path, flavor=Flavor.WOFF2)
+        else:
+            getattr(self._builder, f'save_{font_format}')(file_path)
         logger.info("Make font file: '%s'", file_path)
