@@ -1,3 +1,4 @@
+import datetime
 import logging
 import math
 import re
@@ -187,8 +188,8 @@ def _create_builder(design_context: DesignContext, width_mode: str) -> FontBuild
     builder.font_metric.cap_height = layout_param.cap_height
 
     builder.meta_info.version = configs.font_version
-    builder.meta_info.created_time = configs.font_version_time
-    builder.meta_info.modified_time = configs.font_version_time
+    builder.meta_info.created_time = datetime.datetime.fromisoformat(f'{configs.font_version.replace('.', '-')}T00:00:00Z')
+    builder.meta_info.modified_time = builder.meta_info.created_time
     builder.meta_info.family_name = f'Ark Pixel Inherited {design_context.font_config.font_size}px {width_mode.capitalize()}'
     builder.meta_info.weight_name = WeightName.REGULAR
     builder.meta_info.serif_style = SerifStyle.SANS_SERIF
