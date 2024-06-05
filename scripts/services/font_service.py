@@ -232,11 +232,11 @@ class FontContext:
         self.width_mode = width_mode
         self._builder = _create_builder(design_context, width_mode)
 
-    def make_font_file(self, font_format: str):
+    def make_font(self, font_format: str):
         path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
         file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.{font_format}')
         if font_format == 'woff2':
             self._builder.save_otf(file_path, flavor=Flavor.WOFF2)
         else:
             getattr(self._builder, f'save_{font_format}')(file_path)
-        logger.info("Make font file: '%s'", file_path)
+        logger.info("Make font: '%s'", file_path)

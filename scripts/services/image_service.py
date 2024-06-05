@@ -41,7 +41,7 @@ def _draw_text(
     draw.text((x, y), text, fill=text_color, font=font, spacing=spacing)
 
 
-def make_preview_image_file(font_config: FontConfig):
+def make_preview_image(font_config: FontConfig):
     font = _load_font(font_config, 'proportional')
 
     image = Image.new('RGBA', (font_config.font_size * 28, font_config.font_size * 2 + font_config.line_height * 9), (255, 255, 255, 255))
@@ -59,4 +59,4 @@ def make_preview_image_file(font_config: FontConfig):
     path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
     file_path = path_define.outputs_dir.joinpath(f'preview-{font_config.font_size}px.png')
     image.save(file_path)
-    logger.info("Make preview image file: '%s'", file_path)
+    logger.info("Make preview image: '%s'", file_path)
