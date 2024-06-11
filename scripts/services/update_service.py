@@ -4,7 +4,7 @@ import zipfile
 from scripts.configs import path_define, ark_pixel_config, GitSourceType
 from scripts.utils import fs_util, github_api, download_util
 
-logger = logging.getLogger('update_service')
+logger = logging.getLogger(__name__)
 
 
 def update_glyphs_version():

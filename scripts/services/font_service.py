@@ -11,7 +11,7 @@ from scripts import configs
 from scripts.configs import path_define, FontConfig
 from scripts.utils import fs_util, bitmap_util
 
-logger = logging.getLogger('font_service')
+logger = logging.getLogger(__name__)
 
 _inherited_mapping: dict[int, list[int]] = fs_util.read_yaml(path_define.assets_dir.joinpath('inherited-mapping.yaml'))
 
