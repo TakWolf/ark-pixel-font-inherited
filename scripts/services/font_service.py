@@ -4,7 +4,7 @@ import math
 import re
 from pathlib import Path
 
-from pixel_font_builder import FontBuilder, WeightName, SerifStyle, SlantStyle, Glyph
+from pixel_font_builder import FontBuilder, WeightName, SerifStyle, SlantStyle, WidthMode, Glyph
 from pixel_font_builder.opentype import Flavor
 
 from scripts import configs
@@ -194,7 +194,7 @@ def _create_builder(design_context: DesignContext, width_mode: str) -> FontBuild
     builder.meta_info.weight_name = WeightName.REGULAR
     builder.meta_info.serif_style = SerifStyle.SANS_SERIF
     builder.meta_info.slant_style = SlantStyle.NORMAL
-    builder.meta_info.width_mode = width_mode.capitalize()
+    builder.meta_info.width_mode = WidthMode(width_mode.capitalize())
     builder.meta_info.manufacturer = 'TakWolf'
     builder.meta_info.designer = 'TakWolf'
     builder.meta_info.description = 'Open source Pan-CJK pixel font.'
