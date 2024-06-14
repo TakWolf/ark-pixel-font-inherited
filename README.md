@@ -3,8 +3,8 @@
 [![License OFL](https://img.shields.io/badge/license-OFL--1.1-orange)](https://openfontlicense.org)
 [![License MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 [![Releases](https://img.shields.io/github/v/release/TakWolf/ark-pixel-font-inherited)](https://github.com/TakWolf/ark-pixel-font-inherited/releases)
-[![Discord](https://img.shields.io/discord/949265373964947458?color=4E5AF0&logo=discord&logoColor=white&label=discord)](https://discord.gg/3GKtPKtjdU)
-[![QQ Group](https://img.shields.io/badge/QQ群-302383204-brightgreen?logo=tencentqq&logoColor=white)](https://jq.qq.com/?_wv=1027&k=EXtKGHar)
+[![Discord](https://img.shields.io/badge/discord-像素字体工房-4E5AF0?logo=discord&logoColor=white)](https://discord.gg/3GKtPKtjdU)
+[![QQ Group](https://img.shields.io/badge/QQ群-像素字体工房-brightgreen?logo=tencentqq&logoColor=white)](https://qm.qq.com/q/X1mLrLLGYS)
 
 [「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font) 的传承字形版本。
 
@@ -73,7 +73,7 @@
 ## 官方社区
 
 - [「像素字体工房」Discord 服务器](https://discord.gg/3GKtPKtjdU)
-- [「像素字体工房」QQ 群 (302383204)](https://jq.qq.com/?_wv=1027&k=EXtKGHar)
+- [「像素字体工房」QQ 群 (302383204)](https://qm.qq.com/q/X1mLrLLGYS)
 
 ## 程序依赖
 
