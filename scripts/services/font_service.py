@@ -6,10 +6,11 @@ from pathlib import Path
 
 from pixel_font_builder import FontBuilder, WeightName, SerifStyle, SlantStyle, WidthMode, Glyph
 from pixel_font_builder.opentype import Flavor
+from pixel_font_knife import mono_bitmap_util
 
 from scripts import configs
 from scripts.configs import path_define, FontConfig
-from scripts.utils import fs_util, bitmap_util
+from scripts.utils import fs_util
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ class GlyphFile:
 
     def __init__(self, file_path: Path, code_point: int, language_flavors: list[str]):
         self.file_path = file_path
-        self.bitmap, self.width, self.height = bitmap_util.load_png(file_path)
+        self.bitmap, self.width, self.height = mono_bitmap_util.load_png(file_path)
         self.code_point = code_point
         self.language_flavors = language_flavors
 
