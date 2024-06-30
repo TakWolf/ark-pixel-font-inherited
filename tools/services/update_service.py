@@ -1,8 +1,8 @@
 import logging
 import zipfile
 
-from scripts.configs import path_define, ark_pixel_config, GitSourceType
-from scripts.utils import fs_util, github_api, download_util
+from tools.configs import path_define, ark_pixel_config, GitSourceType
+from tools.utils import fs_util, github_api, download_util
 
 logger = logging.getLogger(__name__)
 

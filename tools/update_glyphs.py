@@ -1,4 +1,4 @@
-from scripts.services import update_service
+from tools.services import update_service
 
 
 def main():

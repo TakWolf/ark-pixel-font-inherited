@@ -1,7 +1,7 @@
 from io import StringIO
 
-from scripts.configs import path_define
-from scripts.utils import fs_util
+from tools.configs import path_define
+from tools.utils import fs_util
 
 
 def main():
