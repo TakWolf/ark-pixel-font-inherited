@@ -1,5 +1,4 @@
 from tools.configs.deploy import GitDeployConfig
-from tools.configs.font import FontConfig
 from tools.configs.source import GithubSourceConfig, GitSourceType
 
 font_version = '2024.05.12'

@@ -1,5 +1,5 @@
 from tools import configs
-from tools.configs import FontConfig
+from tools.configs.font import FontConfig
 from tools.services import update_service, publish_service, info_service
 from tools.services.font_service import DesignContext, FontContext
 
