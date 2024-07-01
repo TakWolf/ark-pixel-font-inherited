@@ -85,7 +85,6 @@
 - [Pillow](https://github.com/python-pillow/Pillow)
 - [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/)
 - [Jinja](https://github.com/pallets/jinja)
-- [GitPython](https://github.com/gitpython-developers/GitPython)
 - [HTTPX](https://github.com/encode/httpx)
 
 ## 赞助

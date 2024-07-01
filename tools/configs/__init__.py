@@ -1,4 +1,3 @@
-from tools.configs.deploy import GitDeployConfig
 from tools.configs.source import GithubSourceConfig, GitSourceType
 
 font_version = '2024.05.12'
@@ -17,9 +16,3 @@ ark_pixel_config = GithubSourceConfig(
     source_type=GitSourceType.TAG,
     source_name=None,
 )
-
-git_deploy_configs = [GitDeployConfig(
-    url='git@github.com:TakWolf/ark-pixel-font-inherited.git',
-    remote_name='github',
-    branch_name='gh-pages',
-)]
