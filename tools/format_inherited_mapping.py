@@ -9,11 +9,8 @@ def main():
 
     mapping: dict[int, list[int]] = fs_util.read_yaml(file_path)
     output = StringIO()
-    targets = list(mapping)
-    targets.sort()
-    for target in targets:
-        code_points = list(set(mapping[target]))
-        code_points.sort()
+    for target, code_points in sorted(mapping.items()):
+        code_points = sorted(set(code_points))
         assert target in code_points
         output.write('\n')
         output.write(f'0x{target:04X}:  # {chr(target)}\n')
