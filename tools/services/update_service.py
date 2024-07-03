@@ -1,4 +1,5 @@
 import logging
+import shutil
 import zipfile
 
 from tools.configs import path_define
@@ -63,14 +64,17 @@ def setup_glyphs():
         logger.info("Already downloaded: '%s'", source_file_path)
 
     source_unzip_dir = downloads_dir.joinpath(f'ark-pixel-font-{sha}')
-    fs_util.delete_dir(source_unzip_dir)
+    if source_unzip_dir.exists():
+        shutil.rmtree(source_unzip_dir)
     with zipfile.ZipFile(source_file_path) as file:
         file.extractall(downloads_dir)
     logger.info("Unzip: '%s'", source_unzip_dir)
 
-    fs_util.delete_dir(path_define.glyphs_dir)
+    if path_define.glyphs_dir.exists():
+        shutil.rmtree(path_define.glyphs_dir)
     source_glyphs_dir = source_unzip_dir.joinpath('assets', 'glyphs')
     source_glyphs_dir.rename(path_define.glyphs_dir)
-    fs_util.delete_dir(source_unzip_dir)
+    if source_unzip_dir.exists():
+        shutil.rmtree(source_unzip_dir)
     fs_util.write_json(version_info, cache_version_file_path)
     logger.info("Update glyphs: '%s'", sha)
