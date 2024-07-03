@@ -15,7 +15,7 @@ from tools.utils import fs_util
 
 logger = logging.getLogger(__name__)
 
-_inherited_mapping: dict[int, list[int]] = fs_util.read_yaml(path_define.assets_dir.joinpath('inherited-mapping.yaml'))
+_inherited_mapping: dict[int, list[int]] = fs_util.read_yaml(path_define.assets_dir.joinpath('inherited-mapping.yml'))
 
 
 class GlyphFile:

@@ -3,7 +3,7 @@ from tools.utils import fs_util
 
 
 def main():
-    file_path = path_define.assets_dir.joinpath('inherited-mapping.yaml')
+    file_path = path_define.assets_dir.joinpath('inherited-mapping.yml')
     mapping: dict[int, list[int]] = fs_util.read_yaml(file_path)
 
     with file_path.open('w', encoding='utf-8') as file:
