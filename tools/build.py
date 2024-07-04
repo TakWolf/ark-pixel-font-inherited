@@ -13,7 +13,7 @@ def main():
 
     update_service.setup_glyphs()
 
-    font_configs = FontConfig.load_all()
+    font_configs = {font_size: FontConfig.load(font_size) for font_size in configs.font_sizes}
     for font_size, font_config in font_configs.items():
         design_context = DesignContext.load(font_config)
         for width_mode in configs.width_modes:
