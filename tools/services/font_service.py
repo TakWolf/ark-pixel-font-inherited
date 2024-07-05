@@ -6,7 +6,7 @@ from pathlib import Path
 
 from pixel_font_builder import FontBuilder, WeightName, SerifStyle, SlantStyle, WidthStyle, Glyph
 from pixel_font_builder.opentype import Flavor
-from pixel_font_knife import mono_bitmap_util
+from pixel_font_knife.mono_bitmap import MonoBitmap
 
 from tools import configs
 from tools.configs import path_define
@@ -36,17 +36,23 @@ class GlyphFile:
         return GlyphFile(file_path, code_point, language_flavors)
 
     file_path: Path
-    bitmap: list[list[int]]
-    width: int
-    height: int
+    bitmap: MonoBitmap
     code_point: int
     language_flavors: list[str]
 
     def __init__(self, file_path: Path, code_point: int, language_flavors: list[str]):
         self.file_path = file_path
-        self.bitmap, self.width, self.height = mono_bitmap_util.load_png(file_path)
+        self.bitmap = MonoBitmap.load_png(file_path)
         self.code_point = code_point
         self.language_flavors = language_flavors
+
+    @property
+    def width(self) -> int:
+        return self.bitmap.width
+
+    @property
+    def height(self) -> int:
+        return self.bitmap.height
 
     @property
     def glyph_name(self) -> str:
@@ -218,7 +224,7 @@ def _create_builder(design_context: DesignContext, width_mode: str) -> FontBuild
             advance_height=design_context.font_config.font_size,
             horizontal_origin=(0, horizontal_origin_y),
             vertical_origin_y=vertical_origin_y,
-            bitmap=glyph_file.bitmap,
+            bitmap=glyph_file.bitmap.data,
         ))
 
     return builder
