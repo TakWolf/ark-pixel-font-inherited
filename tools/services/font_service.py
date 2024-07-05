@@ -57,12 +57,12 @@ class GlyphFile:
     @property
     def glyph_name(self) -> str:
         if self.code_point == -1:
-            _glyph_name = '.notdef'
+            name = '.notdef'
         else:
-            _glyph_name = f'{self.code_point:04X}'
+            name = f'{self.code_point:04X}'
         if len(self.language_flavors) > 0:
-            _glyph_name = f'{_glyph_name}-i'
-        return _glyph_name
+            name = f'{name}-{self.language_flavors[0]}'
+        return name
 
 
 class DesignContext:
