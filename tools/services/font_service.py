@@ -10,7 +10,7 @@ from pixel_font_knife import glyph_file_util
 from pixel_font_knife.glyph_file_util import GlyphFile, GlyphFlavorGroup
 
 from tools import configs
-from tools.configs import path_define, WidthMode, FontFormat
+from tools.configs import path_define, FontSize, WidthMode, FontFormat
 from tools.configs.font import FontConfig
 
 _inherited_mapping: dict[int, list[int]] = yaml.safe_load(path_define.assets_dir.joinpath('inherited-mapping.yml').read_bytes())
@@ -66,6 +66,10 @@ class DesignContext:
         self._glyph_sequence_cache = {}
         self._builder_cache = {}
 
+    @property
+    def font_size(self) -> FontSize:
+        return self.font_config.font_size
+
     def get_alphabet(self, width_mode: WidthMode) -> set[str]:
         if width_mode in self._alphabet_cache:
             alphabet = self._alphabet_cache[width_mode]
@@ -104,7 +108,7 @@ class DesignContext:
         layout_param = self.font_config.layout_params[width_mode]
 
         builder = FontBuilder()
-        builder.font_metric.font_size = self.font_config.font_size
+        builder.font_metric.font_size = self.font_size
         builder.font_metric.horizontal_layout.ascent = layout_param.ascent
         builder.font_metric.horizontal_layout.descent = layout_param.descent
         builder.font_metric.vertical_layout.ascent = math.ceil(layout_param.line_height / 2)
@@ -115,7 +119,7 @@ class DesignContext:
         builder.meta_info.version = configs.font_version
         builder.meta_info.created_time = datetime.datetime.fromisoformat(f'{configs.font_version.replace('.', '-')}T00:00:00Z')
         builder.meta_info.modified_time = builder.meta_info.created_time
-        builder.meta_info.family_name = f'Ark Pixel Inherited {self.font_config.font_size}px {width_mode.capitalize()}'
+        builder.meta_info.family_name = f'Ark Pixel Inherited {self.font_size}px {width_mode.capitalize()}'
         builder.meta_info.weight_name = WeightName.REGULAR
         builder.meta_info.serif_style = SerifStyle.SANS_SERIF
         builder.meta_info.slant_style = SlantStyle.NORMAL
@@ -135,11 +139,11 @@ class DesignContext:
         glyph_sequence = self._get_glyph_sequence(width_mode)
         for glyph_file in glyph_sequence:
             horizontal_origin_y = math.floor((layout_param.ascent + layout_param.descent - glyph_file.height) / 2)
-            vertical_origin_y = (self.font_config.font_size - glyph_file.height) // 2 - 1
+            vertical_origin_y = (self.font_size - glyph_file.height) // 2 - 1
             builder.glyphs.append(Glyph(
                 name=_get_glyph_name(glyph_file),
                 advance_width=glyph_file.width,
-                advance_height=self.font_config.font_size,
+                advance_height=self.font_size,
                 horizontal_origin=(0, horizontal_origin_y),
                 vertical_origin_y=vertical_origin_y,
                 bitmap=glyph_file.bitmap.data,
@@ -158,7 +162,7 @@ class DesignContext:
     def make_font(self, width_mode: WidthMode, font_format: FontFormat):
         path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
         builder = self._get_builder(width_mode)
-        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.font_config.font_size}px-{width_mode}.{font_format}')
+        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.font_size}px-{width_mode}.{font_format}')
         if font_format == 'woff2':
             builder.save_otf(file_path, flavor=Flavor.WOFF2)
         else:
