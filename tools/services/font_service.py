@@ -9,7 +9,7 @@ from pixel_font_builder.opentype import Flavor
 from pixel_font_knife.mono_bitmap import MonoBitmap
 
 from tools import configs
-from tools.configs import path_define
+from tools.configs import path_define, WidthMode, FontFormat
 from tools.configs.font import FontConfig
 from tools.utils import fs_util
 
@@ -129,7 +129,7 @@ class DesignContext:
         self._character_mapping_pool = {}
         self._glyph_files_pool = {}
 
-    def _get_sequence(self, width_mode: str) -> list[int]:
+    def _get_sequence(self, width_mode: WidthMode) -> list[int]:
         if width_mode in self._sequence_pool:
             sequence = self._sequence_pool[width_mode]
         else:
@@ -139,7 +139,7 @@ class DesignContext:
             self._sequence_pool[width_mode] = sequence
         return sequence
 
-    def get_alphabet(self, width_mode: str) -> set[str]:
+    def get_alphabet(self, width_mode: WidthMode) -> set[str]:
         if width_mode in self._alphabet_pool:
             alphabet = self._alphabet_pool[width_mode]
         else:
@@ -147,7 +147,7 @@ class DesignContext:
             self._alphabet_pool[width_mode] = alphabet
         return alphabet
 
-    def get_character_mapping(self, width_mode: str) -> dict[int, str]:
+    def get_character_mapping(self, width_mode: WidthMode) -> dict[int, str]:
         if width_mode in self._character_mapping_pool:
             character_mapping = self._character_mapping_pool[width_mode]
         else:
@@ -163,7 +163,7 @@ class DesignContext:
             self._character_mapping_pool[width_mode] = character_mapping
         return character_mapping
 
-    def get_glyph_files(self, width_mode: str) -> list[GlyphFile]:
+    def get_glyph_files(self, width_mode: WidthMode) -> list[GlyphFile]:
         if width_mode in self._glyph_files_pool:
             glyph_files = self._glyph_files_pool[width_mode]
         else:
@@ -180,7 +180,7 @@ class DesignContext:
         return glyph_files
 
 
-def _create_builder(design_context: DesignContext, width_mode: str) -> FontBuilder:
+def _create_builder(design_context: DesignContext, width_mode: WidthMode) -> FontBuilder:
     layout_param = design_context.font_config.layout_params[width_mode]
 
     builder = FontBuilder()
@@ -233,12 +233,12 @@ class FontContext:
     width_mode: str
     _builder: FontBuilder
 
-    def __init__(self, design_context: DesignContext, width_mode: str):
+    def __init__(self, design_context: DesignContext, width_mode: WidthMode):
         self.design_context = design_context
         self.width_mode = width_mode
         self._builder = _create_builder(design_context, width_mode)
 
-    def make_font(self, font_format: str):
+    def make_font(self, font_format: FontFormat):
         path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
         file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.design_context.font_config.font_size}px-{self.width_mode}.{font_format}')
         if font_format == 'woff2':
