@@ -3,6 +3,7 @@ import math
 import re
 from pathlib import Path
 
+import yaml
 from loguru import logger
 from pixel_font_builder import FontBuilder, WeightName, SerifStyle, SlantStyle, WidthStyle, Glyph
 from pixel_font_builder.opentype import Flavor
@@ -11,9 +12,8 @@ from pixel_font_knife.mono_bitmap import MonoBitmap
 from tools import configs
 from tools.configs import path_define, WidthMode, FontFormat
 from tools.configs.font import FontConfig
-from tools.utils import fs_util
 
-_inherited_mapping: dict[int, list[int]] = fs_util.read_yaml(path_define.assets_dir.joinpath('inherited-mapping.yml'))
+_inherited_mapping: dict[int, list[int]] = yaml.safe_load(path_define.assets_dir.joinpath('inherited-mapping.yml').read_bytes())
 
 
 class GlyphFile:

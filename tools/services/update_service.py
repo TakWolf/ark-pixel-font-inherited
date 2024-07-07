@@ -1,10 +1,11 @@
+import json
 import shutil
 import zipfile
 
 from loguru import logger
 
 from tools.configs import path_define
-from tools.utils import fs_util, github_api, download_util
+from tools.utils import github_api, download_util
 
 
 def update_glyphs_version():
@@ -34,19 +35,19 @@ def update_glyphs_version():
         'asset_url': f'https://github.com/{repository_name}/archive/{sha}.zip',
     }
     file_path = path_define.assets_dir.joinpath('glyphs-version.json')
-    fs_util.write_json(version_info, file_path)
+    file_path.write_text(f'{json.dumps(version_info, indent=2, ensure_ascii=False)}\n', 'utf-8')
     logger.info("Update version file: '{}'", file_path)
 
 
 def setup_glyphs():
     cache_version_file_path = path_define.glyphs_dir.joinpath('version.json')
     if cache_version_file_path.is_file():
-        cache_sha = fs_util.read_json(cache_version_file_path)['sha']
+        cache_sha = json.loads(cache_version_file_path.read_bytes())['sha']
     else:
         cache_sha = None
 
     version_file_path = path_define.assets_dir.joinpath('glyphs-version.json')
-    version_info = fs_util.read_json(version_file_path)
+    version_info = json.loads(version_file_path.read_bytes())
     sha = version_info['sha']
     if cache_sha == sha:
         return
@@ -75,5 +76,5 @@ def setup_glyphs():
     source_glyphs_dir.rename(path_define.glyphs_dir)
     if source_unzip_dir.exists():
         shutil.rmtree(source_unzip_dir)
-    fs_util.write_json(version_info, cache_version_file_path)
+    cache_version_file_path.write_text(f'{json.dumps(version_info, indent=2, ensure_ascii=False)}\n', 'utf-8')
     logger.info("Update glyphs: '{}'", sha)
