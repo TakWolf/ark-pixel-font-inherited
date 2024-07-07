@@ -1,9 +1,9 @@
 import datetime
-import logging
 import math
 import re
 from pathlib import Path
 
+from loguru import logger
 from pixel_font_builder import FontBuilder, WeightName, SerifStyle, SlantStyle, WidthStyle, Glyph
 from pixel_font_builder.opentype import Flavor
 from pixel_font_knife.mono_bitmap import MonoBitmap
@@ -12,8 +12,6 @@ from tools import configs
 from tools.configs import path_define
 from tools.configs.font import FontConfig
 from tools.utils import fs_util
-
-logger = logging.getLogger(__name__)
 
 _inherited_mapping: dict[int, list[int]] = fs_util.read_yaml(path_define.assets_dir.joinpath('inherited-mapping.yml'))
 
@@ -247,4 +245,4 @@ class FontContext:
             self._builder.save_otf(file_path, flavor=Flavor.WOFF2)
         else:
             getattr(self._builder, f'save_{font_format}')(file_path)
-        logger.info("Make font: '%s'", file_path)
+        logger.info("Make font: '{}'", file_path)

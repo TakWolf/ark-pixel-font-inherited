@@ -1,11 +1,10 @@
-import logging
 import shutil
 import zipfile
 
+from loguru import logger
+
 from tools.configs import path_define
 from tools.utils import fs_util, github_api, download_util
-
-logger = logging.getLogger(__name__)
 
 
 def update_glyphs_version():
@@ -36,7 +35,7 @@ def update_glyphs_version():
     }
     file_path = path_define.assets_dir.joinpath('glyphs-version.json')
     fs_util.write_json(version_info, file_path)
-    logger.info("Update version file: '%s'", file_path)
+    logger.info("Update version file: '{}'", file_path)
 
 
 def setup_glyphs():
@@ -57,18 +56,18 @@ def setup_glyphs():
     source_file_path = downloads_dir.joinpath(f'{sha}.zip')
     if not source_file_path.exists():
         asset_url = version_info['asset_url']
-        logger.info("Start download: '%s'", asset_url)
+        logger.info("Start download: '{}'", asset_url)
         downloads_dir.mkdir(parents=True, exist_ok=True)
         download_util.download_file(asset_url, source_file_path)
     else:
-        logger.info("Already downloaded: '%s'", source_file_path)
+        logger.info("Already downloaded: '{}'", source_file_path)
 
     source_unzip_dir = downloads_dir.joinpath(f'ark-pixel-font-{sha}')
     if source_unzip_dir.exists():
         shutil.rmtree(source_unzip_dir)
     with zipfile.ZipFile(source_file_path) as file:
         file.extractall(downloads_dir)
-    logger.info("Unzip: '%s'", source_unzip_dir)
+    logger.info("Unzip: '{}'", source_unzip_dir)
 
     if path_define.glyphs_dir.exists():
         shutil.rmtree(path_define.glyphs_dir)
@@ -77,4 +76,4 @@ def setup_glyphs():
     if source_unzip_dir.exists():
         shutil.rmtree(source_unzip_dir)
     fs_util.write_json(version_info, cache_version_file_path)
-    logger.info("Update glyphs: '%s'", sha)
+    logger.info("Update glyphs: '{}'", sha)

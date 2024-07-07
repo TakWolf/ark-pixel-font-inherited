@@ -86,6 +86,7 @@
 - [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/)
 - [Jinja](https://github.com/pallets/jinja)
 - [HTTPX](https://github.com/encode/httpx)
+- [Loguru](https://github.com/Delgan/loguru)
 
 ## 赞助
 
