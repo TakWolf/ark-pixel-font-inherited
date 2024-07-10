@@ -16,16 +16,6 @@ from tools.configs.font import FontConfig
 _inherited_mapping: dict[int, list[int]] = yaml.safe_load(path_define.assets_dir.joinpath('inherited-mapping.yml').read_bytes())
 
 
-def _get_glyph_name(glyph_file: GlyphFile) -> str:
-    if glyph_file.code_point == -1:
-        name = '.notdef'
-    else:
-        name = f'{glyph_file.code_point:04X}'
-    if len(glyph_file.flavors) > 0:
-        name = f'{name}-{glyph_file.flavors[0]}'
-    return name
-
-
 class DesignContext:
     @staticmethod
     def load(font_config: FontConfig) -> 'DesignContext':
@@ -82,12 +72,7 @@ class DesignContext:
         if width_mode in self._character_mapping_cache:
             character_mapping = self._character_mapping_cache[width_mode]
         else:
-            character_mapping = {}
-            for code_point, flavor_group in self.glyph_files[width_mode].items():
-                if code_point < 0:
-                    continue
-                glyph_file = flavor_group.get_file('zh_tr', fallback_default=True)
-                character_mapping[code_point] = _get_glyph_name(glyph_file)
+            character_mapping = glyph_file_util.get_character_mapping(self.glyph_files[width_mode], 'zh_tr')
             self._character_mapping_cache[width_mode] = character_mapping
         return character_mapping
 
@@ -95,12 +80,7 @@ class DesignContext:
         if width_mode in self._glyph_sequence_cache:
             glyph_sequence = self._glyph_sequence_cache[width_mode]
         else:
-            glyph_sequence = []
-            flavor_group_sequence = sorted(self.glyph_files[width_mode].values(), key=lambda x: x.code_point)
-            for flavor_group in flavor_group_sequence:
-                glyph_file = flavor_group.get_file('zh_tr', fallback_default=True)
-                if glyph_file not in glyph_sequence:
-                    glyph_sequence.append(glyph_file)
+            glyph_sequence = glyph_file_util.get_glyph_sequence(self.glyph_files[width_mode], ['zh_tr'])
             self._glyph_sequence_cache[width_mode] = glyph_sequence
         return glyph_sequence
 
@@ -141,7 +121,7 @@ class DesignContext:
             horizontal_origin_y = math.floor((layout_param.ascent + layout_param.descent - glyph_file.height) / 2)
             vertical_origin_y = (self.font_size - glyph_file.height) // 2 - 1
             builder.glyphs.append(Glyph(
-                name=_get_glyph_name(glyph_file),
+                name=glyph_file.glyph_name,
                 advance_width=glyph_file.width,
                 advance_height=self.font_size,
                 horizontal_origin=(0, horizontal_origin_y),
