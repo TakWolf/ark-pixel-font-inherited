@@ -87,6 +87,7 @@
 - [Jinja](https://github.com/pallets/jinja)
 - [HTTPX](https://github.com/encode/httpx)
 - [Loguru](https://github.com/Delgan/loguru)
+- [Cyclopts](https://github.com/BrianPugh/cyclopts)
 
 ## 赞助
 
