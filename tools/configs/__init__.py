@@ -11,5 +11,5 @@ type WidthMode = Literal[
 ]
 width_modes = list[WidthMode](get_args(WidthMode.__value__))
 
-type FontFormat = Literal['otf', 'woff2', 'ttf', 'bdf', 'pcf']
+type FontFormat = Literal['otf', 'ttf', 'woff2', 'bdf', 'pcf']
 font_formats = list[FontFormat](get_args(FontFormat.__value__))
