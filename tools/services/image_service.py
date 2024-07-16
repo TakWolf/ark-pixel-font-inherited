@@ -2,13 +2,13 @@ from PIL import Image, ImageFont, ImageDraw
 from PIL.ImageFont import FreeTypeFont
 from loguru import logger
 
-from tools.configs import path_define, WidthMode
+from tools.configs import path_define, FontSize, WidthMode
 from tools.configs.font import FontConfig
 
 
-def _load_font(font_config: FontConfig, width_mode: WidthMode, scale: int = 1) -> FreeTypeFont:
-    file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{font_config.font_size}px-{width_mode}.woff2')
-    return ImageFont.truetype(file_path, font_config.font_size * scale)
+def _load_font(font_size: FontSize, width_mode: WidthMode, scale: int = 1) -> FreeTypeFont:
+    file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{font_size}px-{width_mode}.woff2')
+    return ImageFont.truetype(file_path, font_size * scale)
 
 
 def _draw_text(
@@ -40,7 +40,7 @@ def _draw_text(
 
 
 def make_preview_image(font_config: FontConfig):
-    font = _load_font(font_config, 'proportional')
+    font = _load_font(font_config.font_size, 'proportional')
 
     image = Image.new('RGBA', (font_config.font_size * 28, font_config.font_size * 2 + font_config.line_height * 9), (255, 255, 255, 255))
     _draw_text(image, (font_config.font_size, font_config.font_size), '方舟像素字体 - 传承字形 / Ark Pixel Font - Inherited', font)

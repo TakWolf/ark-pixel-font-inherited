@@ -7,8 +7,11 @@ from tools.services.font_service import DesignContext
 def main():
     update_service.setup_glyphs()
 
-    font_configs = {font_size: FontConfig.load(font_size) for font_size in configs.font_sizes}
-    for font_config in font_configs.values():
+    font_configs = {}
+
+    for font_size in configs.font_sizes:
+        font_config = FontConfig.load(font_size)
+        font_configs[font_size] = font_config
         design_context = DesignContext.load(font_config)
         for width_mode in configs.width_modes:
             design_context.make_font(width_mode, 'woff2')
