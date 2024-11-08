@@ -13,3 +13,12 @@ width_modes = list[WidthMode](get_args(WidthMode.__value__))
 
 type FontFormat = Literal['otf', 'ttf', 'woff2', 'bdf', 'pcf']
 font_formats = list[FontFormat](get_args(FontFormat.__value__))
+
+type Attachment = Literal[
+    'release',
+    'info',
+    'alphabet',
+    'html',
+    'image',
+]
+attachments = list[Attachment](get_args(Attachment.__value__))
