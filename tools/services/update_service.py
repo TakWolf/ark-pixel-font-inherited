@@ -72,8 +72,10 @@ def setup_glyphs():
 
     if path_define.glyphs_dir.exists():
         shutil.rmtree(path_define.glyphs_dir)
-    source_glyphs_dir = source_unzip_dir.joinpath('assets', 'glyphs')
-    source_glyphs_dir.rename(path_define.glyphs_dir)
+    source_unzip_dir.joinpath('assets', 'glyphs').rename(path_define.glyphs_dir)
+    source_unzip_dir.joinpath('assets', 'cjk-radicals-supplement-mapping.yml').rename(path_define.glyphs_dir.joinpath('cjk-radicals-supplement-mapping.yml'))
+    source_unzip_dir.joinpath('assets', 'kangxi-radicals-mapping.yml').rename(path_define.glyphs_dir.joinpath('kangxi-radicals-mapping.yml'))
+
     if source_unzip_dir.exists():
         shutil.rmtree(source_unzip_dir)
     cache_version_file_path.write_text(f'{json.dumps(version_info, indent=2, ensure_ascii=False)}\n', 'utf-8')

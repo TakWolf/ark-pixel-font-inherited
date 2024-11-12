@@ -55,6 +55,8 @@ def main(
     update_service.setup_glyphs()
 
     mappings = [
+        glyph_mapping_util.load_mapping(path_define.glyphs_dir.joinpath('cjk-radicals-supplement-mapping.yml')),
+        glyph_mapping_util.load_mapping(path_define.glyphs_dir.joinpath('kangxi-radicals-mapping.yml')),
         glyph_mapping_util.load_mapping(path_define.assets_dir.joinpath('inherited-mapping.yml')),
     ]
     font_configs = {}
