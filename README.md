@@ -5,6 +5,7 @@
 [![Releases](https://img.shields.io/github/v/release/TakWolf/ark-pixel-font-inherited)](https://github.com/TakWolf/ark-pixel-font-inherited/releases)
 [![Discord](https://img.shields.io/badge/discord-像素字体工房-4E5AF0?logo=discord&logoColor=white)](https://discord.gg/3GKtPKtjdU)
 [![QQ Group](https://img.shields.io/badge/QQ群-像素字体工房-brightgreen?logo=tencentqq&logoColor=white)](https://qm.qq.com/q/X1mLrLLGYS)
+[<img src="https://api.gitsponsors.com/api/badge/img?id=479447180" height="20">](https://api.gitsponsors.com/api/badge/link?p=tSRUge6UuaFyFYeE7BNHrESjK6/ECBmJBxG9gi7GTenBSAEhH1zue2/f34LTJw4lI8F/+fe0P8AUTb+oL8Qp1c/WXMROaQGV0Kfkx+VyND4T4HyIGPjUbo34SvZUbiSdzw311BpIco/kAnwv3p0pcg==)
 
 [「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font) 的传承字形版本。
 
