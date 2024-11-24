@@ -58,9 +58,14 @@ def main(
     update_service.setup_glyphs()
 
     mappings = [
-        glyph_mapping_util.load_mapping(path_define.glyphs_dir.joinpath('cjk-radicals-supplement-mapping.yml')),
-        glyph_mapping_util.load_mapping(path_define.glyphs_dir.joinpath('kangxi-radicals-mapping.yml')),
-        glyph_mapping_util.load_mapping(path_define.assets_dir.joinpath('inherited-mapping.yml')),
+        glyph_mapping_util.load_mapping(path_define.ark_pixel_mappings_dir.joinpath('0100-017F Latin Extended-A.yml')),
+        glyph_mapping_util.load_mapping(path_define.ark_pixel_mappings_dir.joinpath('0180-024F Latin Extended-B.yml')),
+        glyph_mapping_util.load_mapping(path_define.ark_pixel_mappings_dir.joinpath('0370-03FF Greek and Coptic.yml')),
+        glyph_mapping_util.load_mapping(path_define.ark_pixel_mappings_dir.joinpath('0400-04FF Cyrillic.yml')),
+        glyph_mapping_util.load_mapping(path_define.ark_pixel_mappings_dir.joinpath('2700-27BF Dingbats.yml')),
+        glyph_mapping_util.load_mapping(path_define.ark_pixel_mappings_dir.joinpath('2E80-2EFF CJK Radicals Supplement.yml')),
+        glyph_mapping_util.load_mapping(path_define.ark_pixel_mappings_dir.joinpath('2F00-2FDF Kangxi Radicals.yml')),
+        glyph_mapping_util.load_mapping(path_define.mappings_dir.joinpath('Inherited.yml')),
     ]
     font_configs = {}
     design_contexts = {}

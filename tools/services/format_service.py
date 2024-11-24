@@ -6,7 +6,7 @@ from tools.configs import path_define
 
 
 def format_inherited_mapping():
-    file_path = path_define.assets_dir.joinpath('inherited-mapping.yml')
+    file_path = path_define.mappings_dir.joinpath('Inherited.yml')
     mapping = glyph_mapping_util.load_mapping(file_path)
 
     buffer = StringIO()
