@@ -40,7 +40,7 @@ def update_glyphs_version():
 
 
 def setup_glyphs():
-    cache_version_file_path = path_define.glyphs_dir.joinpath('version.json')
+    cache_version_file_path = path_define.ark_pixel_glyphs_dir.joinpath('version.json')
     if cache_version_file_path.is_file():
         cache_sha = json.loads(cache_version_file_path.read_bytes())['sha']
     else:
@@ -70,10 +70,13 @@ def setup_glyphs():
         file.extractall(downloads_dir)
     logger.info("Unzip: '{}'", source_unzip_dir)
 
-    if path_define.glyphs_dir.exists():
-        shutil.rmtree(path_define.glyphs_dir)
-    source_glyphs_dir = source_unzip_dir.joinpath('assets', 'glyphs')
-    source_glyphs_dir.rename(path_define.glyphs_dir)
+    if path_define.ark_pixel_glyphs_dir.exists():
+        shutil.rmtree(path_define.ark_pixel_glyphs_dir)
+    if path_define.ark_pixel_mappings_dir.exists():
+        shutil.rmtree(path_define.ark_pixel_mappings_dir)
+    source_unzip_dir.joinpath('assets', 'glyphs').rename(path_define.ark_pixel_glyphs_dir)
+    source_unzip_dir.joinpath('assets', 'mappings').rename(path_define.ark_pixel_mappings_dir)
+
     if source_unzip_dir.exists():
         shutil.rmtree(source_unzip_dir)
     cache_version_file_path.write_text(f'{json.dumps(version_info, indent=2, ensure_ascii=False)}\n', 'utf-8')

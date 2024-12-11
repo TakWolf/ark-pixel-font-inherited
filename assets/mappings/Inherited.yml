@@ -1,0 +1,308 @@
+
+# 丢 <- 丟
+0x4E22:
+  zh_tr: 0x4E1F zh_tr
+
+# 俞 <- 兪
+0x4FDE:
+  zh_tr: 0x516A zh_tr
+
+# 俱 <- 倶
+0x4FF1:
+  zh_tr: 0x5036 zh_tr
+
+# 值 <- 値
+0x503C:
+  zh_tr: 0x5024 zh_tr
+
+# 偷 <- 偸
+0x5077:
+  zh_tr: 0x5078 zh_tr
+
+# 偽 <- 僞
+0x507D:
+  zh_tr: 0x50DE zh_tr
+
+# 兑 <- 兌
+0x5151:
+  zh_tr: 0x514C zh_tr
+
+# 剁 <- 刴
+0x5241:
+  zh_tr: 0x5234 zh_tr
+
+# 匀 <- 勻
+0x5300:
+  zh_tr: 0x52FB zh_tr
+
+# 告 <- 吿
+0x544A:
+  zh_tr: 0x543F zh_tr
+
+# 呐 <- 吶
+0x5450:
+  zh_tr: 0x5436 zh_tr
+
+# 喻 <- 喩
+0x55BB:
+  zh_tr: 0x55A9 zh_tr
+
+# 垛 <- 垜
+0x579B:
+  zh_tr: 0x579C zh_tr
+
+# 塈 <- 墍
+0x5848:
+  zh_tr: 0x588D zh_tr
+
+# 填 <- 塡
+0x586B:
+  zh_tr: 0x5861 zh_tr
+
+# 妍 <- 姸
+0x598D:
+  zh_tr: 0x59F8 zh_tr
+
+# 媪 <- 媼
+0x5AAA:
+  zh_tr: 0x5ABC zh_tr
+
+# 媮 <- 婾
+0x5AAE:
+  zh_tr: 0x5A7E zh_tr
+
+# 媯 <- 嬀
+0x5AAF:
+  zh_tr: 0x5B00 zh_tr
+
+# 孳 <- 孶
+0x5B73:
+  zh_tr: 0x5B76 zh_tr
+
+# 尚 <- 尙
+0x5C1A:
+  zh_tr: 0x5C19 zh_tr
+
+# 巔 <- 巓
+0x5DD4:
+  zh_tr: 0x5DD3 zh_tr
+
+# 廄 <- 廏
+0x5EC4:
+  zh_tr: 0x5ECF zh_tr
+
+# 彦 <- 彥
+0x5F66:
+  zh_tr: 0x5F65 zh_tr
+
+# 悦 <- 悅
+0x60A6:
+  zh_tr: 0x6085 zh_tr
+
+# 惪 <- 悳
+0x60EA:
+  zh_tr: 0x60B3 zh_tr
+
+# 愠 <- 慍
+0x6120:
+  zh_tr: 0x614D zh_tr
+
+# 慎 <- 愼
+0x614E:
+  zh_tr: 0x613C zh_tr
+
+# 捝 <- 挩
+0x635D:
+  zh_tr: 0x6329 zh_tr
+
+# 揾 <- 搵
+0x63FE:
+  zh_tr: 0x6435 zh_tr
+
+# 教 <- 敎
+0x6559:
+  zh_tr: 0x654E zh_tr
+
+# 朵 <- 朶
+0x6735:
+  zh_tr: 0x6736 zh_tr
+
+# 查 <- 査
+0x67E5:
+  zh_tr: 0x67FB zh_tr
+
+# 柺 <- 枴
+0x67FA:
+  zh_tr: 0x67B4 zh_tr
+
+# 棁 <- 梲
+0x68C1:
+  zh_tr: 0x68B2 zh_tr
+
+# 榅 <- 榲
+0x6985:
+  zh_tr: 0x69B2 zh_tr
+
+# 榆 <- 楡
+0x6986:
+  zh_tr: 0x6961 zh_tr
+
+# 槙 <- 槇
+0x69D9:
+  zh_tr: 0x69C7 zh_tr
+
+# 氲 <- 氳
+0x6C32:
+  zh_tr: 0x6C33 zh_tr
+
+# 涚 <- 涗
+0x6D9A:
+  zh_tr: 0x6D97 zh_tr
+
+# 清 <- 淸
+0x6E05:
+  zh_tr: 0x6DF8 zh_tr
+
+# 温 <- 溫
+0x6E29:
+  zh_tr: 0x6EAB zh_tr
+
+# 溈 <- 潙
+0x6E88:
+  zh_tr: 0x6F59 zh_tr
+
+# 潀 <- 潨
+0x6F40:
+  zh_tr: 0x6F68 zh_tr
+
+# 為 <- 爲
+0x70BA:
+  zh_tr: 0x7232 zh_tr
+
+# 煴 <- 熅
+0x7174:
+  zh_tr: 0x7185 zh_tr
+
+# 熙 <- 煕
+0x7199:
+  zh_tr: 0x7155 zh_tr
+
+# 産 <- 產
+0x7523:
+  zh_tr: 0x7522 zh_tr
+
+# 真 <- 眞
+0x771F:
+  zh_tr: 0x771E zh_tr
+
+# 研 <- 硏
+0x7814:
+  zh_tr: 0x784F zh_tr
+
+# 税 <- 稅
+0x7A0E:
+  zh_tr: 0x7A05 zh_tr
+
+# 笄 <- 筓
+0x7B04:
+  zh_tr: 0x7B53 zh_tr
+
+# 緒 <- 緖
+0x7DD2:
+  zh_tr: 0x7DD6 zh_tr
+
+# 緼 <- 縕
+0x7DFC:
+  zh_tr: 0x7E15 zh_tr
+
+# 羋 <- 芈
+0x7F8B:
+  zh_tr: 0x8288 zh_tr
+
+# 脱 <- 脫
+0x8131:
+  zh_tr: 0x812B zh_tr
+
+# 腽 <- 膃
+0x817D:
+  zh_tr: 0x8183 zh_tr
+
+# 蒀 <- 蒕
+0x8480:
+  zh_tr: 0x8495 zh_tr
+
+# 蒍 <- 蔿
+0x848D:
+  zh_tr: 0x853F zh_tr
+
+# 蕰 <- 薀
+0x8570:
+  zh_tr: 0x8580 zh_tr
+
+# 藴 <- 蘊
+0x85F4:
+  zh_tr: 0x860A zh_tr
+
+# 蜕 <- 蛻
+0x8715:
+  zh_tr: 0x86FB zh_tr
+
+# 豜 <- 豣
+0x8C5C:
+  zh_tr: 0x8C63 zh_tr
+
+# 跺 <- 跥
+0x8DFA:
+  zh_tr: 0x8DE5 zh_tr
+
+# 躲 <- 躱
+0x8EB2:
+  zh_tr: 0x8EB1 zh_tr
+
+# 輼 <- 轀
+0x8F3C:
+  zh_tr: 0x8F40 zh_tr
+
+# 郷 <- 鄉
+0x90F7:
+  zh_tr: 0x9109 zh_tr
+
+# 醖 <- 醞
+0x9196:
+  zh_tr: 0x919E zh_tr
+
+# 鋭 <- 銳
+0x92ED:
+  zh_tr: 0x92B3 zh_tr
+
+# 鎮 <- 鎭
+0x93AE:
+  zh_tr: 0x93AD zh_tr
+
+# 閲 <- 閱
+0x95B2:
+  zh_tr: 0x95B1 zh_tr
+
+# 青 <- 靑
+0x9752:
+  zh_tr: 0x9751 zh_tr
+
+# 顔 <- 顏
+0x9854:
+  zh_tr: 0x984F zh_tr
+
+# 顛 <- 顚
+0x985B:
+  zh_tr: 0x985A zh_tr
+
+# 飲 <- 飮
+0x98F2:
+  zh_tr: 0x98EE zh_tr
+
+# 鰛 <- 鰮
+0x9C1B:
+  zh_tr: 0x9C2E zh_tr
+
+# 鷏 <- 鷆
+0x9DCF:
+  zh_tr: 0x9DC6 zh_tr
