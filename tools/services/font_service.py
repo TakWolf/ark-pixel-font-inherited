@@ -2,38 +2,32 @@ import datetime
 import itertools
 import math
 
-import yaml
 from loguru import logger
 from pixel_font_builder import FontBuilder, WeightName, SerifStyle, SlantStyle, WidthStyle, Glyph
 from pixel_font_builder.opentype import Flavor
-from pixel_font_knife import glyph_file_util
+from pixel_font_knife import glyph_file_util, glyph_mapping_util
 from pixel_font_knife.glyph_file_util import GlyphFile, GlyphFlavorGroup
+from pixel_font_knife.glyph_mapping_util import SourceFlavorGroup
 
 from tools import configs
 from tools.configs import path_define, FontSize, WidthMode, FontFormat
 from tools.configs.font import FontConfig
 
-_inherited_mapping: dict[int, list[int]] = yaml.safe_load(path_define.assets_dir.joinpath('inherited-mapping.yml').read_bytes())
-
 
 class DesignContext:
     @staticmethod
-    def load(font_config: FontConfig) -> 'DesignContext':
+    def load(font_config: FontConfig, mappings: list[dict[int, SourceFlavorGroup]]) -> 'DesignContext':
         contexts = {}
         for width_mode_dir_name in itertools.chain(['common'], configs.width_modes):
-            width_mode_dir = path_define.glyphs_dir.joinpath(str(font_config.font_size), width_mode_dir_name)
-            contexts[width_mode_dir_name] = glyph_file_util.load_context(width_mode_dir)
+            context = glyph_file_util.load_context(path_define.ark_pixel_glyphs_dir.joinpath(str(font_config.font_size), width_mode_dir_name))
+            for mapping in mappings:
+                glyph_mapping_util.apply_mapping(context, mapping)
+            contexts[width_mode_dir_name] = context
 
         glyph_files = {}
         for width_mode in configs.width_modes:
             glyph_files[width_mode] = dict(contexts['common'])
             glyph_files[width_mode].update(contexts[width_mode])
-            for target, code_points in _inherited_mapping.items():
-                if target not in glyph_files[width_mode]:
-                    continue
-                flavor_group = glyph_files[width_mode][target]
-                for code_point in code_points:
-                    glyph_files[width_mode][code_point] = flavor_group
 
         return DesignContext(font_config, glyph_files)
 

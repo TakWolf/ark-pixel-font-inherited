@@ -23,7 +23,7 @@ class LayoutParam:
 class FontConfig:
     @staticmethod
     def load(font_size: FontSize) -> 'FontConfig':
-        file_path = path_define.glyphs_dir.joinpath(str(font_size), 'config.yml')
+        file_path = path_define.ark_pixel_glyphs_dir.joinpath(str(font_size), 'config.yml')
         config_data = yaml.safe_load(file_path.read_bytes())
 
         layout_params = {}
