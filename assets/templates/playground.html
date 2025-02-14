@@ -103,35 +103,35 @@
     <label class="content">
         <textarea id="input-box" placeholder="请随便写点什么… / Please input something…"></textarea>
     </label>
-    <script>
-        let inputBox = document.getElementById('input-box')
-
-        let settings = {
+    <script type="module">
+        const settings = {
             fontSize: 12,
             widthMode: 'proportional',
         }
+        const json = localStorage.getItem('settings:playground')
+        if (json) {
+            Object.assign(settings, JSON.parse(json))
+        }
 
-        function applySettings() {
+        const inputBox = document.getElementById('input-box')
+
+        window.applySettings = () => {
             localStorage.setItem('settings:playground', JSON.stringify(settings))
             inputBox.className = 'font-' + settings.fontSize + 'px-' + settings.widthMode
         }
 
-        function onFontSizeChange(fontSize) {
+        window.onFontSizeChange = fontSize => {
             settings.fontSize = fontSize
-            applySettings()
+            window.applySettings()
         }
 
-        function onWidthModeChange(widthMode) {
+        window.onWidthModeChange = widthMode => {
             settings.widthMode = widthMode
-            applySettings()
+            window.applySettings()
         }
 
-        let json = localStorage.getItem('settings:playground')
-        if (json) {
-            Object.assign(settings, JSON.parse(json))
-        }
         document.getElementById('radio-font-size-' + settings.fontSize).checked = true
         document.getElementById('radio-width-mode-' + settings.widthMode).checked = true
-        applySettings()
+        window.applySettings()
     </script>
 {% endblock %}
