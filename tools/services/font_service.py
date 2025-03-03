@@ -36,7 +36,6 @@ class DesignContext:
     _alphabet_cache: dict[str, set[str]]
     _character_mapping_cache: dict[str, dict[int, str]]
     _glyph_sequence_cache: dict[str, list[GlyphFile]]
-    _builder_cache: dict[str, FontBuilder]
 
     def __init__(
             self,
@@ -48,7 +47,6 @@ class DesignContext:
         self._alphabet_cache = {}
         self._character_mapping_cache = {}
         self._glyph_sequence_cache = {}
-        self._builder_cache = {}
 
     @property
     def font_size(self) -> FontSize:
@@ -127,20 +125,15 @@ class DesignContext:
 
         return builder
 
-    def _get_builder(self, width_mode: WidthMode) -> FontBuilder:
-        if width_mode in self._builder_cache:
-            builder = self._builder_cache[width_mode]
-        else:
-            builder = self._create_builder(width_mode)
-            self._builder_cache[width_mode] = builder
-        return builder
-
-    def make_font(self, width_mode: WidthMode, font_format: FontFormat):
+    def make_fonts(self, width_mode: WidthMode, font_formats: list[FontFormat]):
         path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-        builder = self._get_builder(width_mode)
-        file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.font_size}px-{width_mode}.{font_format}')
-        if font_format == 'woff2':
-            builder.save_otf(file_path, flavor=Flavor.WOFF2)
-        else:
-            getattr(builder, f'save_{font_format}')(file_path)
-        logger.info("Make font: '{}'", file_path)
+
+        if len(font_formats) > 0:
+            builder = self._create_builder(width_mode)
+            for font_format in font_formats:
+                file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{self.font_size}px-{width_mode}.{font_format}')
+                if font_format == 'woff2':
+                    builder.save_otf(file_path, flavor=Flavor.WOFF2)
+                else:
+                    getattr(builder, f'save_{font_format}')(file_path)
+                logger.info("Make font: '{}'", file_path)
