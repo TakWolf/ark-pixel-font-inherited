@@ -98,9 +98,9 @@ class DesignContext:
         builder.meta_info.width_style = WidthStyle(width_mode.capitalize())
         builder.meta_info.manufacturer = 'TakWolf'
         builder.meta_info.designer = 'TakWolf'
-        builder.meta_info.description = 'Open source Pan-CJK pixel font.'
-        builder.meta_info.copyright_info = "Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name 'Ark Pixel Inherited'."
-        builder.meta_info.license_info = 'This Font Software is licensed under the SIL Open Font License, Version 1.1.'
+        builder.meta_info.description = 'Open source Pan-CJK pixel font'
+        builder.meta_info.copyright_info = "Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name 'Ark Pixel Inherited'"
+        builder.meta_info.license_info = 'This Font Software is licensed under the SIL Open Font License, Version 1.1'
         builder.meta_info.vendor_url = 'https://ark-pixel-font-inherited.takwolf.com'
         builder.meta_info.designer_url = 'https://takwolf.com'
         builder.meta_info.license_url = 'https://openfontlicense.org'
