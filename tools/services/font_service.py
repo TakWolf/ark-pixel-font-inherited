@@ -110,15 +110,15 @@ class DesignContext:
 
         glyph_sequence = self._get_glyph_sequence(width_mode)
         for glyph_file in glyph_sequence:
-            horizontal_origin_x = 0
-            horizontal_origin_y = (layout_param.ascent + layout_param.descent - glyph_file.height) // 2
-            vertical_origin_x = -math.ceil(glyph_file.width / 2)
-            vertical_origin_y = (self.font_size - glyph_file.height) // 2 - 1
+            horizontal_offset_x = 0
+            horizontal_offset_y = (layout_param.ascent + layout_param.descent - glyph_file.height) // 2
+            vertical_offset_x = -math.ceil(glyph_file.width / 2)
+            vertical_offset_y = (self.font_size - glyph_file.height) // 2 - 1
             builder.glyphs.append(Glyph(
                 name=glyph_file.glyph_name,
-                horizontal_origin=(horizontal_origin_x, horizontal_origin_y),
+                horizontal_offset=(horizontal_offset_x, horizontal_offset_y),
                 advance_width=glyph_file.width,
-                vertical_origin=(vertical_origin_x, vertical_origin_y),
+                vertical_offset=(vertical_offset_x, vertical_offset_y),
                 advance_height=self.font_size,
                 bitmap=glyph_file.bitmap.data,
             ))
