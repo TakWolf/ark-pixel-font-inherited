@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
     {% block style %}{% endblock %}
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QL4HZFZ0WF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || []
+        function gtag() {
+            dataLayer.push(arguments)
+        }
+        gtag('js', new Date())
+        gtag('config', 'G-QL4HZFZ0WF')
+    </script>
+
+    <script async src="https://api.tongjiniao.com/c?_=755434185163890688"></script>
+
+    <script async src="https://sdk.xuan5.com/x5SDK.js?4644EDA1E49E42C98AC59C9EB8771287"></script>
 </head>
 <body>
     {% block body %}{% endblock %}
