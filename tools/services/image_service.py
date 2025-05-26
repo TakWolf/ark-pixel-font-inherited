@@ -7,7 +7,7 @@ from tools.configs.font import FontConfig
 
 
 def _load_font(font_size: FontSize, width_mode: WidthMode, scale: int = 1) -> FreeTypeFont:
-    file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{font_size}px-{width_mode}.woff2')
+    file_path = path_define.outputs_dir.joinpath(f'ark-pixel-inherited-{font_size}px-{width_mode}.otf.woff2')
     return ImageFont.truetype(file_path, font_size * scale)
 
 

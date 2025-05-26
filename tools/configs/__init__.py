@@ -13,7 +13,7 @@ type WidthMode = Literal[
 ]
 width_modes = list[WidthMode](get_args(WidthMode.__value__))
 
-type FontFormat = Literal['otf', 'ttf', 'woff2', 'bdf', 'pcf']
+type FontFormat = Literal['otf', 'otf.woff', 'otf.woff2', 'ttf', 'ttf.woff', 'ttf.woff2', 'bdf', 'pcf']
 font_formats = list[FontFormat](get_args(FontFormat.__value__))
 
 type Attachment = Literal[
