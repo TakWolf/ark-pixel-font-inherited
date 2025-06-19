@@ -1,308 +1,385 @@
 
-# 丢 <- 丟
+# 丢
 0x4E22:
+  # 丟
   zh_tr: 0x4E1F zh_tr
 
-# 俞 <- 兪
+# 俞
 0x4FDE:
+  # 兪
   zh_tr: 0x516A zh_tr
 
-# 俱 <- 倶
+# 俱
 0x4FF1:
+  # 倶
   zh_tr: 0x5036 zh_tr
 
-# 值 <- 値
+# 值
 0x503C:
+  # 値
   zh_tr: 0x5024 zh_tr
 
-# 偷 <- 偸
+# 偷
 0x5077:
+  # 偸
   zh_tr: 0x5078 zh_tr
 
-# 偽 <- 僞
+# 偽
 0x507D:
+  # 僞
   zh_tr: 0x50DE zh_tr
 
-# 兑 <- 兌
+# 兑
 0x5151:
+  # 兌
   zh_tr: 0x514C zh_tr
 
-# 剁 <- 刴
+# 剁
 0x5241:
+  # 刴
   zh_tr: 0x5234 zh_tr
 
-# 匀 <- 勻
+# 匀
 0x5300:
+  # 勻
   zh_tr: 0x52FB zh_tr
 
-# 告 <- 吿
+# 告
 0x544A:
+  # 吿
   zh_tr: 0x543F zh_tr
 
-# 呐 <- 吶
+# 呐
 0x5450:
+  # 吶
   zh_tr: 0x5436 zh_tr
 
-# 喻 <- 喩
+# 喻
 0x55BB:
+  # 喩
   zh_tr: 0x55A9 zh_tr
 
-# 垛 <- 垜
+# 垛
 0x579B:
+  # 垜
   zh_tr: 0x579C zh_tr
 
-# 塈 <- 墍
+# 塈
 0x5848:
+  # 墍
   zh_tr: 0x588D zh_tr
 
-# 填 <- 塡
+# 填
 0x586B:
+  # 塡
   zh_tr: 0x5861 zh_tr
 
-# 妍 <- 姸
+# 妍
 0x598D:
+  # 姸
   zh_tr: 0x59F8 zh_tr
 
-# 媪 <- 媼
+# 媪
 0x5AAA:
+  # 媼
   zh_tr: 0x5ABC zh_tr
 
-# 媮 <- 婾
+# 媮
 0x5AAE:
+  # 婾
   zh_tr: 0x5A7E zh_tr
 
-# 媯 <- 嬀
+# 媯
 0x5AAF:
+  # 嬀
   zh_tr: 0x5B00 zh_tr
 
-# 孳 <- 孶
+# 孳
 0x5B73:
+  # 孶
   zh_tr: 0x5B76 zh_tr
 
-# 尚 <- 尙
+# 尚
 0x5C1A:
+  # 尙
   zh_tr: 0x5C19 zh_tr
 
-# 巔 <- 巓
+# 巔
 0x5DD4:
+  # 巓
   zh_tr: 0x5DD3 zh_tr
 
-# 廄 <- 廏
+# 廄
 0x5EC4:
+  # 廏
   zh_tr: 0x5ECF zh_tr
 
-# 彦 <- 彥
+# 彦
 0x5F66:
+  # 彥
   zh_tr: 0x5F65 zh_tr
 
-# 悦 <- 悅
+# 悦
 0x60A6:
+  # 悅
   zh_tr: 0x6085 zh_tr
 
-# 惪 <- 悳
+# 惪
 0x60EA:
+  # 悳
   zh_tr: 0x60B3 zh_tr
 
-# 愠 <- 慍
+# 愠
 0x6120:
+  # 慍
   zh_tr: 0x614D zh_tr
 
-# 慎 <- 愼
+# 慎
 0x614E:
+  # 愼
   zh_tr: 0x613C zh_tr
 
-# 捝 <- 挩
+# 捝
 0x635D:
+  # 挩
   zh_tr: 0x6329 zh_tr
 
-# 揾 <- 搵
+# 揾
 0x63FE:
+  # 搵
   zh_tr: 0x6435 zh_tr
 
-# 教 <- 敎
+# 教
 0x6559:
+  # 敎
   zh_tr: 0x654E zh_tr
 
-# 朵 <- 朶
+# 朵
 0x6735:
+  # 朶
   zh_tr: 0x6736 zh_tr
 
-# 查 <- 査
+# 查
 0x67E5:
+  # 査
   zh_tr: 0x67FB zh_tr
 
-# 柺 <- 枴
+# 柺
 0x67FA:
+  # 枴
   zh_tr: 0x67B4 zh_tr
 
-# 棁 <- 梲
+# 棁
 0x68C1:
+  # 梲
   zh_tr: 0x68B2 zh_tr
 
-# 榅 <- 榲
+# 榅
 0x6985:
+  # 榲
   zh_tr: 0x69B2 zh_tr
 
-# 榆 <- 楡
+# 榆
 0x6986:
+  # 楡
   zh_tr: 0x6961 zh_tr
 
-# 槙 <- 槇
+# 槙
 0x69D9:
+  # 槇
   zh_tr: 0x69C7 zh_tr
 
-# 氲 <- 氳
+# 氲
 0x6C32:
+  # 氳
   zh_tr: 0x6C33 zh_tr
 
-# 涚 <- 涗
+# 涚
 0x6D9A:
+  # 涗
   zh_tr: 0x6D97 zh_tr
 
-# 清 <- 淸
+# 清
 0x6E05:
+  # 淸
   zh_tr: 0x6DF8 zh_tr
 
-# 温 <- 溫
+# 温
 0x6E29:
+  # 溫
   zh_tr: 0x6EAB zh_tr
 
-# 溈 <- 潙
+# 溈
 0x6E88:
+  # 潙
   zh_tr: 0x6F59 zh_tr
 
-# 潀 <- 潨
+# 潀
 0x6F40:
+  # 潨
   zh_tr: 0x6F68 zh_tr
 
-# 為 <- 爲
+# 為
 0x70BA:
+  # 爲
   zh_tr: 0x7232 zh_tr
 
-# 煴 <- 熅
+# 煴
 0x7174:
+  # 熅
   zh_tr: 0x7185 zh_tr
 
-# 熙 <- 煕
+# 熙
 0x7199:
+  # 煕
   zh_tr: 0x7155 zh_tr
 
-# 産 <- 產
+# 産
 0x7523:
+  # 產
   zh_tr: 0x7522 zh_tr
 
-# 真 <- 眞
+# 真
 0x771F:
+  # 眞
   zh_tr: 0x771E zh_tr
 
-# 研 <- 硏
+# 研
 0x7814:
+  # 硏
   zh_tr: 0x784F zh_tr
 
-# 税 <- 稅
+# 税
 0x7A0E:
+  # 稅
   zh_tr: 0x7A05 zh_tr
 
-# 笄 <- 筓
+# 笄
 0x7B04:
+  # 筓
   zh_tr: 0x7B53 zh_tr
 
-# 緒 <- 緖
+# 緒
 0x7DD2:
+  # 緖
   zh_tr: 0x7DD6 zh_tr
 
-# 緼 <- 縕
+# 緼
 0x7DFC:
+  # 縕
   zh_tr: 0x7E15 zh_tr
 
-# 羋 <- 芈
+# 羋
 0x7F8B:
+  # 芈
   zh_tr: 0x8288 zh_tr
 
-# 脱 <- 脫
+# 脱
 0x8131:
+  # 脫
   zh_tr: 0x812B zh_tr
 
-# 腽 <- 膃
+# 腽
 0x817D:
+  # 膃
   zh_tr: 0x8183 zh_tr
 
-# 蒀 <- 蒕
+# 蒀
 0x8480:
+  # 蒕
   zh_tr: 0x8495 zh_tr
 
-# 蒍 <- 蔿
+# 蒍
 0x848D:
+  # 蔿
   zh_tr: 0x853F zh_tr
 
-# 蕰 <- 薀
+# 蕰
 0x8570:
+  # 薀
   zh_tr: 0x8580 zh_tr
 
-# 藴 <- 蘊
+# 藴
 0x85F4:
+  # 蘊
   zh_tr: 0x860A zh_tr
 
-# 蜕 <- 蛻
+# 蜕
 0x8715:
+  # 蛻
   zh_tr: 0x86FB zh_tr
 
-# 豜 <- 豣
+# 豜
 0x8C5C:
+  # 豣
   zh_tr: 0x8C63 zh_tr
 
-# 跺 <- 跥
+# 跺
 0x8DFA:
+  # 跥
   zh_tr: 0x8DE5 zh_tr
 
-# 躲 <- 躱
+# 躲
 0x8EB2:
+  # 躱
   zh_tr: 0x8EB1 zh_tr
 
-# 輼 <- 轀
+# 輼
 0x8F3C:
+  # 轀
   zh_tr: 0x8F40 zh_tr
 
-# 郷 <- 鄉
+# 郷
 0x90F7:
+  # 鄉
   zh_tr: 0x9109 zh_tr
 
-# 醖 <- 醞
+# 醖
 0x9196:
+  # 醞
   zh_tr: 0x919E zh_tr
 
-# 鋭 <- 銳
+# 鋭
 0x92ED:
+  # 銳
   zh_tr: 0x92B3 zh_tr
 
-# 鎮 <- 鎭
+# 鎮
 0x93AE:
+  # 鎭
   zh_tr: 0x93AD zh_tr
 
-# 閲 <- 閱
+# 閲
 0x95B2:
+  # 閱
   zh_tr: 0x95B1 zh_tr
 
-# 青 <- 靑
+# 青
 0x9752:
+  # 靑
   zh_tr: 0x9751 zh_tr
 
-# 顔 <- 顏
+# 顔
 0x9854:
+  # 顏
   zh_tr: 0x984F zh_tr
 
-# 顛 <- 顚
+# 顛
 0x985B:
+  # 顚
   zh_tr: 0x985A zh_tr
 
-# 飲 <- 飮
+# 飲
 0x98F2:
+  # 飮
   zh_tr: 0x98EE zh_tr
 
-# 鰛 <- 鰮
+# 鰛
 0x9C1B:
+  # 鰮
   zh_tr: 0x9C2E zh_tr
 
-# 鷏 <- 鷆
+# 鷏
 0x9DCF:
+  # 鷆
   zh_tr: 0x9DC6 zh_tr
