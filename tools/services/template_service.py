@@ -4,9 +4,9 @@ import bs4
 from jinja2 import Environment, FileSystemLoader
 from loguru import logger
 
-from tools import configs
-from tools.configs import path_define, FontSize, WidthMode
+from tools.configs import path_define, options
 from tools.configs.font import FontConfig
+from tools.configs.options import FontSize, WidthMode
 from tools.services.font_service import DesignContext
 
 _environment = Environment(
@@ -21,7 +21,7 @@ _build_random_key = random.random()
 def _make_html(template_name: str, file_name: str, params: dict[str, object] | None = None):
     params = {} if params is None else dict(params)
     params['build_random_key'] = _build_random_key
-    params['width_modes'] = configs.width_modes
+    params['width_modes'] = options.width_modes
 
     html = _environment.get_template(template_name).render(params)
 

@@ -5,7 +5,8 @@ import zipfile
 from loguru import logger
 
 from tools import configs
-from tools.configs import path_define, FontSize, WidthMode, FontFormat
+from tools.configs import path_define
+from tools.configs.options import FontSize, WidthMode, FontFormat
 
 
 def make_release_zips(font_size: FontSize, width_mode: WidthMode, font_formats: list[FontFormat]):

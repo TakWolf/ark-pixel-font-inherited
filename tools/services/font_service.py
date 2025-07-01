@@ -12,22 +12,23 @@ from pixel_font_knife.glyph_file_util import GlyphFile, GlyphFlavorGroup
 from pixel_font_knife.glyph_mapping_util import SourceFlavorGroup
 
 from tools import configs
-from tools.configs import path_define, FontSize, WidthMode, FontFormat
+from tools.configs import path_define, options
 from tools.configs.font import FontConfig
+from tools.configs.options import FontSize, WidthMode, FontFormat
 
 
 class DesignContext:
     @staticmethod
     def load(font_config: FontConfig, mappings: list[dict[int, SourceFlavorGroup]]) -> DesignContext:
         contexts = {}
-        for width_mode_dir_name in itertools.chain(['common'], configs.width_modes):
+        for width_mode_dir_name in itertools.chain(['common'], options.width_modes):
             context = glyph_file_util.load_context(path_define.ark_pixel_glyphs_dir.joinpath(str(font_config.font_size), width_mode_dir_name))
             for mapping in mappings:
                 glyph_mapping_util.apply_mapping(context, mapping)
             contexts[width_mode_dir_name] = context
 
         glyph_files = {}
-        for width_mode in configs.width_modes:
+        for width_mode in options.width_modes:
             glyph_files[width_mode] = dict(contexts['common'])
             glyph_files[width_mode].update(contexts[width_mode])
 

@@ -2,8 +2,9 @@ from PIL import Image, ImageFont, ImageDraw
 from PIL.ImageFont import FreeTypeFont
 from loguru import logger
 
-from tools.configs import path_define, FontSize, WidthMode
+from tools.configs import path_define
 from tools.configs.font import FontConfig
+from tools.configs.options import FontSize, WidthMode
 
 
 def _load_font(font_size: FontSize, width_mode: WidthMode, scale: int = 1) -> FreeTypeFont:
