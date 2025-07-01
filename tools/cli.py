@@ -3,13 +3,11 @@ from typing import Literal
 
 from cyclopts import App, Parameter
 from loguru import logger
-from pixel_font_knife import glyph_mapping_util
 
 from tools import configs
 from tools.configs import path_define, options
 from tools.configs.options import FontSize, WidthMode, FontFormat, Attachment
-from tools.services import update_service, publish_service, info_service, template_service, image_service
-from tools.services.font_service import DesignContext
+from tools.services import update_service, font_service, publish_service, info_service, template_service, image_service
 
 app = App(
     version=configs.version,
@@ -57,11 +55,8 @@ def main(
 
     update_service.setup_glyphs()
 
-    mappings = [glyph_mapping_util.load_mapping(mapping_file_path) for mapping_file_path in configs.mapping_file_paths]
-    design_contexts = {}
-    for font_size in font_sizes:
-        design_context = DesignContext.load(font_size, mappings)
-        design_contexts[font_size] = design_context
+    design_contexts = font_service.load_design_contexts(font_sizes)
+    for design_context in design_contexts.values():
         for width_mode in width_modes:
             design_context.make_fonts(width_mode, font_formats)
 
