@@ -1,52 +1,22 @@
 import json
+import os
 import shutil
 import zipfile
 
 from loguru import logger
 
-from tools.configs import path_define
-from tools.utils import github_api, download_util
+from tools.configs import path_define, options
+from tools.utils import download_util
 
 
-def update_glyphs_version():
-    repository_name = 'TakWolf/ark-pixel-font'
-    source_type = 'tag'
-    source_name = None
-
-    if source_type == 'tag':
-        tag_name = source_name
-        if tag_name is None:
-            tag_name = github_api.get_releases_latest_tag_name(repository_name)
-        sha = github_api.get_tag_sha(repository_name, tag_name)
-        version = tag_name
-    elif source_type == 'branch':
-        branch_name = source_name
-        sha = github_api.get_branch_latest_commit_sha(repository_name, branch_name)
-        version = branch_name
-    elif source_type == 'commit':
-        sha = source_name
-        version = sha
-    else:
-        raise Exception(f"Unknown source type: '{source_type}'")
-    version_info = {
-        'sha': sha,
-        'version': version,
-        'version_url': f'https://github.com/{repository_name}/tree/{version}',
-        'asset_url': f'https://github.com/{repository_name}/archive/{sha}.zip',
-    }
-    file_path = path_define.assets_dir.joinpath('glyphs-version.json')
-    file_path.write_text(f'{json.dumps(version_info, indent=2, ensure_ascii=False)}\n', 'utf-8')
-    logger.info("Update version file: '{}'", file_path)
-
-
-def setup_glyphs():
-    cache_version_file_path = path_define.ark_pixel_glyphs_dir.joinpath('version.json')
+def setup_ark_pixel():
+    cache_version_file_path = path_define.cache_dir.joinpath('ark-pixel-version.json')
     if cache_version_file_path.is_file():
         cache_sha = json.loads(cache_version_file_path.read_bytes())['sha']
     else:
         cache_sha = None
 
-    version_file_path = path_define.assets_dir.joinpath('glyphs-version.json')
+    version_file_path = path_define.assets_dir.joinpath('ark-pixel-version.json')
     version_info = json.loads(version_file_path.read_bytes())
     sha = version_info['sha']
     if cache_sha == sha:
@@ -72,12 +42,15 @@ def setup_glyphs():
 
     if path_define.ark_pixel_glyphs_dir.exists():
         shutil.rmtree(path_define.ark_pixel_glyphs_dir)
+    source_unzip_dir.joinpath('assets', 'glyphs').rename(path_define.ark_pixel_glyphs_dir)
+    for font_size in options.font_sizes:
+        os.remove(path_define.ark_pixel_glyphs_dir.joinpath(str(font_size), 'config.yml'))
+
     if path_define.ark_pixel_mappings_dir.exists():
         shutil.rmtree(path_define.ark_pixel_mappings_dir)
-    source_unzip_dir.joinpath('assets', 'glyphs').rename(path_define.ark_pixel_glyphs_dir)
     source_unzip_dir.joinpath('assets', 'mappings').rename(path_define.ark_pixel_mappings_dir)
 
     if source_unzip_dir.exists():
         shutil.rmtree(source_unzip_dir)
     cache_version_file_path.write_text(f'{json.dumps(version_info, indent=2, ensure_ascii=False)}\n', 'utf-8')
-    logger.info("Update glyphs: '{}'", sha)
+    logger.info("Setup glyphs: '{}'", sha)

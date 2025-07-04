@@ -1,9 +1,8 @@
-from tools.services import update_service
+from tools.services import upgrade_service
 
 
 def main():
-    update_service.update_glyphs_version()
-    update_service.setup_glyphs()
+    upgrade_service.upgrade_ark_pixel()
 
 
 if __name__ == '__main__':
