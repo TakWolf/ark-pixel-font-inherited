@@ -1,13 +1,38 @@
 
+# 㛟
+0x36DF:
+  # 𡞵
+  zh_tr: 0x217B5 zh_tr
+
 # 丢
 0x4E22:
   # 丟
   zh_tr: 0x4E1F zh_tr
 
+# 争
+0x4E89:
+  # 爭
+  zh_tr: 0x722D zh_tr
+
+# 併
+0x4F75:
+  # 倂
+  zh_tr: 0x5002 zh_tr
+
+# 侣
+0x4FA3:
+  # 侶
+  zh_tr: 0x4FB6 zh_tr
+
 # 俞
 0x4FDE:
   # 兪
   zh_tr: 0x516A zh_tr
+
+# 俣
+0x4FE3:
+  # 俁
+  zh_tr: 0x4FC1 zh_tr
 
 # 俱
 0x4FF1:
@@ -34,15 +59,70 @@
   # 兌
   zh_tr: 0x514C zh_tr
 
-# 剁
-0x5241:
-  # 刴
-  zh_tr: 0x5234 zh_tr
+# 兖
+0x5156:
+  # 兗
+  zh_tr: 0x5157 zh_tr
+
+# 内
+0x5185:
+  # 內
+  zh_tr: 0x5167 zh_tr
+
+# 册
+0x518C:
+  # 冊
+  zh_tr: 0x518A zh_tr
+
+# 净
+0x51C0:
+  # 凈
+  zh_tr: 0x51C8 zh_tr
+
+# 凛
+0x51DB:
+  # 凜
+  zh_tr: 0x51DC zh_tr
+
+# 删
+0x5220:
+  # 刪
+  zh_tr: 0x522A zh_tr
+
+# 别
+0x522B:
+  # 別
+  zh_tr: 0x5225 zh_tr
+
+# 刹
+0x5239:
+  # 剎
+  zh_tr: 0x524E zh_tr
+
+# 剥
+0x5265:
+  # 剝
+  zh_tr: 0x525D zh_tr
 
 # 匀
 0x5300:
   # 勻
   zh_tr: 0x52FB zh_tr
+
+# 即
+0x5373:
+  # 卽
+  zh_tr: 0x537D zh_tr
+
+# 吕
+0x5415:
+  # 呂
+  zh_tr: 0x5442 zh_tr
+
+# 吴
+0x5434:
+  # 吳
+  zh_tr: 0x5433 zh_tr
 
 # 告
 0x544A:
@@ -54,15 +134,35 @@
   # 吶
   zh_tr: 0x5436 zh_tr
 
+# 呑
+0x5451:
+  # 吞
+  zh_tr: 0x541E zh_tr
+
+# 唤
+0x5524:
+  # 喚
+  zh_tr: 0x559A zh_tr
+
+# 唧
+0x5527:
+  # 喞
+  zh_tr: 0x559E zh_tr
+
 # 喻
 0x55BB:
   # 喩
   zh_tr: 0x55A9 zh_tr
 
-# 垛
-0x579B:
-  # 垜
-  zh_tr: 0x579C zh_tr
+# 嘘
+0x5618:
+  # 噓
+  zh_tr: 0x5653 zh_tr
+
+# 囱
+0x56F1:
+  # 囪
+  zh_tr: 0x56EA zh_tr
 
 # 塈
 0x5848:
@@ -74,10 +174,30 @@
   # 塡
   zh_tr: 0x5861 zh_tr
 
+# 奂
+0x5942:
+  # 奐
+  zh_tr: 0x5950 zh_tr
+
+# 奥
+0x5965:
+  # 奧
+  zh_tr: 0x5967 zh_tr
+
 # 妍
 0x598D:
   # 姸
   zh_tr: 0x59F8 zh_tr
+
+# 姗
+0x59D7:
+  # 姍
+  zh_tr: 0x59CD zh_tr
+
+# 娱
+0x5A31:
+  # 娛
+  zh_tr: 0x5A1B zh_tr
 
 # 媪
 0x5AAA:
@@ -94,25 +214,80 @@
   # 嬀
   zh_tr: 0x5B00 zh_tr
 
+# 嬷
+0x5B37:
+  # 嬤
+  zh_tr: 0x5B24 zh_tr
+
 # 孳
 0x5B73:
   # 孶
   zh_tr: 0x5B76 zh_tr
+
+# 宫
+0x5BAB:
+  # 宮
+  zh_tr: 0x5BAE zh_tr
 
 # 尚
 0x5C1A:
   # 尙
   zh_tr: 0x5C19 zh_tr
 
+# 屏
+0x5C4F:
+  # 屛
+  zh_tr: 0x5C5B zh_tr
+
+# 峥
+0x5CE5:
+  # 崢
+  zh_tr: 0x5D22 zh_tr
+
 # 巔
 0x5DD4:
   # 巓
   zh_tr: 0x5DD3 zh_tr
 
+# 帡
+0x5E21:
+  # 帲
+  zh_tr: 0x5E32 zh_tr
+
+# 并
+0x5E76:
+  # 幷
+  zh_tr: 0x5E77 zh_tr
+
 # 廄
 0x5EC4:
   # 廏
   zh_tr: 0x5ECF zh_tr
+
+# 廪
+0x5EEA:
+  # 廩
+  zh_tr: 0x5EE9 zh_tr
+
+# 弑
+0x5F11:
+  # 弒
+  zh_tr: 0x5F12 zh_tr
+
+# 录
+0x5F55:
+  # 彔
+  zh_tr: 0x5F54 zh_tr
+
+# 彚
+0x5F5A:
+  # 彙
+  zh_tr: 0x5F59 zh_tr
+
+# 彞
+0x5F5E:
+  # 彝
+  zh_tr: 0x5F5D zh_tr
 
 # 彦
 0x5F66:
@@ -123,6 +298,11 @@
 0x60A6:
   # 悅
   zh_tr: 0x6085 zh_tr
+
+# 悮
+0x60AE:
+  # 悞
+  zh_tr: 0x609E zh_tr
 
 # 惪
 0x60EA:
@@ -139,25 +319,90 @@
   # 愼
   zh_tr: 0x613C zh_tr
 
+# 慤
+0x6164:
+  # 𢡱
+  zh_tr: 0x22871 zh_tr
+
+# 懔
+0x61D4:
+  # 懍
+  zh_tr: 0x61CD zh_tr
+
+# 戬
+0x622C:
+  # 戩
+  zh_tr: 0x6229 zh_tr
+
+# 戯
+0x622F:
+  # 戱
+  zh_tr: 0x6231 zh_tr
+
+# 户
+0x6237:
+  # 戶
+  zh_tr: 0x6236 zh_tr
+
+# 抛
+0x629B:
+  # 拋
+  zh_tr: 0x62CB zh_tr
+
+# 挣
+0x6323:
+  # 掙
+  zh_tr: 0x6399 zh_tr
+
 # 捝
 0x635D:
   # 挩
   zh_tr: 0x6329 zh_tr
+
+# 换
+0x6362:
+  # 換
+  zh_tr: 0x63DB zh_tr
 
 # 揾
 0x63FE:
   # 搵
   zh_tr: 0x6435 zh_tr
 
+# 摇
+0x6447:
+  # 搖
+  zh_tr: 0x6416 zh_tr
+
 # 教
 0x6559:
   # 敎
   zh_tr: 0x654E zh_tr
 
-# 朵
-0x6735:
-  # 朶
-  zh_tr: 0x6736 zh_tr
+# 敚
+0x655A:
+  # 敓
+  zh_tr: 0x6553 zh_tr
+
+# 既
+0x65E2:
+  # 旣
+  zh_tr: 0x65E3 zh_tr
+
+# 昷
+0x6637:
+  # 𥁕
+  zh_tr: 0x25055 zh_tr
+
+# 晩
+0x6669:
+  # 晚
+  zh_tr: 0x665A zh_tr
+
+# 暨
+0x66A8:
+  # 曁
+  zh_tr: 0x66C1 zh_tr
 
 # 查
 0x67E5:
@@ -169,10 +414,20 @@
   # 枴
   zh_tr: 0x67B4 zh_tr
 
+# 栅
+0x6805:
+  # 柵
+  zh_tr: 0x67F5 zh_tr
+
 # 棁
 0x68C1:
   # 梲
   zh_tr: 0x68B2 zh_tr
+
+# 概
+0x6982:
+  # 槪
+  zh_tr: 0x69EA zh_tr
 
 # 榅
 0x6985:
@@ -184,25 +439,75 @@
   # 楡
   zh_tr: 0x6961 zh_tr
 
+# 榝
+0x699D:
+  # 樧
+  zh_tr: 0x6A27 zh_tr
+
 # 槙
 0x69D9:
   # 槇
   zh_tr: 0x69C7 zh_tr
+
+# 横
+0x6A2A:
+  # 橫
+  zh_tr: 0x6A6B zh_tr
+
+# 檩
+0x6AA9:
+  # 檁
+  zh_tr: 0x6A81 zh_tr
+
+# 殁
+0x6B81:
+  # 歿
+  zh_tr: 0x6B7F zh_tr
+
+# 殻
+0x6BBB:
+  # 殼
+  zh_tr: 0x6BBC zh_tr
+
+# 毁
+0x6BC1:
+  # 毀
+  zh_tr: 0x6BC0 zh_tr
 
 # 氲
 0x6C32:
   # 氳
   zh_tr: 0x6C33 zh_tr
 
+# 没
+0x6CA1:
+  # 沒
+  zh_tr: 0x6C92 zh_tr
+
+# 浄
+0x6D44:
+  # 淨
+  zh_tr: 0x6DE8 zh_tr
+
 # 涚
 0x6D9A:
   # 涗
   zh_tr: 0x6D97 zh_tr
 
+# 涣
+0x6DA3:
+  # 渙
+  zh_tr: 0x6E19 zh_tr
+
 # 清
 0x6E05:
   # 淸
   zh_tr: 0x6DF8 zh_tr
+
+# 渌
+0x6E0C:
+  # 淥
+  zh_tr: 0x6DE5 zh_tr
 
 # 温
 0x6E29:
@@ -214,15 +519,35 @@
   # 潙
   zh_tr: 0x6F59 zh_tr
 
-# 潀
-0x6F40:
-  # 潨
-  zh_tr: 0x6F68 zh_tr
+# 溉
+0x6E89:
+  # 漑
+  zh_tr: 0x6F11 zh_tr
+
+# 滚
+0x6EDA:
+  # 滾
+  zh_tr: 0x6EFE zh_tr
+
+# 濲
+0x6FF2:
+  # 瀔
+  zh_tr: 0x7014 zh_tr
+
+# 瀬
+0x702C:
+  # 瀨
+  zh_tr: 0x7028 zh_tr
 
 # 為
 0x70BA:
   # 爲
   zh_tr: 0x7232 zh_tr
+
+# 焕
+0x7115:
+  # 煥
+  zh_tr: 0x7165 zh_tr
 
 # 煴
 0x7174:
@@ -234,20 +559,75 @@
   # 煕
   zh_tr: 0x7155 zh_tr
 
+# 燷
+0x71F7:
+  # 燣
+  zh_tr: 0x71E3 zh_tr
+
+# 狰
+0x72F0:
+  # 猙
+  zh_tr: 0x7319 zh_tr
+
+# 瑶
+0x7476:
+  # 瑤
+  zh_tr: 0x7464 zh_tr
+
+# 瓶
+0x74F6:
+  # 甁
+  zh_tr: 0x7501 zh_tr
+
 # 産
 0x7523:
   # 產
   zh_tr: 0x7522 zh_tr
+
+# 痪
+0x75EA:
+  # 瘓
+  zh_tr: 0x7613 zh_tr
+
+# 癝
+0x765D:
+  # 癛
+  zh_tr: 0x765B zh_tr
 
 # 真
 0x771F:
   # 眞
   zh_tr: 0x771E zh_tr
 
+# 睁
+0x7741:
+  # 睜
+  zh_tr: 0x775C zh_tr
+
 # 研
 0x7814:
   # 硏
   zh_tr: 0x784F zh_tr
+
+# 磙
+0x78D9:
+  # 𥕦
+  zh_tr: 0x25566 zh_tr
+
+# 禀
+0x7980:
+  # 稟
+  zh_tr: 0x7A1F zh_tr
+
+# 禄
+0x7984:
+  # 祿
+  zh_tr: 0x797F zh_tr
+
+# 秃
+0x79C3:
+  # 禿
+  zh_tr: 0x79BF zh_tr
 
 # 税
 0x7A0E:
@@ -259,6 +639,31 @@
   # 筓
   zh_tr: 0x7B53 zh_tr
 
+# 筝
+0x7B5D:
+  # 箏
+  zh_tr: 0x7B8F zh_tr
+
+# 箳
+0x7BB3:
+  # 簈
+  zh_tr: 0x7C08 zh_tr
+
+# 粤
+0x7CA4:
+  # 粵
+  zh_tr: 0x7CB5 zh_tr
+
+# 絶
+0x7D76:
+  # 絕
+  zh_tr: 0x7D55 zh_tr
+
+# 緑
+0x7DD1:
+  # 綠
+  zh_tr: 0x7DA0 zh_tr
+
 # 緒
 0x7DD2:
   # 緖
@@ -269,10 +674,20 @@
   # 縕
   zh_tr: 0x7E15 zh_tr
 
+# 縆
+0x7E06:
+  # 緪
+  zh_tr: 0x7DEA zh_tr
+
 # 羋
 0x7F8B:
   # 芈
   zh_tr: 0x8288 zh_tr
+
+# 胼
+0x80FC:
+  # 腁
+  zh_tr: 0x8141 zh_tr
 
 # 脱
 0x8131:
@@ -283,6 +698,11 @@
 0x817D:
   # 膃
   zh_tr: 0x8183 zh_tr
+
+# 芈
+0x8288:
+  # 羋
+  zh_tr: 0x7F8B zh_tr
 
 # 蒀
 0x8480:
@@ -304,40 +724,95 @@
   # 蘊
   zh_tr: 0x860A zh_tr
 
+# 虚
+0x865A:
+  # 虛
+  zh_tr: 0x865B zh_tr
+
 # 蜕
 0x8715:
   # 蛻
   zh_tr: 0x86FB zh_tr
+
+# 衮
+0x886E:
+  # 袞
+  zh_tr: 0x889E zh_tr
+
+# 訮
+0x8A2E:
+  # 詽
+  zh_tr: 0x8A7D zh_tr
+
+# 説
+0x8AAC:
+  # 說
+  zh_tr: 0x8AAA zh_tr
+
+# 謡
+0x8B21:
+  # 謠
+  zh_tr: 0x8B20 zh_tr
 
 # 豜
 0x8C5C:
   # 豣
   zh_tr: 0x8C63 zh_tr
 
-# 跺
-0x8DFA:
-  # 跥
-  zh_tr: 0x8DE5 zh_tr
-
-# 躲
-0x8EB2:
-  # 躱
-  zh_tr: 0x8EB1 zh_tr
+# 軿
+0x8EFF:
+  # 輧
+  zh_tr: 0x8F27 zh_tr
 
 # 輼
 0x8F3C:
   # 轀
   zh_tr: 0x8F40 zh_tr
 
+# 迖
+0x8FD6:
+  # 达
+  zh_tr: 0x8FBE zh_tr
+
+# 迸
+0x8FF8:
+  # 逬
+  zh_tr: 0x902C zh_tr
+
+# 遥
+0x9065:
+  # 遙
+  zh_tr: 0x9059 zh_tr
+
+# 邢
+0x90A2:
+  # 郉
+  zh_tr: 0x90C9 zh_tr
+
+# 郎
+0x90CE:
+  # 郞
+  zh_tr: 0x90DE zh_tr
+
 # 郷
 0x90F7:
-  # 鄉
-  zh_tr: 0x9109 zh_tr
+  # 鄕
+  zh_tr: 0x9115 zh_tr
+
+# 鄉
+0x9109:
+  # 鄕
+  zh_tr: 0x9115 zh_tr
 
 # 醖
 0x9196:
   # 醞
   zh_tr: 0x919E zh_tr
+
+# 鈃
+0x9203:
+  # 銒
+  zh_tr: 0x9292 zh_tr
 
 # 鋭
 0x92ED:
@@ -359,6 +834,16 @@
   # 靑
   zh_tr: 0x9751 zh_tr
 
+# 静
+0x9759:
+  # 靜
+  zh_tr: 0x975C zh_tr
+
+# 頽
+0x983D:
+  # 頹
+  zh_tr: 0x9839 zh_tr
+
 # 顔
 0x9854:
   # 顏
@@ -374,6 +859,21 @@
   # 飮
   zh_tr: 0x98EE zh_tr
 
+# 餅
+0x9905:
+  # 餠
+  zh_tr: 0x9920 zh_tr
+
+# 駢
+0x99E2:
+  # 騈
+  zh_tr: 0x9A08 zh_tr
+
+# 骩
+0x9AA9:
+  # 骫
+  zh_tr: 0x9AAB zh_tr
+
 # 鰛
 0x9C1B:
   # 鰮
@@ -383,3 +883,18 @@
 0x9DCF:
   # 鷆
   zh_tr: 0x9DC6 zh_tr
+
+# 麽
+0x9EBD:
+  # 麼
+  zh_tr: 0x9EBC zh_tr
+
+# 黄
+0x9EC4:
+  # 黃
+  zh_tr: 0x9EC3 zh_tr
+
+# 𨍽
+0x2837D:
+  # 𨎊
+  zh_tr: 0x2838A zh_tr
