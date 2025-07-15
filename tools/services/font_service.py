@@ -93,7 +93,7 @@ class DesignContext:
         builder.meta_info.version = configs.version
         builder.meta_info.created_time = datetime.fromisoformat(f'{configs.version.replace('.', '-')}T00:00:00Z')
         builder.meta_info.modified_time = builder.meta_info.created_time
-        builder.meta_info.family_name = f'Ark Pixel Inherited {self.font_size}px {width_mode.capitalize()}'
+        builder.meta_info.family_name = f'Ark Pixel Inherited {self.font_size}px {width_mode[0].upper()}'
         builder.meta_info.weight_name = WeightName.REGULAR
         builder.meta_info.serif_style = SerifStyle.SANS_SERIF
         builder.meta_info.slant_style = SlantStyle.NORMAL
