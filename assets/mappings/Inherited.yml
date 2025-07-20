@@ -274,6 +274,11 @@
   # 弒
   zh_tr: 0x5F12 zh_tr
 
+# 强
+0x5F3A:
+  # 強
+  zh_tr: 0x5F37 zh_tr
+
 # 录
 0x5F55:
   # 彔
@@ -679,6 +684,11 @@
   # 緪
   zh_tr: 0x7DEA zh_tr
 
+# 繦
+0x7E66:
+  # 繈
+  zh_tr: 0x7E48 zh_tr
+
 # 羋
 0x7F8B:
   # 芈
@@ -728,6 +738,11 @@
 0x865A:
   # 虛
   zh_tr: 0x865B zh_tr
+
+# 虽
+0x867D:
+  # 𧈧
+  zh_tr: 0x27227 zh_tr
 
 # 蜕
 0x8715:
