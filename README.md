@@ -42,12 +42,6 @@
 | 12px | [info-12px-monospaced](docs/info-12px-monospaced.md) | [info-12px-proportional](docs/info-12px-proportional.md) |
 | 16px | [info-16px-monospaced](docs/info-16px-monospaced.md) | [info-16px-proportional](docs/info-16px-proportional.md) |
 
-## 下载
-
-可通过以下渠道下载最新的版本：
-
-- [GitHub Releases](https://github.com/TakWolf/ark-pixel-font-inherited/releases)
-
 ## 程序依赖
 
 - [Pixel Font Builder](https://github.com/TakWolf/pixel-font-builder)
