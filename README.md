@@ -4,7 +4,7 @@
 [![License MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE-MIT)
 [![Releases](https://img.shields.io/github/v/release/TakWolf/ark-pixel-font-inherited)](https://github.com/TakWolf/ark-pixel-font-inherited/releases)
 [![Discord](https://img.shields.io/badge/discord-像素字体工房-4E5AF0?logo=discord&logoColor=white)](https://discord.gg/3GKtPKtjdU)
-[![QQ Group](https://img.shields.io/badge/QQ群-像素字体工房-brightgreen?logo=qq&logoColor=white)](https://qm.qq.com/q/X1mLrLLGYS)
+[![QQ Group](https://img.shields.io/badge/QQ群-像素字体工房-brightgreen?logo=qq&logoColor=white)](https://qm.qq.com/q/jPk8sSitUI)
 
 [「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font) 的传承字形版本。
 
@@ -60,7 +60,7 @@
 ## 官方社区
 
 - [「像素字体工房」Discord 服务器](https://discord.gg/3GKtPKtjdU)
-- [「像素字体工房」QQ 群 (302383204)](https://qm.qq.com/q/X1mLrLLGYS)
+- [「像素字体工房」QQ 群 (302383204)](https://qm.qq.com/q/jPk8sSitUI)
 
 ## 许可证
 
