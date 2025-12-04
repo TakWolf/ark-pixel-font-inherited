@@ -136,6 +136,9 @@ class DesignContext:
         if width_mode == 'proportional':
             builder.kerning_values.update(self._get_proportional_kerning_values())
 
+        builder.opentype_config.fields_override.head_y_max = layout_metric.ascent
+        builder.opentype_config.fields_override.head_y_min = layout_metric.descent
+
         return builder
 
     def make_fonts(self, width_mode: WidthMode, font_formats: list[FontFormat]):
