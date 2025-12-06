@@ -143,6 +143,10 @@ class DesignContext:
             y_max=layout_metric.ascent,
         )
 
+        if width_mode == 'monospaced':
+            builder.opentype_config.is_monospaced = True
+            builder.opentype_config.fields_override.os2_x_avg_char_width = self.font_size // 2
+
         return builder
 
     def make_fonts(self, width_mode: WidthMode, font_formats: list[FontFormat]):
