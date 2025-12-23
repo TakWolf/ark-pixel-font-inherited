@@ -1,11 +1,10 @@
 import json
-import os
 import shutil
 import zipfile
 
 from loguru import logger
 
-from tools.configs import path_define, options
+from tools.configs import path_define
 from tools.utils import download_util
 
 
