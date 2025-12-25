@@ -1,3 +1,5 @@
+from pixel_font_knife.kerning_util import KerningConfig
+
 from tools.configs import path_define, options
 from tools.configs.font import FontConfig
 
@@ -12,3 +14,5 @@ mapping_file_paths = [
     path_define.ark_pixel_mappings_dir.joinpath('1F100-1F1FF Enclosed Alphanumeric Supplement.yml'),
     path_define.mappings_dir.joinpath('Inherited.yml'),
 ]
+
+kerning_config = KerningConfig.load(path_define.kernings_dir.joinpath('default.yml'))
