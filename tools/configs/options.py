@@ -13,6 +13,17 @@ type WidthMode = Literal[
 ]
 width_modes = list[WidthMode](get_args(WidthMode.__value__))
 
+type LanguageFlavor = Literal[
+    'latin',
+    'zh_cn',
+    'zh_hk',
+    'zh_tw',
+    'zh_tr',
+    'ja',
+    'ko',
+]
+language_flavors = list[LanguageFlavor](get_args(LanguageFlavor.__value__))
+
 type FontFormat = Literal[
     'otf',
     'otf.woff',
