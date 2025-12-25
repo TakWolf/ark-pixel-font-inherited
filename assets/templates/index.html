@@ -10,14 +10,14 @@
         {% with font_family = 'ark-pixel-inherited-12px-monospaced' %}
         @font-face {
             font-family: {{ font_family }};
-            src: url("{{ font_family }}.otf.woff2?r={{ build_random_key }}");
+            src: url("{{ font_family }}.otf.woff2");
         }
         {% endwith %}
         {% for font_config in font_configs.values() %}
         {% with font_family = 'ark-pixel-inherited-' ~ font_config.font_size ~ 'px-proportional' %}
         @font-face {
             font-family: {{ font_family }};
-            src: url("{{ font_family }}.otf.woff2?r={{ build_random_key }}");
+            src: url("{{ font_family }}.otf.woff2");
         }
         .font-{{ font_config.font_size }}px-proportional {
             font-family: {{ font_family }}, sans-serif;
